@@ -1,0 +1,206 @@
+{
+  "note": "Offline learning-card content for the 20 FieldSnap classes. Written from the sources cited in docs/species_candidates.md; no images are bundled. Fields: slug (model label), common_name, scientific_name, group, maori_name, identification (short field marks), habitat (where a beginner will meet it), status (native/introduced/pest).",
+  "version": 1,
+  "species": [
+    {
+      "slug": "tui",
+      "common_name": "Tūī",
+      "scientific_name": "Prosthemadera novaeseelandiae",
+      "group": "bird",
+      "maori_name": "Tūī",
+      "identification": "Large dark honeyeater with an iridescent green-blue sheen, a white throat tuft and a distinctive curled black feather tuft on the neck. Two-note song with clicks and wheezes.",
+      "habitat": "Native forest, bush remnants, and suburban gardens with flowering trees.",
+      "status": "native"
+    },
+    {
+      "slug": "kereru",
+      "common_name": "Kererū (New Zealand pigeon)",
+      "scientific_name": "Hemiphaga novaeseelandiae",
+      "group": "bird",
+      "maori_name": "Kererū",
+      "identification": "Large heavy pigeon with a white chest and belly, dark green-purple iridescent back, and a loud whooshing wingbeat in flight.",
+      "habitat": "Forest canopy and urban trees with fruit and leaves; often seen alone or in pairs.",
+      "status": "native"
+    },
+    {
+      "slug": "piwakawaka",
+      "common_name": "Pīwakawaka (New Zealand fantail)",
+      "scientific_name": "Rhipidura fuliginosa",
+      "group": "bird",
+      "maori_name": "Pīwakawaka",
+      "identification": "Small restless bird with a long fanned tail, white eyebrow, and a constant flitting, twisting flight as it hawks insects.",
+      "habitat": "Bush edges, gardens, parks and stream sides; often follows people to catch disturbed insects.",
+      "status": "native"
+    },
+    {
+      "slug": "tauhou",
+      "common_name": "Tauhou (silvereye, waxeye)",
+      "scientific_name": "Zosterops lateralis",
+      "group": "bird",
+      "maori_name": "Tauhou",
+      "identification": "Tiny olive-green bird with a bold white eye-ring and a fine pointed bill; usually in fast-moving flocks.",
+      "habitat": "Gardens, orchards and scrub; visits sugar-water feeders and small fruit.",
+      "status": "native"
+    },
+    {
+      "slug": "korimako",
+      "common_name": "Korimako (bellbird)",
+      "scientific_name": "Anthornis melanura",
+      "group": "bird",
+      "maori_name": "Korimako",
+      "identification": "Olive-green honeyeater, slightly smaller and slimmer than a tūī, with a clear bell-like song and a reddish eye in the male.",
+      "habitat": "Native bush and predator-free restoration areas; less common in dense suburbs than the tūī.",
+      "status": "native"
+    },
+    {
+      "slug": "house_sparrow",
+      "common_name": "House sparrow",
+      "scientific_name": "Passer domesticus",
+      "group": "bird",
+      "maori_name": "Tiu",
+      "identification": "Small stocky brown-grey bird; male has a grey crown and black bib, female is plain buff-brown with a pale stripe behind the eye.",
+      "habitat": "Everywhere people are: streets, cafe tables, gardens, farm buildings.",
+      "status": "introduced"
+    },
+    {
+      "slug": "blackbird",
+      "common_name": "Common blackbird",
+      "scientific_name": "Turdus merula",
+      "group": "bird",
+      "maori_name": "Manu pango",
+      "identification": "Adult male is all black with a yellow-orange bill and eye-ring; female is dark brown with a paler throat and faint mottling. Hops on lawns and flicks leaf litter.",
+      "habitat": "Gardens, parks, forest floor and lawns, especially after rain.",
+      "status": "introduced"
+    },
+    {
+      "slug": "song_thrush",
+      "common_name": "Song thrush",
+      "scientific_name": "Turdus philomelos",
+      "group": "bird",
+      "maori_name": "",
+      "identification": "Warm brown above with a cream breast covered in clear dark speckles arranged in rows; smaller and more speckled than a female blackbird. Repeats each song phrase two or three times.",
+      "habitat": "Gardens, parks and bush edges, often near snails, which it smashes on a favourite stone.",
+      "status": "introduced"
+    },
+    {
+      "slug": "starling",
+      "common_name": "Common starling",
+      "scientific_name": "Sturnus vulgaris",
+      "group": "bird",
+      "maori_name": "",
+      "identification": "Stubby, short-tailed bird; breeding adults are glossy black with iridescent green-purple sheen and pale speckles, with a yellow bill. Juveniles are dull grey-brown.",
+      "habitat": "Open lawns, car parks, playing fields and city buildings; flocks and murmurations.",
+      "status": "introduced"
+    },
+    {
+      "slug": "common_myna",
+      "common_name": "Common myna",
+      "scientific_name": "Acridotheres tristis",
+      "group": "bird",
+      "maori_name": "",
+      "identification": "Chunky chocolate-brown bird with a black hood, bare yellow skin around the eye, and white wing patches that flash in flight. Loud, varied calls; walks rather than hops.",
+      "habitat": "Urban lawns, roadsides and shopping-centre car parks; strongly associated with people.",
+      "status": "introduced"
+    },
+    {
+      "slug": "pohutukawa",
+      "common_name": "Pōhutukawa",
+      "scientific_name": "Metrosideros excelsa",
+      "group": "plant",
+      "maori_name": "Pōhutukawa",
+      "identification": "Coastal tree with dense leathery dark-green leaves that are white and felted underneath, and masses of crimson brush-like flowers from November to January. Aerial roots hang from older trunks.",
+      "habitat": "Coastal cliffs and seaside reserves; widely planted as a street and garden tree in Auckland.",
+      "status": "native"
+    },
+    {
+      "slug": "ti_kouka",
+      "common_name": "Tī kōuka (cabbage tree)",
+      "scientific_name": "Cordyline australis",
+      "group": "plant",
+      "maori_name": "Tī kōuka",
+      "identification": "Tall tree with a stout trunk and one or more branches, each ending in a dense tuft of long narrow sword-shaped leaves. Large panicles of small creamy flowers in spring.",
+      "habitat": "Swamps, damp flats and open ground; extremely common in Auckland streets, parks and gardens.",
+      "status": "native"
+    },
+    {
+      "slug": "harakeke",
+      "common_name": "Harakeke (New Zealand flax)",
+      "scientific_name": "Phormium tenax",
+      "group": "plant",
+      "maori_name": "Harakeke",
+      "identification": "Clump of long stiff upright blade-like leaves, often 2 m tall, with a red-orange midrib and flower and a tall dull-red flower spike. Leaves do not have a distinct keel like the mountain flax.",
+      "habitat": "Wetland margins, coastal flats and gardens; very common in Auckland plantings.",
+      "status": "native"
+    },
+    {
+      "slug": "silver_fern",
+      "common_name": "Silver fern",
+      "scientific_name": "Alsophila dealbata (syn. Cyathea dealbata, Alsophila tricolor)",
+      "group": "plant",
+      "maori_name": "Ponga",
+      "identification": "Tree fern with a slender trunk and a crown of fronds whose undersides are strikingly white, visible when fronds turn over. Dead fronds form a skirt on the trunk.",
+      "habitat": "Damp forest and bush remnants; also planted in gardens and reserves.",
+      "status": "native"
+    },
+    {
+      "slug": "nikau",
+      "common_name": "Nīkau palm",
+      "scientific_name": "Rhopalostylis sapida",
+      "group": "plant",
+      "maori_name": "Nīkau",
+      "identification": "The only mainland New Zealand palm: a straight ringed trunk topped by a crown of long fronds that all rise from a smooth green bulbous base. Red berry-like fruit in clusters.",
+      "habitat": "Lowland and coastal forest, especially in the northern North Island; common in Auckland bush remnants.",
+      "status": "native"
+    },
+    {
+      "slug": "kowhai",
+      "common_name": "Kōwhai",
+      "scientific_name": "Sophora microphylla",
+      "group": "plant",
+      "maori_name": "Kōwhai",
+      "identification": "Small tree with tiny paired oval leaflets and hanging clusters of bright yellow flowers in early spring. Seed pods are long, dry and constricted between the seeds.",
+      "habitat": "Stream banks, forest margins and gardens; widely planted and much visited by tūī and korimako.",
+      "status": "native"
+    },
+    {
+      "slug": "tradescantia",
+      "common_name": "Tradescantia (wandering willy)",
+      "scientific_name": "Tradescantia fluminensis",
+      "group": "plant",
+      "maori_name": "",
+      "identification": "Low creeping ground cover with glossy dark-green pointed leaves about 5 cm long, forming dense mats. Small three-petalled white flowers in summer. Stems root at every node.",
+      "habitat": "Shaded forest floor, stream banks and gardens; a serious smothering weed in Auckland bush.",
+      "status": "pest"
+    },
+    {
+      "slug": "woolly_nightshade",
+      "common_name": "Woolly nightshade (tobacco weed)",
+      "scientific_name": "Solanum mauritianum",
+      "group": "plant",
+      "maori_name": "",
+      "identification": "Shrub or small tree with large soft grey-green felted leaves and clusters of small purple flowers with yellow centres, followed by dull yellow round berries. All parts have a strong smell when crushed.",
+      "habitat": "Disturbed ground, roadsides, forest margins and waste areas; a declared Auckland pest plant.",
+      "status": "pest"
+    },
+    {
+      "slug": "wild_ginger",
+      "common_name": "Wild ginger (kahili ginger)",
+      "scientific_name": "Hedychium gardnerianum",
+      "group": "plant",
+      "maori_name": "",
+      "identification": "Bold ginger with large glossy leaves arranged in two ranks on thick stems up to 2 m tall, topped by a spike of pale yellow flowers with prominent red stamens. Spreads by thick branching rhizomes.",
+      "habitat": "Shaded forest floor and stream sides where it forms dense stands; a major Auckland pest plant.",
+      "status": "pest"
+    },
+    {
+      "slug": "moth_plant",
+      "common_name": "Moth plant",
+      "scientific_name": "Araujia sericifera",
+      "group": "plant",
+      "maori_name": "",
+      "identification": "Vigorous twining vine with dark green opposite leaves and small cream-white bell flowers; distinctive large grey-green choko-like pods that split to release silky seeds. Milky white sap.",
+      "habitat": "Forest margins, fences, hedges and waste ground; smothers shrubs. A declared Auckland pest plant.",
+      "status": "pest"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "run_id": "20260911T190055-2fff1503",
+  "created_at": "2026-09-11T19:00:55+12:00",
+  "commit": "5770fb2608e0ac6745ffd5256652fc924fe45dac",
+  "protocol_sha256": "02d54149266c8ac3c6e02250e7b1b801ced727565dd9e4e718c1f08dd0f3a4c9",
+  "stage_manifest_sha256": "ec824d78b397f27f011cb6095c362653092da5f721038a4797b5c9e07ecbb7ea",
+  "rule": {
+    "brightness_min": "largest b with dark recall >= 0.90 and bright FRR <= 0.02 (others permissive)",
+    "brightness_max": "smallest m in [0.80, 0.95] with zero bright false rejections (tightest ceiling that costs nothing); overexposure recall reported as a diagnostic, not optimised",
+    "sharpness_min": "smallest s with blurred recall >= 0.90 and bright FRR <= 0.05",
+    "amendment": "amendment 1: univariate sweeps; overexposure transform x2.5",
+    "grids": {
+      "brightness_min": [
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.22,
+        0.24,
+        0.26,
+        0.28,
+        0.3,
+        0.32,
+        0.34,
+        0.36,
+        0.38,
+        0.4,
+        0.42,
+        0.44,
+        0.46,
+        0.48,
+        0.5
+      ],
+      "brightness_max": [
+        0.6,
+        0.61,
+        0.62,
+        0.63,
+        0.64,
+        0.65,
+        0.66,
+        0.67,
+        0.68,
+        0.69,
+        0.7,
+        0.71,
+        0.72,
+        0.73,
+        0.74,
+        0.75,
+        0.76,
+        0.77,
+        0.78,
+        0.79,
+        0.8,
+        0.81,
+        0.82,
+        0.83,
+        0.84,
+        0.85,
+        0.86,
+        0.87,
+        0.88,
+        0.89,
+        0.9,
+        0.91,
+        0.92,
+        0.93,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
+        1.0
+      ],
+      "sharpness_min": [
+        100,
+        200,
+        250,
+        300,
+        400,
+        500,
+        700,
+        1000,
+        1400,
+        2000
+      ]
+    }
+  },
+  "feasibility": {
+    "brightness_min_rule_satisfied": true,
+    "brightness_max_rule_satisfied": true,
+    "sharpness_rule_satisfied": true
+  },
+  "chosen_thresholds": {
+    "min_brightness": 0.26,
+    "max_brightness": 0.89,
+    "min_laplacian_variance": 100,
+    "analysis_size": 224
+  },
+  "calibration_subset": {
+    "bright": {
+      "n": 81,
+      "accepted": 79,
+      "rejected": 2,
+      "reject_recall": 0.0247,
+      "false_reject_rate": 0.0247
+    },
+    "dark": {
+      "n": 81,
+      "accepted": 0,
+      "rejected": 81,
+      "reject_recall": 1.0,
+      "false_reject_rate": 1.0
+    },
+    "overexposed": {
+      "n": 81,
+      "accepted": 69,
+      "rejected": 12,
+      "reject_recall": 0.1481,
+      "false_reject_rate": 0.1481
+    },
+    "blurred": {
+      "n": 81,
+      "accepted": 2,
+      "rejected": 79,
+      "reject_recall": 0.9753,
+      "false_reject_rate": 0.9753
+    }
+  },
+  "calibration_binary": {
+    "true_acceptable": 79,
+    "false_accept": 71,
+    "false_reject": 2,
+    "true_reject": 172,
+    "precision": 0.5267,
+    "recall": 0.9753,
+    "false_reject_rate": 0.0247
+  }
+}

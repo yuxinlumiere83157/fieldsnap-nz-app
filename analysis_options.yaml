@@ -1,0 +1,19 @@
+# Static analysis configuration for FieldSnap NZ.
+# Uses the Flutter team lint set; project-specific rules are added below.
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    # Vendored dependency override (see third_party/tflite_flutter/README-FIELDSNAP.md).
+    # Its lint findings are upstream's, not this project's, and rewriting a third-party
+    # package to satisfy our lints would make the patch unreviewable.
+    - third_party/**
+
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # Keep the Iteration 0 code honest about async boundaries and unused code.
+    - avoid_print
+    - prefer_final_locals
+    - unawaited_futures

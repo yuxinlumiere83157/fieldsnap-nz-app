@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The Flutter tooling merges this for debug builds; it enables the Dart VM
+         service / hot reload connection to the host. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>

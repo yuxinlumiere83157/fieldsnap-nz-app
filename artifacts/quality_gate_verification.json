@@ -1,0 +1,51 @@
+{
+  "run_id": "20260911T190055-2fff1503",
+  "chosen_thresholds": {
+    "min_brightness": 0.26,
+    "max_brightness": 0.89,
+    "min_laplacian_variance": 100,
+    "analysis_size": 224
+  },
+  "acceptance_rule": "dark recall >= 0.90 AND blurred recall >= 0.90 AND bright FRR <= 0.05 (overexposure reported, not required: the condition is not separable)",
+  "overexposure_note": "the x2.5 clip leaves many images inside the acceptable brightness range, so this condition overlaps valid photos; its recall is a diagnostic, not a pass criterion",
+  "verification_subset": {
+    "bright": {
+      "n": 82,
+      "accepted": 81,
+      "rejected": 1,
+      "reject_recall": 0.0122,
+      "false_reject_rate": 0.0122
+    },
+    "dark": {
+      "n": 82,
+      "accepted": 0,
+      "rejected": 82,
+      "reject_recall": 1.0,
+      "false_reject_rate": 1.0
+    },
+    "overexposed": {
+      "n": 82,
+      "accepted": 68,
+      "rejected": 14,
+      "reject_recall": 0.1707,
+      "false_reject_rate": 0.1707
+    },
+    "blurred": {
+      "n": 82,
+      "accepted": 1,
+      "rejected": 81,
+      "reject_recall": 0.9878,
+      "false_reject_rate": 0.9878
+    }
+  },
+  "verification_binary": {
+    "true_acceptable": 81,
+    "false_accept": 69,
+    "false_reject": 1,
+    "true_reject": 177,
+    "precision": 0.54,
+    "recall": 0.9878,
+    "false_reject_rate": 0.0122
+  },
+  "calibrated": true
+}

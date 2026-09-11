@@ -1,0 +1,4310 @@
+{
+  "model": "assets/models/fieldsnap_float.tflite",
+  "preprocessing": "ImagePreprocessor (production path)",
+  "images_scored": 187,
+  "images_missing": 0,
+  "scoring_ms_total": 13239,
+  "rows": [
+    {
+      "photo_id": "50814218",
+      "observation_id": "32400253",
+      "truth": "tui",
+      "predicted": "korimako",
+      "top1_score": 0.838291,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.838291
+        },
+        {
+          "class": "tui",
+          "score": 0.113748
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.011146
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "21885930",
+      "observation_id": "14680877",
+      "truth": "tui",
+      "predicted": "tui",
+      "top1_score": 0.81277,
+      "top3": [
+        {
+          "class": "tui",
+          "score": 0.81277
+        },
+        {
+          "class": "kereru",
+          "score": 0.069171
+        },
+        {
+          "class": "korimako",
+          "score": 0.048129
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "268001504",
+      "observation_id": "155070777",
+      "truth": "tui",
+      "predicted": "tui",
+      "top1_score": 0.965664,
+      "top3": [
+        {
+          "class": "tui",
+          "score": 0.965664
+        },
+        {
+          "class": "blackbird",
+          "score": 0.015651
+        },
+        {
+          "class": "kereru",
+          "score": 0.008628
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "658245794",
+      "observation_id": "360723528",
+      "truth": "kereru",
+      "predicted": "kereru",
+      "top1_score": 0.266385,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.266385
+        },
+        {
+          "class": "tui",
+          "score": 0.142948
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.100803
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "464211463",
+      "observation_id": "258697475",
+      "truth": "kereru",
+      "predicted": "starling",
+      "top1_score": 0.793987,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.793987
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.111876
+        },
+        {
+          "class": "common_myna",
+          "score": 0.041181
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "559691518",
+      "observation_id": "310127787",
+      "truth": "kereru",
+      "predicted": "kereru",
+      "top1_score": 0.993656,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.993656
+        },
+        {
+          "class": "tui",
+          "score": 0.001742
+        },
+        {
+          "class": "common_myna",
+          "score": 0.001332
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "559691510",
+      "observation_id": "310127787",
+      "truth": "kereru",
+      "predicted": "kereru",
+      "top1_score": 0.990105,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.990105
+        },
+        {
+          "class": "common_myna",
+          "score": 0.00474
+        },
+        {
+          "class": "tui",
+          "score": 0.002425
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "61416189",
+      "observation_id": "38626301",
+      "truth": "kereru",
+      "predicted": "kereru",
+      "top1_score": 0.924137,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.924137
+        },
+        {
+          "class": "tui",
+          "score": 0.062062
+        },
+        {
+          "class": "blackbird",
+          "score": 0.005549
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "61416190",
+      "observation_id": "38626301",
+      "truth": "kereru",
+      "predicted": "kereru",
+      "top1_score": 0.997654,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.997654
+        },
+        {
+          "class": "tui",
+          "score": 0.001945
+        },
+        {
+          "class": "common_myna",
+          "score": 0.000247
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "532772582",
+      "observation_id": "295915885",
+      "truth": "kereru",
+      "predicted": "house_sparrow",
+      "top1_score": 0.382676,
+      "top3": [
+        {
+          "class": "house_sparrow",
+          "score": 0.382676
+        },
+        {
+          "class": "kereru",
+          "score": 0.153526
+        },
+        {
+          "class": "blackbird",
+          "score": 0.117387
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "650001779",
+      "observation_id": "356431359",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.99605,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.99605
+        },
+        {
+          "class": "common_myna",
+          "score": 0.00192
+        },
+        {
+          "class": "korimako",
+          "score": 0.001117
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "650001776",
+      "observation_id": "356431359",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.94516,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.94516
+        },
+        {
+          "class": "common_myna",
+          "score": 0.030933
+        },
+        {
+          "class": "korimako",
+          "score": 0.014628
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "432578530",
+      "observation_id": "242638674",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.8776,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.8776
+        },
+        {
+          "class": "common_myna",
+          "score": 0.082496
+        },
+        {
+          "class": "korimako",
+          "score": 0.027292
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "432578528",
+      "observation_id": "242638674",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.974404,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.974404
+        },
+        {
+          "class": "common_myna",
+          "score": 0.022799
+        },
+        {
+          "class": "tui",
+          "score": 0.001195
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "476197998",
+      "observation_id": "265140649",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.972121,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.972121
+        },
+        {
+          "class": "blackbird",
+          "score": 0.016508
+        },
+        {
+          "class": "nikau",
+          "score": 0.002884
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "476198012",
+      "observation_id": "265140649",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.280646,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.280646
+        },
+        {
+          "class": "tui",
+          "score": 0.248249
+        },
+        {
+          "class": "korimako",
+          "score": 0.212128
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "476198019",
+      "observation_id": "265140649",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.320279,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.320279
+        },
+        {
+          "class": "korimako",
+          "score": 0.311784
+        },
+        {
+          "class": "tui",
+          "score": 0.304975
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "479222362",
+      "observation_id": "266713650",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.996502,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.996502
+        },
+        {
+          "class": "common_myna",
+          "score": 0.001258
+        },
+        {
+          "class": "starling",
+          "score": 0.000566
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "479222374",
+      "observation_id": "266713650",
+      "truth": "piwakawaka",
+      "predicted": "piwakawaka",
+      "top1_score": 0.998757,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.998757
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.000315
+        },
+        {
+          "class": "starling",
+          "score": 0.000248
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "105239507",
+      "observation_id": "65390138",
+      "truth": "tauhou",
+      "predicted": "starling",
+      "top1_score": 0.54282,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.54282
+        },
+        {
+          "class": "tui",
+          "score": 0.125064
+        },
+        {
+          "class": "tauhou",
+          "score": 0.083523
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "105240581",
+      "observation_id": "65390138",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.91314,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.91314
+        },
+        {
+          "class": "korimako",
+          "score": 0.025666
+        },
+        {
+          "class": "common_myna",
+          "score": 0.022338
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334465",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.93974,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.93974
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.027397
+        },
+        {
+          "class": "common_myna",
+          "score": 0.014792
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334463",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.956763,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.956763
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.039932
+        },
+        {
+          "class": "korimako",
+          "score": 0.001599
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334475",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.866476,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.866476
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.086293
+        },
+        {
+          "class": "korimako",
+          "score": 0.018712
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334477",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.926619,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.926619
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.042414
+        },
+        {
+          "class": "korimako",
+          "score": 0.027979
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334501",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.717502,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.717502
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.106641
+        },
+        {
+          "class": "kereru",
+          "score": 0.062931
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334476",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.68481,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.68481
+        },
+        {
+          "class": "korimako",
+          "score": 0.293392
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.009389
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334485",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.861274,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.861274
+        },
+        {
+          "class": "common_myna",
+          "score": 0.066904
+        },
+        {
+          "class": "kereru",
+          "score": 0.024971
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334495",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "kereru",
+      "top1_score": 0.519132,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.519132
+        },
+        {
+          "class": "tauhou",
+          "score": 0.357171
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.088246
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "461334490",
+      "observation_id": "257198969",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.788291,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.788291
+        },
+        {
+          "class": "common_myna",
+          "score": 0.098049
+        },
+        {
+          "class": "kereru",
+          "score": 0.048445
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "449543392",
+      "observation_id": "251258745",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.949666,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.949666
+        },
+        {
+          "class": "korimako",
+          "score": 0.034304
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.005204
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "449533728",
+      "observation_id": "251258745",
+      "truth": "tauhou",
+      "predicted": "korimako",
+      "top1_score": 0.623338,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.623338
+        },
+        {
+          "class": "tauhou",
+          "score": 0.153013
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.106604
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "262362583",
+      "observation_id": "152006842",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.864417,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.864417
+        },
+        {
+          "class": "korimako",
+          "score": 0.07325
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.042491
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "465157041",
+      "observation_id": "259162561",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.94522,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.94522
+        },
+        {
+          "class": "korimako",
+          "score": 0.032119
+        },
+        {
+          "class": "common_myna",
+          "score": 0.008799
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "465157059",
+      "observation_id": "259162561",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.485343,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.485343
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.238628
+        },
+        {
+          "class": "common_myna",
+          "score": 0.117705
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "465219511",
+      "observation_id": "259162561",
+      "truth": "tauhou",
+      "predicted": "tauhou",
+      "top1_score": 0.944926,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.944926
+        },
+        {
+          "class": "korimako",
+          "score": 0.019067
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.015814
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "548243226",
+      "observation_id": "304136212",
+      "truth": "korimako",
+      "predicted": "korimako",
+      "top1_score": 0.725512,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.725512
+        },
+        {
+          "class": "tauhou",
+          "score": 0.161018
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.061342
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "548243222",
+      "observation_id": "304136212",
+      "truth": "korimako",
+      "predicted": "piwakawaka",
+      "top1_score": 0.321441,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.321441
+        },
+        {
+          "class": "nikau",
+          "score": 0.158523
+        },
+        {
+          "class": "tauhou",
+          "score": 0.151241
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "548243238",
+      "observation_id": "304136212",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.649486,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.649486
+        },
+        {
+          "class": "korimako",
+          "score": 0.320229
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.009181
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "27802130",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.740547,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.740547
+        },
+        {
+          "class": "korimako",
+          "score": 0.101035
+        },
+        {
+          "class": "kereru",
+          "score": 0.039052
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "27802150",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.900305,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.900305
+        },
+        {
+          "class": "korimako",
+          "score": 0.073061
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.015143
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "27802151",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.586885,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.586885
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.225327
+        },
+        {
+          "class": "harakeke",
+          "score": 0.073429
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "27802142",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "nikau",
+      "top1_score": 0.204638,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.204638
+        },
+        {
+          "class": "starling",
+          "score": 0.137813
+        },
+        {
+          "class": "kereru",
+          "score": 0.123061
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "27802158",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.669968,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.669968
+        },
+        {
+          "class": "kereru",
+          "score": 0.122643
+        },
+        {
+          "class": "nikau",
+          "score": 0.087811
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "27802880",
+      "observation_id": "18191110",
+      "truth": "korimako",
+      "predicted": "tauhou",
+      "top1_score": 0.829433,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.829433
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.06831
+        },
+        {
+          "class": "kereru",
+          "score": 0.035948
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "235930759",
+      "observation_id": "138074789",
+      "truth": "korimako",
+      "predicted": "kereru",
+      "top1_score": 0.537682,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.537682
+        },
+        {
+          "class": "korimako",
+          "score": 0.122824
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.057318
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "128549723",
+      "observation_id": "78540028",
+      "truth": "korimako",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.255086,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.255086
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.191927
+        },
+        {
+          "class": "tauhou",
+          "score": 0.146618
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "128549738",
+      "observation_id": "78540028",
+      "truth": "korimako",
+      "predicted": "korimako",
+      "top1_score": 0.875199,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.875199
+        },
+        {
+          "class": "tauhou",
+          "score": 0.092617
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.0081
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "128549750",
+      "observation_id": "78540028",
+      "truth": "korimako",
+      "predicted": "moth_plant",
+      "top1_score": 0.179708,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.179708
+        },
+        {
+          "class": "blackbird",
+          "score": 0.163594
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.106905
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "63953135",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "house_sparrow",
+      "top1_score": 0.487398,
+      "top3": [
+        {
+          "class": "house_sparrow",
+          "score": 0.487398
+        },
+        {
+          "class": "blackbird",
+          "score": 0.270245
+        },
+        {
+          "class": "tauhou",
+          "score": 0.049843
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "63953273",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "harakeke",
+      "top1_score": 0.821207,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.821207
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.058977
+        },
+        {
+          "class": "nikau",
+          "score": 0.041189
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "63953323",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "blackbird",
+      "top1_score": 0.253959,
+      "top3": [
+        {
+          "class": "blackbird",
+          "score": 0.253959
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.108669
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.104871
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "63953377",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "piwakawaka",
+      "top1_score": 0.272384,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.272384
+        },
+        {
+          "class": "blackbird",
+          "score": 0.167083
+        },
+        {
+          "class": "tauhou",
+          "score": 0.154087
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "63953426",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "house_sparrow",
+      "top1_score": 0.297839,
+      "top3": [
+        {
+          "class": "house_sparrow",
+          "score": 0.297839
+        },
+        {
+          "class": "harakeke",
+          "score": 0.244397
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.147638
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "63953465",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "song_thrush",
+      "top1_score": 0.374977,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.374977
+        },
+        {
+          "class": "tauhou",
+          "score": 0.298717
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.222299
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "63953538",
+      "observation_id": "40257872",
+      "truth": "house_sparrow",
+      "predicted": "wild_ginger",
+      "top1_score": 0.160347,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.160347
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.149564
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.135613
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "12121932",
+      "observation_id": "8980501",
+      "truth": "house_sparrow",
+      "predicted": "piwakawaka",
+      "top1_score": 0.718737,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.718737
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.096178
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.087754
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "12121937",
+      "observation_id": "8980501",
+      "truth": "house_sparrow",
+      "predicted": "piwakawaka",
+      "top1_score": 0.305056,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.305056
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.282041
+        },
+        {
+          "class": "starling",
+          "score": 0.259143
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "166721578",
+      "observation_id": "99942194",
+      "truth": "house_sparrow",
+      "predicted": "house_sparrow",
+      "top1_score": 0.656859,
+      "top3": [
+        {
+          "class": "house_sparrow",
+          "score": 0.656859
+        },
+        {
+          "class": "blackbird",
+          "score": 0.122603
+        },
+        {
+          "class": "tauhou",
+          "score": 0.068704
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "166721567",
+      "observation_id": "99942194",
+      "truth": "house_sparrow",
+      "predicted": "song_thrush",
+      "top1_score": 0.387301,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.387301
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.347934
+        },
+        {
+          "class": "blackbird",
+          "score": 0.146674
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "173358625",
+      "observation_id": "103562929",
+      "truth": "house_sparrow",
+      "predicted": "piwakawaka",
+      "top1_score": 0.325237,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.325237
+        },
+        {
+          "class": "tui",
+          "score": 0.206518
+        },
+        {
+          "class": "blackbird",
+          "score": 0.157696
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "473861011",
+      "observation_id": "263744824",
+      "truth": "blackbird",
+      "predicted": "song_thrush",
+      "top1_score": 0.465968,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.465968
+        },
+        {
+          "class": "starling",
+          "score": 0.34516
+        },
+        {
+          "class": "blackbird",
+          "score": 0.113008
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "331797662",
+      "observation_id": "189409683",
+      "truth": "blackbird",
+      "predicted": "wild_ginger",
+      "top1_score": 0.461593,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.461593
+        },
+        {
+          "class": "blackbird",
+          "score": 0.168849
+        },
+        {
+          "class": "harakeke",
+          "score": 0.133521
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "331797930",
+      "observation_id": "189409683",
+      "truth": "blackbird",
+      "predicted": "tradescantia",
+      "top1_score": 0.15927,
+      "top3": [
+        {
+          "class": "tradescantia",
+          "score": 0.15927
+        },
+        {
+          "class": "harakeke",
+          "score": 0.128552
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.111823
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "55073024",
+      "observation_id": "34950523",
+      "truth": "blackbird",
+      "predicted": "blackbird",
+      "top1_score": 0.705489,
+      "top3": [
+        {
+          "class": "blackbird",
+          "score": 0.705489
+        },
+        {
+          "class": "tui",
+          "score": 0.140409
+        },
+        {
+          "class": "common_myna",
+          "score": 0.089162
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "341999362",
+      "observation_id": "194546003",
+      "truth": "song_thrush",
+      "predicted": "piwakawaka",
+      "top1_score": 0.335891,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.335891
+        },
+        {
+          "class": "starling",
+          "score": 0.241803
+        },
+        {
+          "class": "common_myna",
+          "score": 0.129103
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "472209113",
+      "observation_id": "262907185",
+      "truth": "song_thrush",
+      "predicted": "song_thrush",
+      "top1_score": 0.631657,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.631657
+        },
+        {
+          "class": "common_myna",
+          "score": 0.208768
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.066827
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "1492191",
+      "observation_id": "1181749",
+      "truth": "song_thrush",
+      "predicted": "song_thrush",
+      "top1_score": 0.58596,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.58596
+        },
+        {
+          "class": "starling",
+          "score": 0.287543
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.038651
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "1492192",
+      "observation_id": "1181749",
+      "truth": "song_thrush",
+      "predicted": "song_thrush",
+      "top1_score": 0.801032,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.801032
+        },
+        {
+          "class": "starling",
+          "score": 0.169287
+        },
+        {
+          "class": "tauhou",
+          "score": 0.007801
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "138259800",
+      "observation_id": "84140171",
+      "truth": "song_thrush",
+      "predicted": "song_thrush",
+      "top1_score": 0.911519,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.911519
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.048638
+        },
+        {
+          "class": "tauhou",
+          "score": 0.01227
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "32561196",
+      "observation_id": "21073078",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.871569,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.871569
+        },
+        {
+          "class": "blackbird",
+          "score": 0.086421
+        },
+        {
+          "class": "tui",
+          "score": 0.019567
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "32561202",
+      "observation_id": "21073078",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.837037,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.837037
+        },
+        {
+          "class": "blackbird",
+          "score": 0.111554
+        },
+        {
+          "class": "tui",
+          "score": 0.039598
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "32561204",
+      "observation_id": "21073078",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.250539,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.250539
+        },
+        {
+          "class": "common_myna",
+          "score": 0.230686
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.135096
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "721757531",
+      "observation_id": "393752272",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.700038,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.700038
+        },
+        {
+          "class": "common_myna",
+          "score": 0.184019
+        },
+        {
+          "class": "blackbird",
+          "score": 0.028564
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "245231515",
+      "observation_id": "143000965",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.605559,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.605559
+        },
+        {
+          "class": "kereru",
+          "score": 0.196265
+        },
+        {
+          "class": "common_myna",
+          "score": 0.155682
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "170168837",
+      "observation_id": "101863584",
+      "truth": "starling",
+      "predicted": "pohutukawa",
+      "top1_score": 0.314246,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.314246
+        },
+        {
+          "class": "starling",
+          "score": 0.293061
+        },
+        {
+          "class": "kowhai",
+          "score": 0.122438
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "162993515",
+      "observation_id": "97954341",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.589847,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.589847
+        },
+        {
+          "class": "tui",
+          "score": 0.170672
+        },
+        {
+          "class": "blackbird",
+          "score": 0.165718
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "162993748",
+      "observation_id": "97954341",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.600237,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.600237
+        },
+        {
+          "class": "tui",
+          "score": 0.275507
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.050596
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "162993793",
+      "observation_id": "97954341",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.361557,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.361557
+        },
+        {
+          "class": "tui",
+          "score": 0.348993
+        },
+        {
+          "class": "blackbird",
+          "score": 0.151077
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "162993800",
+      "observation_id": "97954341",
+      "truth": "starling",
+      "predicted": "starling",
+      "top1_score": 0.454516,
+      "top3": [
+        {
+          "class": "starling",
+          "score": 0.454516
+        },
+        {
+          "class": "tui",
+          "score": 0.301873
+        },
+        {
+          "class": "blackbird",
+          "score": 0.160572
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "7336857",
+      "observation_id": "5886396",
+      "truth": "starling",
+      "predicted": "korimako",
+      "top1_score": 0.273126,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.273126
+        },
+        {
+          "class": "tauhou",
+          "score": 0.179089
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.110078
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "467059856",
+      "observation_id": "260114926",
+      "truth": "common_myna",
+      "predicted": "common_myna",
+      "top1_score": 0.42144,
+      "top3": [
+        {
+          "class": "common_myna",
+          "score": 0.42144
+        },
+        {
+          "class": "kereru",
+          "score": 0.266505
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.214875
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "403366486",
+      "observation_id": "227379531",
+      "truth": "common_myna",
+      "predicted": "song_thrush",
+      "top1_score": 0.460174,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.460174
+        },
+        {
+          "class": "common_myna",
+          "score": 0.20201
+        },
+        {
+          "class": "blackbird",
+          "score": 0.153084
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "464195580",
+      "observation_id": "258689900",
+      "truth": "common_myna",
+      "predicted": "common_myna",
+      "top1_score": 0.50249,
+      "top3": [
+        {
+          "class": "common_myna",
+          "score": 0.50249
+        },
+        {
+          "class": "kowhai",
+          "score": 0.245027
+        },
+        {
+          "class": "harakeke",
+          "score": 0.097473
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "98210774",
+      "observation_id": "61377059",
+      "truth": "common_myna",
+      "predicted": "song_thrush",
+      "top1_score": 0.779759,
+      "top3": [
+        {
+          "class": "song_thrush",
+          "score": 0.779759
+        },
+        {
+          "class": "blackbird",
+          "score": 0.110541
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.049679
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "98210778",
+      "observation_id": "61377059",
+      "truth": "common_myna",
+      "predicted": "house_sparrow",
+      "top1_score": 0.443728,
+      "top3": [
+        {
+          "class": "house_sparrow",
+          "score": 0.443728
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.295107
+        },
+        {
+          "class": "common_myna",
+          "score": 0.098797
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "98210808",
+      "observation_id": "61377059",
+      "truth": "common_myna",
+      "predicted": "piwakawaka",
+      "top1_score": 0.330185,
+      "top3": [
+        {
+          "class": "piwakawaka",
+          "score": 0.330185
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.144857
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.106793
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "98210771",
+      "observation_id": "61377059",
+      "truth": "common_myna",
+      "predicted": "kereru",
+      "top1_score": 0.828162,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.828162
+        },
+        {
+          "class": "common_myna",
+          "score": 0.082864
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.034493
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "69085372",
+      "observation_id": "43544779",
+      "truth": "pohutukawa",
+      "predicted": "moth_plant",
+      "top1_score": 0.853997,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.853997
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.082572
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.036269
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "513174055",
+      "observation_id": "285498733",
+      "truth": "pohutukawa",
+      "predicted": "pohutukawa",
+      "top1_score": 0.929983,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.929983
+        },
+        {
+          "class": "kereru",
+          "score": 0.015297
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.01237
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "102248552",
+      "observation_id": "63683767",
+      "truth": "pohutukawa",
+      "predicted": "pohutukawa",
+      "top1_score": 0.530727,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.530727
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.162828
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.089786
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "102248556",
+      "observation_id": "63683767",
+      "truth": "pohutukawa",
+      "predicted": "pohutukawa",
+      "top1_score": 0.357006,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.357006
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.197217
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.124658
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "102248561",
+      "observation_id": "63683767",
+      "truth": "pohutukawa",
+      "predicted": "wild_ginger",
+      "top1_score": 0.251589,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.251589
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.214075
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.203531
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "102248568",
+      "observation_id": "63683767",
+      "truth": "pohutukawa",
+      "predicted": "pohutukawa",
+      "top1_score": 0.4311,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.4311
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.192165
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.166434
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "362829531",
+      "observation_id": "205217189",
+      "truth": "pohutukawa",
+      "predicted": "pohutukawa",
+      "top1_score": 0.534005,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.534005
+        },
+        {
+          "class": "harakeke",
+          "score": 0.12437
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.102657
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "466055766",
+      "observation_id": "259607750",
+      "truth": "pohutukawa",
+      "predicted": "silver_fern",
+      "top1_score": 0.589699,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.589699
+        },
+        {
+          "class": "nikau",
+          "score": 0.384796
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.012339
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "676214228",
+      "observation_id": "370164650",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.188226,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.188226
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.15995
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.154931
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "676214294",
+      "observation_id": "370164650",
+      "truth": "ti_kouka",
+      "predicted": "harakeke",
+      "top1_score": 0.557428,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.557428
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.247797
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.043649
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "489475910",
+      "observation_id": "272083770",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.709743,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.709743
+        },
+        {
+          "class": "kereru",
+          "score": 0.054026
+        },
+        {
+          "class": "kowhai",
+          "score": 0.037896
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "11928224",
+      "observation_id": "8871084",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.555841,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.555841
+        },
+        {
+          "class": "harakeke",
+          "score": 0.144955
+        },
+        {
+          "class": "kereru",
+          "score": 0.079878
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "273835113",
+      "observation_id": "158445656",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.731572,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.731572
+        },
+        {
+          "class": "harakeke",
+          "score": 0.140709
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.02979
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "274021820",
+      "observation_id": "158571612",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.785159,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.785159
+        },
+        {
+          "class": "harakeke",
+          "score": 0.140175
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.016021
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "106821667",
+      "observation_id": "66285009",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.953268,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.953268
+        },
+        {
+          "class": "nikau",
+          "score": 0.033495
+        },
+        {
+          "class": "tauhou",
+          "score": 0.00318
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "106821672",
+      "observation_id": "66285009",
+      "truth": "ti_kouka",
+      "predicted": "tauhou",
+      "top1_score": 0.199715,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.199715
+        },
+        {
+          "class": "kereru",
+          "score": 0.194042
+        },
+        {
+          "class": "korimako",
+          "score": 0.129411
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "106821673",
+      "observation_id": "66285009",
+      "truth": "ti_kouka",
+      "predicted": "ti_kouka",
+      "top1_score": 0.289027,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.289027
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.112767
+        },
+        {
+          "class": "nikau",
+          "score": 0.086185
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "21352313",
+      "observation_id": "14364943",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.663818,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.663818
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.087956
+        },
+        {
+          "class": "korimako",
+          "score": 0.06505
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "21352445",
+      "observation_id": "14364943",
+      "truth": "harakeke",
+      "predicted": "korimako",
+      "top1_score": 0.355202,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.355202
+        },
+        {
+          "class": "harakeke",
+          "score": 0.320735
+        },
+        {
+          "class": "kowhai",
+          "score": 0.095498
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "609141973",
+      "observation_id": "335324573",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.878311,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.878311
+        },
+        {
+          "class": "kowhai",
+          "score": 0.052204
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.038733
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "467530520",
+      "observation_id": "260349172",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.954153,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.954153
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.00887
+        },
+        {
+          "class": "tauhou",
+          "score": 0.007297
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "341725136",
+      "observation_id": "194410678",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.944974,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.944974
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.027104
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.009592
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "341725122",
+      "observation_id": "194410678",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.610747,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.610747
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.14456
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.050365
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "335485891",
+      "observation_id": "191261901",
+      "truth": "harakeke",
+      "predicted": "ti_kouka",
+      "top1_score": 0.595993,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.595993
+        },
+        {
+          "class": "harakeke",
+          "score": 0.197451
+        },
+        {
+          "class": "kereru",
+          "score": 0.058041
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "335485907",
+      "observation_id": "191261901",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.990707,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.990707
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.003152
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.002674
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "127286804",
+      "observation_id": "77850817",
+      "truth": "harakeke",
+      "predicted": "harakeke",
+      "top1_score": 0.46003,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.46003
+        },
+        {
+          "class": "starling",
+          "score": 0.127631
+        },
+        {
+          "class": "kereru",
+          "score": 0.079254
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "293107226",
+      "observation_id": "169089658",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.897631,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.897631
+        },
+        {
+          "class": "nikau",
+          "score": 0.081418
+        },
+        {
+          "class": "harakeke",
+          "score": 0.004352
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "293107826",
+      "observation_id": "169089658",
+      "truth": "silver_fern",
+      "predicted": "nikau",
+      "top1_score": 0.624155,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.624155
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.293768
+        },
+        {
+          "class": "harakeke",
+          "score": 0.056103
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "293107273",
+      "observation_id": "169089658",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.549893,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.549893
+        },
+        {
+          "class": "nikau",
+          "score": 0.40276
+        },
+        {
+          "class": "tui",
+          "score": 0.010308
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "675348727",
+      "observation_id": "369716881",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.902533,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.902533
+        },
+        {
+          "class": "starling",
+          "score": 0.045281
+        },
+        {
+          "class": "kowhai",
+          "score": 0.029014
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "675348741",
+      "observation_id": "369716881",
+      "truth": "silver_fern",
+      "predicted": "nikau",
+      "top1_score": 0.458795,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.458795
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.372892
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.054984
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "585487123",
+      "observation_id": "323563613",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.528389,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.528389
+        },
+        {
+          "class": "nikau",
+          "score": 0.358512
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.048604
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "585487149",
+      "observation_id": "323563613",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.905762,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.905762
+        },
+        {
+          "class": "korimako",
+          "score": 0.032036
+        },
+        {
+          "class": "kereru",
+          "score": 0.013396
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "585487179",
+      "observation_id": "323563613",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.497639,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.497639
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.079401
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.071097
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "272033666",
+      "observation_id": "157327029",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.979641,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.979641
+        },
+        {
+          "class": "nikau",
+          "score": 0.018425
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.000748
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "272033755",
+      "observation_id": "157327029",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.994991,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.994991
+        },
+        {
+          "class": "nikau",
+          "score": 0.003146
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.000662
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "272033835",
+      "observation_id": "157327029",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.614872,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.614872
+        },
+        {
+          "class": "nikau",
+          "score": 0.178787
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.085405
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "266178923",
+      "observation_id": "154069608",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.621179,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.621179
+        },
+        {
+          "class": "tui",
+          "score": 0.11708
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.05677
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "266178935",
+      "observation_id": "154069608",
+      "truth": "silver_fern",
+      "predicted": "tauhou",
+      "top1_score": 0.337606,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.337606
+        },
+        {
+          "class": "kowhai",
+          "score": 0.138242
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.094087
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "266178949",
+      "observation_id": "154069608",
+      "truth": "silver_fern",
+      "predicted": "silver_fern",
+      "top1_score": 0.966063,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.966063
+        },
+        {
+          "class": "nikau",
+          "score": 0.011795
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.010131
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "5435949",
+      "observation_id": "4497904",
+      "truth": "nikau",
+      "predicted": "tauhou",
+      "top1_score": 0.285173,
+      "top3": [
+        {
+          "class": "tauhou",
+          "score": 0.285173
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.21226
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.12676
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "5435970",
+      "observation_id": "4497904",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.881663,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.881663
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.110541
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.002658
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "5435971",
+      "observation_id": "4497904",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.955567,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.955567
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.035285
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.003678
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "5435972",
+      "observation_id": "4497904",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.798881,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.798881
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.109672
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.07295
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "464890046",
+      "observation_id": "259030760",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.822583,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.822583
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.116152
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.044118
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "65251913",
+      "observation_id": "41148398",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.875645,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.875645
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.055339
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.021394
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "65251938",
+      "observation_id": "41148398",
+      "truth": "nikau",
+      "predicted": "pohutukawa",
+      "top1_score": 0.606058,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.606058
+        },
+        {
+          "class": "tauhou",
+          "score": 0.083187
+        },
+        {
+          "class": "starling",
+          "score": 0.057961
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "65251956",
+      "observation_id": "41148398",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.497727,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.497727
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.065917
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.055629
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "74252034",
+      "observation_id": "46817996",
+      "truth": "nikau",
+      "predicted": "moth_plant",
+      "top1_score": 0.353706,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.353706
+        },
+        {
+          "class": "nikau",
+          "score": 0.237684
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.097138
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "6929346",
+      "observation_id": "5576508",
+      "truth": "nikau",
+      "predicted": "nikau",
+      "top1_score": 0.95032,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.95032
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.018691
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.015971
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "29966006",
+      "observation_id": "19476391",
+      "truth": "kowhai",
+      "predicted": "kowhai",
+      "top1_score": 0.376386,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.376386
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.177437
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.112073
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "721483101",
+      "observation_id": "393612912",
+      "truth": "kowhai",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.32466,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.32466
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.138493
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.112426
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "25548285",
+      "observation_id": "16910627",
+      "truth": "kowhai",
+      "predicted": "kereru",
+      "top1_score": 0.247259,
+      "top3": [
+        {
+          "class": "kereru",
+          "score": 0.247259
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.187299
+        },
+        {
+          "class": "korimako",
+          "score": 0.0792
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "441091233",
+      "observation_id": "247017564",
+      "truth": "kowhai",
+      "predicted": "ti_kouka",
+      "top1_score": 0.353137,
+      "top3": [
+        {
+          "class": "ti_kouka",
+          "score": 0.353137
+        },
+        {
+          "class": "common_myna",
+          "score": 0.178305
+        },
+        {
+          "class": "kowhai",
+          "score": 0.100849
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "441091269",
+      "observation_id": "247017564",
+      "truth": "kowhai",
+      "predicted": "kowhai",
+      "top1_score": 0.504999,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.504999
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.096172
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.070668
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "83847882",
+      "observation_id": "52734598",
+      "truth": "kowhai",
+      "predicted": "kowhai",
+      "top1_score": 0.52785,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.52785
+        },
+        {
+          "class": "tauhou",
+          "score": 0.101669
+        },
+        {
+          "class": "starling",
+          "score": 0.081476
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "83848154",
+      "observation_id": "52734598",
+      "truth": "kowhai",
+      "predicted": "pohutukawa",
+      "top1_score": 0.255045,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.255045
+        },
+        {
+          "class": "house_sparrow",
+          "score": 0.150248
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.101483
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "83848207",
+      "observation_id": "52734598",
+      "truth": "kowhai",
+      "predicted": "kowhai",
+      "top1_score": 0.327621,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.327621
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.206144
+        },
+        {
+          "class": "kereru",
+          "score": 0.106115
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "31027208",
+      "observation_id": "20092424",
+      "truth": "tradescantia",
+      "predicted": "wild_ginger",
+      "top1_score": 0.34528,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.34528
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.167688
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.121184
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "135854733",
+      "observation_id": "20092424",
+      "truth": "tradescantia",
+      "predicted": "moth_plant",
+      "top1_score": 0.323424,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.323424
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.236546
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.123793
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "52398439",
+      "observation_id": "33365940",
+      "truth": "tradescantia",
+      "predicted": "silver_fern",
+      "top1_score": 0.249546,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.249546
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.212537
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.148221
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "52398526",
+      "observation_id": "33365940",
+      "truth": "tradescantia",
+      "predicted": "moth_plant",
+      "top1_score": 0.447379,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.447379
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.12598
+        },
+        {
+          "class": "silver_fern",
+          "score": 0.084858
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "52854097",
+      "observation_id": "33640174",
+      "truth": "tradescantia",
+      "predicted": "wild_ginger",
+      "top1_score": 0.549216,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.549216
+        },
+        {
+          "class": "nikau",
+          "score": 0.220688
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.063868
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "52483611",
+      "observation_id": "33416728",
+      "truth": "tradescantia",
+      "predicted": "silver_fern",
+      "top1_score": 0.367597,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.367597
+        },
+        {
+          "class": "nikau",
+          "score": 0.246121
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.135357
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "370752567",
+      "observation_id": "209516188",
+      "truth": "tradescantia",
+      "predicted": "moth_plant",
+      "top1_score": 0.487278,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.487278
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.118484
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.102373
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "338165945",
+      "observation_id": "192611714",
+      "truth": "tradescantia",
+      "predicted": "tradescantia",
+      "top1_score": 0.367279,
+      "top3": [
+        {
+          "class": "tradescantia",
+          "score": 0.367279
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.192944
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.187096
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "462282754",
+      "observation_id": "257677085",
+      "truth": "tradescantia",
+      "predicted": "tradescantia",
+      "top1_score": 0.259611,
+      "top3": [
+        {
+          "class": "tradescantia",
+          "score": 0.259611
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.21976
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.188622
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "393817544",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "kowhai",
+      "top1_score": 0.603545,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.603545
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.155619
+        },
+        {
+          "class": "harakeke",
+          "score": 0.155012
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "393817583",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "harakeke",
+      "top1_score": 0.440229,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.440229
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.24271
+        },
+        {
+          "class": "kowhai",
+          "score": 0.23232
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "393817632",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "harakeke",
+      "top1_score": 0.457848,
+      "top3": [
+        {
+          "class": "harakeke",
+          "score": 0.457848
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.281267
+        },
+        {
+          "class": "kowhai",
+          "score": 0.187293
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "393817701",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "kowhai",
+      "top1_score": 0.348005,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.348005
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.258071
+        },
+        {
+          "class": "harakeke",
+          "score": 0.238312
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "393817765",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "kowhai",
+      "top1_score": 0.421037,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.421037
+        },
+        {
+          "class": "harakeke",
+          "score": 0.244042
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.168307
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "393817827",
+      "observation_id": "222329100",
+      "truth": "woolly_nightshade",
+      "predicted": "kowhai",
+      "top1_score": 0.630548,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.630548
+        },
+        {
+          "class": "harakeke",
+          "score": 0.120659
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.117647
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "483697118",
+      "observation_id": "269049873",
+      "truth": "woolly_nightshade",
+      "predicted": "pohutukawa",
+      "top1_score": 0.600519,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.600519
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.210351
+        },
+        {
+          "class": "tauhou",
+          "score": 0.081447
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "483697187",
+      "observation_id": "269049873",
+      "truth": "woolly_nightshade",
+      "predicted": "pohutukawa",
+      "top1_score": 0.348249,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.348249
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.280654
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.08925
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "483700318",
+      "observation_id": "269049873",
+      "truth": "woolly_nightshade",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.459106,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.459106
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.131341
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.10676
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "597591691",
+      "observation_id": "329649353",
+      "truth": "woolly_nightshade",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.571271,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.571271
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.117576
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.071106
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "597591729",
+      "observation_id": "329649353",
+      "truth": "woolly_nightshade",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.331774,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.331774
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.124772
+        },
+        {
+          "class": "blackbird",
+          "score": 0.102874
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "348206230",
+      "observation_id": "197667588",
+      "truth": "woolly_nightshade",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.781732,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.781732
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.130165
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.041679
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "348206273",
+      "observation_id": "197667588",
+      "truth": "woolly_nightshade",
+      "predicted": "woolly_nightshade",
+      "top1_score": 0.33416,
+      "top3": [
+        {
+          "class": "woolly_nightshade",
+          "score": 0.33416
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.293867
+        },
+        {
+          "class": "korimako",
+          "score": 0.082459
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "4001191",
+      "observation_id": "3449089",
+      "truth": "wild_ginger",
+      "predicted": "nikau",
+      "top1_score": 0.523659,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.523659
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.196113
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.114317
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "4001193",
+      "observation_id": "3449089",
+      "truth": "wild_ginger",
+      "predicted": "nikau",
+      "top1_score": 0.352013,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.352013
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.230377
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.12209
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "4001194",
+      "observation_id": "3449089",
+      "truth": "wild_ginger",
+      "predicted": "moth_plant",
+      "top1_score": 0.305759,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.305759
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.293628
+        },
+        {
+          "class": "nikau",
+          "score": 0.221331
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "490876526",
+      "observation_id": "272845853",
+      "truth": "wild_ginger",
+      "predicted": "moth_plant",
+      "top1_score": 0.53345,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.53345
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.189669
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.155461
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "490876579",
+      "observation_id": "272845853",
+      "truth": "wild_ginger",
+      "predicted": "wild_ginger",
+      "top1_score": 0.736005,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.736005
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.10199
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.093828
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "43594374",
+      "observation_id": "27985445",
+      "truth": "wild_ginger",
+      "predicted": "moth_plant",
+      "top1_score": 0.296813,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.296813
+        },
+        {
+          "class": "nikau",
+          "score": 0.195643
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.107209
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "60016985",
+      "observation_id": "37811028",
+      "truth": "wild_ginger",
+      "predicted": "wild_ginger",
+      "top1_score": 0.798569,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.798569
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.068243
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.060845
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "60016988",
+      "observation_id": "37811028",
+      "truth": "wild_ginger",
+      "predicted": "nikau",
+      "top1_score": 0.328989,
+      "top3": [
+        {
+          "class": "nikau",
+          "score": 0.328989
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.249204
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.107311
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "60016989",
+      "observation_id": "37811028",
+      "truth": "wild_ginger",
+      "predicted": "silver_fern",
+      "top1_score": 0.625038,
+      "top3": [
+        {
+          "class": "silver_fern",
+          "score": 0.625038
+        },
+        {
+          "class": "nikau",
+          "score": 0.259304
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.09696
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "175362405",
+      "observation_id": "104630335",
+      "truth": "moth_plant",
+      "predicted": "moth_plant",
+      "top1_score": 0.385015,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.385015
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.349263
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.113544
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "175362410",
+      "observation_id": "104630335",
+      "truth": "moth_plant",
+      "predicted": "wild_ginger",
+      "top1_score": 0.434757,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.434757
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.331388
+        },
+        {
+          "class": "tradescantia",
+          "score": 0.102543
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "175362417",
+      "observation_id": "104630335",
+      "truth": "moth_plant",
+      "predicted": "wild_ginger",
+      "top1_score": 0.42375,
+      "top3": [
+        {
+          "class": "wild_ginger",
+          "score": 0.42375
+        },
+        {
+          "class": "woolly_nightshade",
+          "score": 0.279019
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.194061
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "66615771",
+      "observation_id": "41975109",
+      "truth": "moth_plant",
+      "predicted": "moth_plant",
+      "top1_score": 0.292771,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.292771
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.253434
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.128273
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "66615782",
+      "observation_id": "41975109",
+      "truth": "moth_plant",
+      "predicted": "korimako",
+      "top1_score": 0.215153,
+      "top3": [
+        {
+          "class": "korimako",
+          "score": 0.215153
+        },
+        {
+          "class": "kereru",
+          "score": 0.192233
+        },
+        {
+          "class": "piwakawaka",
+          "score": 0.118986
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "274008765",
+      "observation_id": "158564081",
+      "truth": "moth_plant",
+      "predicted": "pohutukawa",
+      "top1_score": 0.687979,
+      "top3": [
+        {
+          "class": "pohutukawa",
+          "score": 0.687979
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.061413
+        },
+        {
+          "class": "ti_kouka",
+          "score": 0.051591
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "274009256",
+      "observation_id": "158564081",
+      "truth": "moth_plant",
+      "predicted": "moth_plant",
+      "top1_score": 0.491626,
+      "top3": [
+        {
+          "class": "moth_plant",
+          "score": 0.491626
+        },
+        {
+          "class": "pohutukawa",
+          "score": 0.331296
+        },
+        {
+          "class": "wild_ginger",
+          "score": 0.097349
+        }
+      ],
+      "correct_top1": true,
+      "correct_top3": true
+    },
+    {
+      "photo_id": "179573102",
+      "observation_id": "106841797",
+      "truth": "moth_plant",
+      "predicted": "kowhai",
+      "top1_score": 0.795131,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.795131
+        },
+        {
+          "class": "harakeke",
+          "score": 0.075432
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.037709
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "179573117",
+      "observation_id": "106841797",
+      "truth": "moth_plant",
+      "predicted": "kowhai",
+      "top1_score": 0.529605,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.529605
+        },
+        {
+          "class": "nikau",
+          "score": 0.205487
+        },
+        {
+          "class": "harakeke",
+          "score": 0.056105
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": false
+    },
+    {
+      "photo_id": "179573125",
+      "observation_id": "106841797",
+      "truth": "moth_plant",
+      "predicted": "kowhai",
+      "top1_score": 0.784084,
+      "top3": [
+        {
+          "class": "kowhai",
+          "score": 0.784084
+        },
+        {
+          "class": "moth_plant",
+          "score": 0.125485
+        },
+        {
+          "class": "song_thrush",
+          "score": 0.02925
+        }
+      ],
+      "correct_top1": false,
+      "correct_top3": true
+    }
+  ]
+}

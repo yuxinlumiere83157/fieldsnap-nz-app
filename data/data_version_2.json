@@ -1,0 +1,89 @@
+{
+  "data_version": 2,
+  "created_at": "2026-09-11",
+  "purpose": "controlled comparison: training set only; validation and test untouched",
+  "base_train_images": 849,
+  "added_train_images": 2146,
+  "dropped_extra_images": 3,
+  "total_train_images": 2995,
+  "held_out_observations_respected": 186,
+  "train_manifest_v1": {
+    "path": "data/manifest_train_v1.csv",
+    "sha256_before_redaction": "93de01d7145698df7c99737679eee78544d5f6a00bc952850d0946e5b82624a1",
+    "sha256_after_redaction": "445c501ce2daeee9e593d6f2e9bbec2153db1a47342b1fbba7ccfe8b51e9f0dc",
+    "mapping_sha256": "f0dc373de88d2db04e91ac5f3b966a09f5c283a47707fa01e5855e9e61d3951a"
+  },
+  "train_manifest_v2": {
+    "path": "data/manifest_train_expanded_v2.csv",
+    "sha256_before_redaction": "92b3c6e8aced80626a50bdee0fe81b111cddd984f03742f7ad1283d543f57234",
+    "sha256_after_redaction": "fbef39ce9274e67cab4f8eb4924eb82ed958b3e2f212e3f546eeba52a72632b2",
+    "mapping_sha256": "76a3d3b42690d8b9cb024a8c253b661f7d72dd87864b443f3c1e15d973c510fc"
+  },
+  "val_manifest": "data/manifest_val.csv (unchanged)",
+  "test_manifest": "data/manifest_test.csv (unchanged, still sealed)",
+  "dropped_detail": [
+    {
+      "photo_id": "490791577",
+      "observation_id": "272798437",
+      "class_slug": "house_sparrow",
+      "reason": "shares an observation with validation or test"
+    },
+    {
+      "photo_id": "261179520",
+      "observation_id": "151375897",
+      "class_slug": "nikau",
+      "reason": "shares an observation with validation or test"
+    },
+    {
+      "photo_id": "348206244",
+      "observation_id": "197667588",
+      "class_slug": "woolly_nightshade",
+      "reason": "shares an observation with validation or test"
+    }
+  ],
+  "note": "the fetch-time exclusion did not catch these rows, so the guard is re-applied here and any drop is printed rather than silently accepted",
+  "published_redaction": {
+    "date": "2026-09-11",
+    "removed_columns": [
+      "latitude",
+      "longitude",
+      "place_guess"
+    ],
+    "reason": "precise and near-precise observation locations were removed from the published training manifests. They were never used for training or evaluation, so no result depends on them; the mapping hash (photo/observation/class/split, unchanged) is the reproducibility anchor instead of the full-file hash.",
+    "files": {
+      "manifest_train_v1.csv": {
+        "rows": 849,
+        "columns_removed": [
+          "latitude",
+          "longitude",
+          "place_guess"
+        ],
+        "sha256_before_redaction": "93de01d7145698df7c99737679eee78544d5f6a00bc952850d0946e5b82624a1",
+        "sha256_after_redaction": "445c501ce2daeee9e593d6f2e9bbec2153db1a47342b1fbba7ccfe8b51e9f0dc",
+        "mapping_sha256": "f0dc373de88d2db04e91ac5f3b966a09f5c283a47707fa01e5855e9e61d3951a"
+      },
+      "manifest_train_expanded_v2.csv": {
+        "rows": 2995,
+        "columns_removed": [
+          "latitude",
+          "longitude",
+          "place_guess"
+        ],
+        "sha256_before_redaction": "92b3c6e8aced80626a50bdee0fe81b111cddd984f03742f7ad1283d543f57234",
+        "sha256_after_redaction": "fbef39ce9274e67cab4f8eb4924eb82ed958b3e2f212e3f546eeba52a72632b2",
+        "mapping_sha256": "76a3d3b42690d8b9cb024a8c253b661f7d72dd87864b443f3c1e15d973c510fc"
+      },
+      "manifest_extra.csv": {
+        "rows": 2149,
+        "columns_removed": [
+          "latitude",
+          "longitude",
+          "place_guess"
+        ],
+        "sha256_before_redaction": "58fa0223aa560fc9cfe21900728588882515458b4bcc3c9d5964183c56fdbfdc",
+        "sha256_after_redaction": "5da5baf48cd37f78882bfebf7ec907d2df6a13360a207dfbf2dfcd8b9b378d46",
+        "mapping_sha256": "43ca223430c068b15eb6e8992b6936a615b510492beaee97ad5ad13a1aae44e4"
+      }
+    }
+  }
+}

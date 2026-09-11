@@ -1,0 +1,9 @@
+{
+  "images": 187,
+  "jpeg": 186,
+  "not_jpeg": 1,
+  "app1_segments": 0,
+  "exif_app1": 0,
+  "sof_markers": 186,
+  "conclusion": "no EXIF APP1 segment in any test image, so the orientation transform in the production preprocessor had no data to act on: the double-orientation defect cannot have affected the frozen evaluation"
+}

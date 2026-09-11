@@ -1,0 +1,10 @@
+{
+  "images": 40,
+  "resize_tf": "tf.image.resize(bilinear, antialias=True)",
+  "resize_box": "Pillow BOX (area) filter, standing in for the app's Dart resize",
+  "max_probability_difference": 0.1332,
+  "mean_probability_difference": 0.0508,
+  "top1_agreement": 0.95,
+  "top3_set_agreement": 0.75,
+  "note": "validation images only; the app's real resize is checked by test/integration/tflite_cross_check_test.dart"
+}

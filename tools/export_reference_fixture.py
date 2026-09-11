@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Build the cross-language fixtures from ONE canonical tensor, with a Keras cross-check.
+
+Every recorded number in `test/fixtures/reference_expected.json` and
+`assets/test/reference_output.json` is produced here, from the same tensor that
+`reference_input.f32` holds. Before writing, the Keras model and the TFLite models must agree
+on that tensor: if they disagree, the fixture is wrong and any test measured against it is
+meaningless. That check exists because an earlier revision recorded a contaminated vector
+(a numpy slice view passed to `set_tensor`) which differed from both Keras and the Dart
+runtime by 0.237.
+"""
+from __future__ import annotations
+
+import json
+import pathlib
+import shutil
+import struct
+import sys
+
+import numpy as np
+
+REPO = pathlib.Path(__file__).resolve().parents[1]
+DATA = REPO / "data"
+ARTIFACTS = REPO / "artifacts"
+FIXTURES = REPO / "test" / "fixtures"
+ASSET_FIXTURES = REPO / "assets" / "test"
+IMG_SIZE = 224
+AGREEMENT_TOLERANCE = 5e-3
+
+
+def preprocess(path: str) -> np.ndarray:
+    """The reference pipeline: tf.io decode -> antialiased bilinear resize -> [-1, 1]."""
+    import tensorflow as tf
+
+    raw = tf.io.read_file(path)
+    image = tf.io.decode_image(raw, channels=3, expand_animations=False)
+    image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE), method="bilinear", antialias=True)
+    image = tf.cast(image, tf.float32)
+    return ((image - 127.5) / 127.5).numpy()
+
+
+def run_tflite(path: pathlib.Path, tensor: np.ndarray) -> np.ndarray:
+    import tensorflow as tf
+
+    interpreter = tf.lite.Interpreter(model_path=str(path))
+    interpreter.allocate_tensors()
+    detail = interpreter.get_input_details()[0]
+    output = interpreter.get_output_details()[0]
+    interpreter.set_tensor(
+        detail["index"], np.ascontiguousarray(tensor[None, ...]).astype(detail["dtype"]))
+    interpreter.invoke()
+    return interpreter.get_tensor(output["index"])[0]
+
+
+def main() -> int:
+    import csv
+
+    names = json.loads((DATA / "class_indices.json").read_text())["classes"]
+    # A validation image, chosen deterministically: the first validation row.
+    with open(DATA / "manifest_val.csv") as fh:
+        row = next(csv.DictReader(fh))
+    image_path = REPO / row["file_path"]
+    class_slug = row["class_slug"]
+    print(f"reference image: {image_path.relative_to(REPO)} (class {class_slug})")
+
+    tensor = preprocess(str(image_path))
+    print(f"tensor: shape={tensor.shape} range=[{tensor.min():.3f}, {tensor.max():.3f}] "
+          f"mean={tensor.mean():.4f}")
+
+    outputs: dict[str, dict] = {}
+    for name in ("fieldsnap_float.tflite", "fieldsnap_int8.tflite"):
+        probabilities = run_tflite(ARTIFACTS / name, tensor)
+        order = np.argsort(-probabilities)
+        outputs[name] = {
+            "argmax_index": int(order[0]),
+            "argmax_class": names[int(order[0])],
+            "top_probability": float(probabilities[order[0]]),
+            "probabilities": [round(float(p), 6) for p in probabilities],
+        }
+        print(f"  {name}: argmax={names[int(order[0])]} p={probabilities[order[0]]:.4f}")
+
+    # The FLOAT conversion must reproduce the Keras model on this tensor, or the fixture is
+    # not trustworthy. The INT8 model is expected to differ from Keras: that difference *is*
+    # the measured quantisation effect, and the Dart runtime must instead reproduce the INT8
+    # numbers recorded here (see test/integration/runtime_conformance_test.dart).
+    import tensorflow as tf
+
+    keras_model = tf.keras.models.load_model(ARTIFACTS / "fieldsnap_mobilenetv3s.keras")
+    keras_probabilities = keras_model.predict(
+        np.ascontiguousarray(tensor[None, ...]), verbose=0)[0]
+    float_delta = float(np.abs(
+        np.array(outputs["fieldsnap_float.tflite"]["probabilities"]) - keras_probabilities).max())
+    int8_delta = float(np.abs(
+        np.array(outputs["fieldsnap_int8.tflite"]["probabilities"]) - keras_probabilities).max())
+    print(f"  keras vs float tflite: max delta {float_delta:.2e} (must be small)")
+    print(f"  keras vs int8  tflite: max delta {int8_delta:.2e} (this is the quantisation cost)")
+    if float_delta > AGREEMENT_TOLERANCE:
+        print(f"REFUSING to write fixtures: the float conversion disagrees with Keras by "
+              f"{float_delta:.4f}", file=sys.stderr)
+        return 3
+
+    FIXTURES.mkdir(parents=True, exist_ok=True)
+    ASSET_FIXTURES.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(image_path, FIXTURES / "reference_sample.jpg")
+    shutil.copyfile(image_path, ASSET_FIXTURES / "reference_sample.jpg")
+
+    flat = tensor.reshape(-1)
+    (FIXTURES / "reference_input.f32").write_bytes(
+        struct.pack(f"<{flat.size}f", *flat.tolist()))
+    shutil.copyfile(FIXTURES / "reference_input.f32", ASSET_FIXTURES / "reference_input.f32")
+
+    (FIXTURES / "reference_expected.json").write_text(json.dumps({
+        "note": "generated by tools/export_reference_fixture.py from one canonical tensor; "
+                "Keras and both TFLite models were verified to agree before writing",
+        "source_image": image_path.name,
+        "class_slug": class_slug,
+        "class_index": names.index(class_slug),
+        "image_size": IMG_SIZE,
+        "input_min": float(flat.min()),
+        "input_max": float(flat.max()),
+        "input_mean": float(flat.mean()),
+        "input_first_8": [round(float(v), 4) for v in flat[:8]],
+        "outputs": outputs,
+    }, indent=2))
+
+    (ASSET_FIXTURES / "reference_output.json").write_text(json.dumps({
+        "note": "reference outputs for the bundled models on the same canonical tensor as "
+                "assets/test/reference_input.f32, verified against Keras",
+        "class_slug": class_slug,
+        "int8": outputs["fieldsnap_int8.tflite"],
+        "float": outputs["fieldsnap_float.tflite"],
+    }, indent=2))
+
+    print("wrote fixtures for host and device tests")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

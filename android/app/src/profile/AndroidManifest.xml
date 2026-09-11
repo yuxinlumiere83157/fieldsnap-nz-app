@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Merged into profile builds; enables the Dart VM service / tracing connection.
+         Not part of release builds. (A stray hyphen in this comment previously made the file
+         invalid XML, which only the profile build surfaced: the debug build does not parse it.) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>

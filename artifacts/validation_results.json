@@ -1,0 +1,215 @@
+{
+  "classes": [
+    "blackbird",
+    "common_myna",
+    "harakeke",
+    "house_sparrow",
+    "kereru",
+    "korimako",
+    "kowhai",
+    "moth_plant",
+    "nikau",
+    "piwakawaka",
+    "pohutukawa",
+    "silver_fern",
+    "song_thrush",
+    "starling",
+    "tauhou",
+    "ti_kouka",
+    "tradescantia",
+    "tui",
+    "wild_ginger",
+    "woolly_nightshade"
+  ],
+  "data_version": null,
+  "finished_at": "2026-09-11T17:55:27+12:00",
+  "manifest_sha256": "feb9cdaf06fe1081",
+  "model_sha256_prefix": {
+    "fieldsnap_float.tflite": "e6b10afdfc97d73d",
+    "fieldsnap_int8.tflite": "7e614782bfe5ffad"
+  },
+  "models": {
+    "fieldsnap_float.tflite": {
+      "keras_cross_check": "run",
+      "keras_delta_kind": "conversion fidelity",
+      "keras_max_delta": 3e-06,
+      "per_class_top1": {
+        "blackbird": {
+          "n": 11,
+          "top1": 0.1818
+        },
+        "common_myna": {
+          "n": 7,
+          "top1": 0.5714
+        },
+        "harakeke": {
+          "n": 8,
+          "top1": 0.5
+        },
+        "house_sparrow": {
+          "n": 4,
+          "top1": 0.0
+        },
+        "kereru": {
+          "n": 10,
+          "top1": 0.5
+        },
+        "korimako": {
+          "n": 9,
+          "top1": 1.0
+        },
+        "kowhai": {
+          "n": 7,
+          "top1": 0.4286
+        },
+        "moth_plant": {
+          "n": 7,
+          "top1": 0.4286
+        },
+        "nikau": {
+          "n": 9,
+          "top1": 0.5556
+        },
+        "piwakawaka": {
+          "n": 14,
+          "top1": 0.6429
+        },
+        "pohutukawa": {
+          "n": 7,
+          "top1": 0.0
+        },
+        "silver_fern": {
+          "n": 5,
+          "top1": 1.0
+        },
+        "song_thrush": {
+          "n": 7,
+          "top1": 0.5714
+        },
+        "starling": {
+          "n": 7,
+          "top1": 0.4286
+        },
+        "tauhou": {
+          "n": 7,
+          "top1": 0.4286
+        },
+        "ti_kouka": {
+          "n": 15,
+          "top1": 0.4
+        },
+        "tradescantia": {
+          "n": 9,
+          "top1": 0.2222
+        },
+        "tui": {
+          "n": 8,
+          "top1": 0.875
+        },
+        "wild_ginger": {
+          "n": 6,
+          "top1": 0.6667
+        },
+        "woolly_nightshade": {
+          "n": 6,
+          "top1": 0.5
+        }
+      },
+      "top1_val_accuracy": 0.4969,
+      "top3_val_accuracy": 0.7239
+    },
+    "fieldsnap_int8.tflite": {
+      "keras_cross_check": "run",
+      "keras_delta_kind": "quantisation cost",
+      "keras_max_delta": 0.287775,
+      "per_class_top1": {
+        "blackbird": {
+          "n": 11,
+          "top1": 0.1818
+        },
+        "common_myna": {
+          "n": 7,
+          "top1": 0.0
+        },
+        "harakeke": {
+          "n": 8,
+          "top1": 0.125
+        },
+        "house_sparrow": {
+          "n": 4,
+          "top1": 0.0
+        },
+        "kereru": {
+          "n": 10,
+          "top1": 0.2
+        },
+        "korimako": {
+          "n": 9,
+          "top1": 0.6667
+        },
+        "kowhai": {
+          "n": 7,
+          "top1": 0.1429
+        },
+        "moth_plant": {
+          "n": 7,
+          "top1": 0.0
+        },
+        "nikau": {
+          "n": 9,
+          "top1": 0.4444
+        },
+        "piwakawaka": {
+          "n": 14,
+          "top1": 0.5
+        },
+        "pohutukawa": {
+          "n": 7,
+          "top1": 0.2857
+        },
+        "silver_fern": {
+          "n": 5,
+          "top1": 0.8
+        },
+        "song_thrush": {
+          "n": 7,
+          "top1": 0.2857
+        },
+        "starling": {
+          "n": 7,
+          "top1": 0.1429
+        },
+        "tauhou": {
+          "n": 7,
+          "top1": 0.4286
+        },
+        "ti_kouka": {
+          "n": 15,
+          "top1": 0.2
+        },
+        "tradescantia": {
+          "n": 9,
+          "top1": 0.1111
+        },
+        "tui": {
+          "n": 8,
+          "top1": 0.75
+        },
+        "wild_ginger": {
+          "n": 6,
+          "top1": 0.3333
+        },
+        "woolly_nightshade": {
+          "n": 6,
+          "top1": 0.5
+        }
+      },
+      "top1_val_accuracy": 0.3067,
+      "top3_val_accuracy": 0.6135
+    }
+  },
+  "run_id": "20260911T175523-39433",
+  "split_protocol_sha256": "b302c5b82f194d59",
+  "test_split_read": false,
+  "validation_images": 163
+}

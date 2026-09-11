@@ -1,0 +1,61 @@
+name: fieldsnap
+description: "FieldSnap NZ - offline Android-first field guide / species classification prototype (the course Milestone 2, Iteration 0)."
+publish_to: "none"
+version: 0.1.0+1
+
+# Dart SDK constraint follows the Flutter stable channel used for this project
+# (Flutter 3.47.3 ships Dart 3.13.3). See README.md "Environment" for the recorded
+# version decision, and docs/iteration0_report.md for what was verified.
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Official Flutter team plugin used only to hand back ONE already-existing local
+  # image (Android Photo Picker). No camera capture is wired up in Iteration 0.
+  # Reason for depending on it: the task forbids faking the picker and a plugin is
+  # less code/risk than a hand-written platform channel.
+  image: ^4.9.2
+  image_picker: ^1.2.3
+  # LiteRT/TFLite binding selected in Milestone 1 (§3) for on-device inference.
+  # Only lib/services/tflite_inference_engine.dart imports it.
+  path: ^1.9.1
+  sqflite: ^2.4.4
+  tflite_flutter: ^0.12.1
+
+dependency_overrides:
+  # See third_party/tflite_flutter/README-FIELDSNAP.md: the upstream plugin does not apply
+  # a Kotlin plugin, which breaks the Android build under AGP 9 / Flutter 3.47.
+  tflite_flutter:
+    path: third_party/tflite_flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    # Bundled model assets. The .tflite binaries are git-ignored and produced by
+    # tools/train_and_export.py; class_indices.json is committed so the label order
+    # stays auditable in review. Only the INT8 model ships in the app; the float model
+    # stays in artifacts/ for comparison and for the cross-language test.
+    # FP32 is the deployment baseline; INT8 ships too so the experimental comparison and the
+    # conformance tests can run from a plain clone (docs/model_selection.md).
+    - assets/models/fieldsnap_float.tflite
+    - assets/models/fieldsnap_int8.tflite
+    - assets/models/class_indices.json
+    # FR5 offline learning-card content (all 20 species).
+    - assets/data/species_cards.json
+    # One CC0 reference photo, bundled only so the on-device inference test can feed the
+    # real model on a device (see integration_test/on_device_inference_test.dart).
+    - assets/test/reference_sample.jpg
+    # Pre-generated model input tensor (float32, [-1,1]) from the Python reference pipeline.
+    # The on-device runtime test feeds this exact tensor to the bundled model so a
+    # Python/Android execution difference cannot hide behind a preprocessing difference.
+    - assets/test/reference_input.f32
+    - assets/test/reference_output.json

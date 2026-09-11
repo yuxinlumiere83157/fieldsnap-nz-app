@@ -1,0 +1,52 @@
+== FieldSnap NZ emulator verification ==
+date: 2026-09-11 15:26:58 NZST
+
+--- emulator ---
+avd: fieldsnap_api36 (device profile pixel_6, 2 GB -> 3072 MB RAM, 384 MB heap)
+android release: 16
+sdk/api level: 36
+abi: arm64-v8a
+model: sdk_gphone64_arm64
+serial: emulator-5554
+
+--- install ---
+Performing Streamed Install
+Success
+packaged minSdk: minSdkVersion:'26'
+
+--- step 1: launch ---
+top activity: nz.fieldsnap.app/.MainActivity
+screenshot: docs/logs/emulator_01_initial.png
+
+--- step 2: tap Select image (236,1409) ---
+top activity: com.google.android.photopicker/com.android.photopicker.MainActivity
+screenshot: docs/logs/emulator_02_picker.png
+
+--- step 3: pick the second grid cell (blue sample) ---
+top activity: nz.fieldsnap.app/.MainActivity
+MediaProvider open lines:
+    09-11 15:27:15.244  1689  3339 I MediaProvider: Open with lower FS for /storage/emulated/0/Pictures/FieldSnap/green_1280x960.jpg. Uid: 10198
+screenshot: docs/logs/emulator_03_preview.png
+
+--- step 4: tap Replace image (236,1710), pick first grid cell (red sample) ---
+picker top activity: com.google.android.photopicker/com.android.photopicker.MainActivity
+screenshot: docs/logs/emulator_04_replaced.png
+
+--- step 5: open picker, press Back (cancel) ---
+picker top activity: com.google.android.photopicker/com.android.photopicker.MainActivity
+after cancel top activity: nz.fieldsnap.app/.MainActivity
+screenshot: docs/logs/emulator_05_after_cancel.png
+
+--- step 6: tap Clear selection (716,1710) ---
+screenshot: docs/logs/emulator_06_cleared.png
+
+--- crashes / Flutter errors in logcat during the run ---
+matching lines: 0
+
+--- screenshot hashes ---
+042655ba165ad7b510d9ec045bde182cf04911ed612586828d324914f60c2fe8  docs/logs/emulator_01_initial.png
+e11a43ec594ec77020c3c554973bdd8567ca2370cc9a8ee781a836d1cd917ba4  docs/logs/emulator_02_picker.png
+a59a99e8e997b524a968c3d6a2a99a113c285b2ae7b7b557d3b7058dcce00ff2  docs/logs/emulator_03_preview.png
+9cd9a4bd5a46c0d8cac727344f2e1f38741f9b95748849d393f02b4e0988abcc  docs/logs/emulator_04_replaced.png
+9cd9a4bd5a46c0d8cac727344f2e1f38741f9b95748849d393f02b4e0988abcc  docs/logs/emulator_05_after_cancel.png
+dcbeb9eea4dd147df45dcd9fa22e09da02201300d6ee4f8e52cd1c86f7906daa  docs/logs/emulator_06_cleared.png

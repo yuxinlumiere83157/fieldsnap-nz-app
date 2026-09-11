@@ -1,0 +1,53 @@
+{
+  "note": "logical layout of the synthetic fixtures, in 224x224 coordinates after orientation",
+  "regions": [
+    {
+      "name": "red_left_upper",
+      "x": [
+        20,
+        60
+      ],
+      "y": [
+        20,
+        90
+      ],
+      "expect": "R dominant"
+    },
+    {
+      "name": "blue_right_lower",
+      "x": [
+        160,
+        210
+      ],
+      "y": [
+        130,
+        200
+      ],
+      "expect": "B dominant"
+    },
+    {
+      "name": "green_left_lower",
+      "x": [
+        10,
+        60
+      ],
+      "y": [
+        180,
+        215
+      ],
+      "expect": "G dominant"
+    },
+    {
+      "name": "grey_top_right",
+      "x": [
+        170,
+        215
+      ],
+      "y": [
+        10,
+        60
+      ],
+      "expect": "neutral/dark"
+    }
+  ]
+}

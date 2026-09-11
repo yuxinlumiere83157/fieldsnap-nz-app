@@ -1,0 +1,141 @@
+{
+  "classes": 20,
+  "frozen_at": "2026-09-11T16:02:15+12:00",
+  "grouping": "observation",
+  "images": 1199,
+  "licence_policy": [
+    "cc0",
+    "cc-by"
+  ],
+  "manifest_sha256": "feb9cdaf06fe10819cafbd0e8af64edffe11a384f4e0efa3f1e9d2a47cf04224",
+  "observations": 614,
+  "per_class": {
+    "blackbird": {
+      "observations": 18,
+      "test": 4,
+      "train": 45,
+      "val": 11
+    },
+    "common_myna": {
+      "observations": 26,
+      "test": 7,
+      "train": 46,
+      "val": 7
+    },
+    "harakeke": {
+      "observations": 40,
+      "test": 9,
+      "train": 43,
+      "val": 8
+    },
+    "house_sparrow": {
+      "observations": 29,
+      "test": 12,
+      "train": 44,
+      "val": 4
+    },
+    "kereru": {
+      "observations": 32,
+      "test": 7,
+      "train": 43,
+      "val": 10
+    },
+    "korimako": {
+      "observations": 24,
+      "test": 13,
+      "train": 38,
+      "val": 9
+    },
+    "kowhai": {
+      "observations": 33,
+      "test": 8,
+      "train": 45,
+      "val": 7
+    },
+    "moth_plant": {
+      "observations": 26,
+      "test": 10,
+      "train": 43,
+      "val": 7
+    },
+    "nikau": {
+      "observations": 31,
+      "test": 10,
+      "train": 41,
+      "val": 9
+    },
+    "piwakawaka": {
+      "observations": 29,
+      "test": 9,
+      "train": 37,
+      "val": 14
+    },
+    "pohutukawa": {
+      "observations": 34,
+      "test": 8,
+      "train": 45,
+      "val": 7
+    },
+    "silver_fern": {
+      "observations": 33,
+      "test": 14,
+      "train": 41,
+      "val": 5
+    },
+    "song_thrush": {
+      "observations": 30,
+      "test": 5,
+      "train": 48,
+      "val": 7
+    },
+    "starling": {
+      "observations": 40,
+      "test": 11,
+      "train": 42,
+      "val": 7
+    },
+    "tauhou": {
+      "observations": 32,
+      "test": 17,
+      "train": 36,
+      "val": 7
+    },
+    "ti_kouka": {
+      "observations": 37,
+      "test": 9,
+      "train": 36,
+      "val": 15
+    },
+    "tradescantia": {
+      "observations": 45,
+      "test": 9,
+      "train": 42,
+      "val": 9
+    },
+    "tui": {
+      "observations": 23,
+      "test": 3,
+      "train": 49,
+      "val": 8
+    },
+    "wild_ginger": {
+      "observations": 26,
+      "test": 9,
+      "train": 44,
+      "val": 6
+    },
+    "woolly_nightshade": {
+      "observations": 26,
+      "test": 13,
+      "train": 41,
+      "val": 6
+    }
+  },
+  "ratios": {
+    "test": 0.15,
+    "train": 0.7,
+    "val": 0.15
+  },
+  "seed": 20260911,
+  "test_split_status": "sealed - not to be read until the final evaluation"
+}
