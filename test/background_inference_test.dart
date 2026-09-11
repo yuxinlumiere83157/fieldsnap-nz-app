@@ -63,9 +63,18 @@ void main() {
     });
 
     test('the engine validates the model contract before any inference', () async {
-      final File model = File('artifacts/fieldsnap_float.tflite');
+      // Prefer the **shipped** model, which is the one users run and therefore the one whose
+      // contract must hold. The earlier version only looked at the uncommitted training artefact,
+      // so on any machine without it (including a fresh clone) the shipped model's contract was
+      // never verified at all. The training artefact is still preferred when present, because it is
+      // the model the calibration artefacts describe.
+      final File research = File('artifacts/fieldsnap_float.tflite');
+      final File model = research.existsSync()
+          ? research
+          : File('assets/models/fieldsnap_float.tflite');
       if (!model.existsSync()) {
-        markTestSkipped('artifacts/fieldsnap_float.tflite absent (training artefacts only)');
+        markTestSkipped('no float model available: neither the training artefact nor the shipped '
+            'asset is present');
         return;
       }
       if (!_hostTfliteLibraryAvailable()) {

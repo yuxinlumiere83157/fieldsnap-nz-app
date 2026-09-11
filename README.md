@@ -23,7 +23,7 @@ baseline; this repository records what has actually been built, with the failure
 | Cancel without losing state | implemented + tested | `test/classifier_view_model_test.dart` |
 | Read/unsupported/plugin failure handling | implemented + tested | `test/capture_screen_test.dart` |
 | Static analysis | **verified clean** — `flutter analyze`: No issues found | `docs/iteration0_report.md` §3 |
-| Automated tests | **verified** — `flutter test`: 102 passed, 5 skipped (calibration harnesses need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
+| Automated tests | **verified** — `flutter test`: 103 passed, 4 skipped (three opt-in calibration/evaluation harnesses and one research comparison need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
 | Android debug build | **verified** — `flutter build apk --debug` succeeded | `docs/logs/iteration0_build_debug_apk.log` |
 | Android emulator run of the whole Iteration 0 flow | **verified on emulator** (API 36 arm64, Pixel 6 profile): real Photo Picker, preview, replace, cancel, clear, zero crashes | `docs/emulator_verification.md`, `docs/logs/emulator_*.png` |
 | Camera capture (FR1, second half) | **implemented and verified on hardware** — capture, cancellation and permission-refusal recovery all exercised on the Pixel 8 | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_0*.png` |
@@ -136,7 +136,7 @@ in the status table above:
 | Command | Result |
 | --- | --- |
 | `flutter analyze` | `No issues found!` (re-run after every change; the current suite is 34 tests) |
-| `flutter test` | 30 passed at the end of the first iteration, 34 after the import guards; **102 passed / 5 skipped** at the current commit |
+| `flutter test` | 30 passed at the end of the first iteration, 34 after the import guards; **103 passed / 4 skipped** at the current commit |
 | `flutter build apk --debug` | succeeded in 226.5 s → `build/app/outputs/flutter-apk/app-debug.apk` (144 MB; a debug APK is not the NFR4 package metric) |
 | `flutter doctor -v` (historical) | Flutter valid; Android SDK found (SDK 36.0.0) but `cmdline-tools` missing and doctor could not confirm licence status; CocoaPods missing (irrelevant, Android-only) |
 | Physical-device run (historical) | not performed — no Android phone attached. An Android 16 emulator run was completed later; see `docs/emulator_verification.md` |
