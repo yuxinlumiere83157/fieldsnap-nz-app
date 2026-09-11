@@ -1,13 +1,14 @@
 # FieldSnap NZ
 
-Offline, Android-first species recognition prototype for beginner nature learners in
-Auckland. This repository is at **Iteration 0**: project skeleton, one-image import
-with preview, tests, and honest documentation. **No model is bundled yet and the app
-performs no species recognition.**
+Offline, Android-first species recognition prototype for beginner nature learners in Auckland.
+Single-image import, an image-quality gate, on-device LiteRT/TFLite classification with top-3 and a
+confidence threshold, offline learning cards for all 20 classes, and local SQLite history. No network
+call and no image upload: the chosen photo is never stored.
 
-Course context: the course Milestone 2 development artefacts (Flutter UI + on-device
-LiteRT/TFLite inference + local history). Milestone 1 is the design baseline; this
-repository records what has actually been built so far.
+The classifier is **bundled and working, and its accuracy is modest and reported honestly**: the
+frozen FP32 model reaches top-1 **0.5561** on the sealed held-out test split, so all four Milestone 1
+acceptance targets are **not met** (`docs/final_test_evaluation_report.md`). Milestone 1 is the design
+baseline; this repository records what has actually been built, with the failures left visible.
 
 ---
 
@@ -22,15 +23,15 @@ repository records what has actually been built so far.
 | Cancel without losing state | implemented + tested | `test/classifier_view_model_test.dart` |
 | Read/unsupported/plugin failure handling | implemented + tested | `test/capture_screen_test.dart` |
 | Static analysis | **verified clean** — `flutter analyze`: No issues found | `docs/iteration0_report.md` §3 |
-| Automated tests | **verified** — `flutter test`: 30 tests passed | `test/` |
+| Automated tests | **verified** — `flutter test`: 102 passed, 5 skipped (calibration harnesses need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
 | Android debug build | **verified** — `flutter build apk --debug` succeeded | `docs/logs/iteration0_build_debug_apk.log` |
 | Android emulator run of the whole Iteration 0 flow | **verified on emulator** (API 36 arm64, Pixel 6 profile): real Photo Picker, preview, replace, cancel, clear, zero crashes | `docs/emulator_verification.md`, `docs/logs/emulator_*.png` |
-| Camera capture (FR1, second half) | **not implemented** | — |
-| Image quality gate (FR2) | **not implemented** | — |
-| Local classification / top-3 / confidence (FR3) | **not implemented**; the app reports `modelUnavailable` | `lib/services/unavailable_species_classifier.dart` |
-| Uncertain threshold (FR4) | **not implemented** | — |
-| Learning cards (FR5) | **not implemented** | — |
-| History persistence (FR6) | **not implemented** | — |
+| Camera capture (FR1, second half) | **implemented and verified on hardware** — capture, cancellation and permission-refusal recovery all exercised on the Pixel 8 | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_0*.png` |
+| Image quality gate (FR2) | **implemented, calibrated and frozen** — brightness 0.26–0.89, Laplacian variance ≥ 100.0; verification subset: dark recall 1.000, blurred 0.988, false rejection 0.012 | `docs/quality_gate_calibration_protocol.md`, `artifacts/quality_gate_verification.json` |
+| Local classification / top-3 / confidence (FR3) | **implemented** — FP32 `.tflite` runs off the UI isolate; top-3 and confidence displayed | `lib/services/on_device_species_classifier.dart`, `lib/services/background_runner.dart` |
+| Uncertain threshold (FR4) | **implemented, calibrated and frozen at 0.37** (margin rule off) — coverage 0.712, accepted accuracy 0.595; the 0.90 target is **not** met | `docs/confidence_threshold_calibration_protocol.md`, `artifacts/confidence_threshold_calibration.json` |
+| Learning cards (FR5) | **implemented** — structured cards for all 20 classes, with a test asserting full coverage | `assets/data/species_cards.json`, `lib/services/species_cards.dart` |
+| History persistence (FR6) | **implemented** — SQLite save/view/delete/clear, no photograph and no file path stored | `lib/services/sqflite_history_repository.dart`, `docs/history.md` |
 | Physical-device verification | **verified on a Google Pixel 8 (Android 17, API 37)** — full workflow, latency protocol and release size measured on hardware | `docs/physical_device_run.md` |
 | Camera capture on hardware | **not run** — the camera path is implemented and stub-tested; no photo was taken with a physical camera | `docs/iteration_2_report.md` §3 |
 | Candidate species list (~20 Auckland classes) | **candidate only** — 10 birds + 10 plants with sources and licence status | `docs/species_candidates.md` |
@@ -43,9 +44,11 @@ repository records what has actually been built so far.
 
 Anything not listed as implemented above is still planned work.
 
-**Scope of the "no invented results" claim**: this build performs no species inference and
-generates no predictions, so no species name, confidence value, latency, accuracy figure or
-usability number is produced or displayed anywhere in the app. The code, tests and
+**Scope of the "no invented results" claim**: the app now performs real on-device inference, so it
+does display species names and confidence values — they come from the bundled model, and the
+measured error rate is stated above rather than hidden. No accuracy, latency or usability figure in
+this repository is invented or estimated from anything other than a command that was actually run.
+The code, tests and
 documentation were produced by the author with **AI coding assistance** (used as a
 programming reference and for optimisation, with all output reviewed and verified by the
 author); that is recorded in `docs/progress.md` and is a separate matter from inventing
@@ -114,7 +117,7 @@ flutter devices
 flutter run -d <device-id>
 ```
 
-Or on the Android emulator used for Iteration 0 verification:
+Or on the Android emulator used for the earlier verification runs:
 
 ```sh
 SDK="$HOME/Library/Android/sdk"
@@ -133,12 +136,12 @@ in the status table above:
 | Command | Result |
 | --- | --- |
 | `flutter analyze` | `No issues found!` (re-run after every change; the current suite is 34 tests) |
-| `flutter test` | `30 tests passed` at this point; `34 tests passed` after the import guards and extra adapter cases were added |
+| `flutter test` | 30 passed at the end of the first iteration, 34 after the import guards; **102 passed / 5 skipped** at the current commit |
 | `flutter build apk --debug` | succeeded in 226.5 s → `build/app/outputs/flutter-apk/app-debug.apk` (144 MB; a debug APK is not the NFR4 package metric) |
 | `flutter doctor -v` (historical) | Flutter valid; Android SDK found (SDK 36.0.0) but `cmdline-tools` missing and doctor could not confirm licence status; CocoaPods missing (irrelevant, Android-only) |
 | Physical-device run (historical) | not performed — no Android phone attached. An Android 16 emulator run was completed later; see `docs/emulator_verification.md` |
 
-There is no web, iOS, macOS, Linux or Windows target in this repository; Iteration 0
+There is no web, iOS, macOS, Linux or Windows target in this repository; the first iteration
 is Android-only by design. `flutter create --platforms=<other>` would be needed to
 add one.
 
@@ -156,7 +159,7 @@ lib/
     image_input.dart                         # ImageInput boundary (replaceable)
     file_system_image_input.dart             # real adapter: platform Photo Picker
     species_classifier.dart                  # SpeciesClassifier boundary
-    unavailable_species_classifier.dart      # honest "no model yet" implementation
+    unavailable_species_classifier.dart      # honest "model unavailable" fallback, still used if the asset fails to load
     classification_result.dart               # candidates / typed failure
   viewmodels/
     classifier_view_model.dart               # ClassifierState + commands (ChangeNotifier)
