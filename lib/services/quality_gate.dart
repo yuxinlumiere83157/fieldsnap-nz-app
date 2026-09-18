@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:image/image.dart' as img;
 
+import '../models/picked_image.dart';
+
 /// Configuration for the FR2 image-quality gate.
 ///
 /// Thresholds live here (injected, not hard-coded) so they can be tuned from evidence and so
@@ -139,9 +141,8 @@ class ImageQualityGate {
   final QualityGateConfig config;
 
   /// Evaluates an accepted image file. Never throws: an undecodable image is a reported failure.
-  QualityDecision evaluateFile(dynamic pickedImage) {
-    final String path = pickedImage.path as String;
-    return evaluate(File(path).readAsBytesSync());
+  QualityDecision evaluateFile(PickedImage pickedImage) {
+    return evaluate(File(pickedImage.path).readAsBytesSync());
   }
 
   /// Evaluates [encodedImage]. Never throws.

@@ -36,38 +36,3 @@ class ModelLabels {
     return ModelLabels(classes);
   }
 }
-
-/// Maps a model label (`class_slug`, e.g. `kereru`) to display text.
-///
-/// Kept separate from the label order: FR5's learning-card content will replace this
-/// lookup later, and the classifier must not depend on presentation strings.
-class SpeciesDisplayNames {
-  const SpeciesDisplayNames(this.bySlug);
-
-  final Map<String, String> bySlug;
-
-  static const Map<String, String> defaults = <String, String>{
-    'tui': 'Tūī',
-    'kereru': 'Kererū',
-    'piwakawaka': 'Pīwakawaka',
-    'tauhou': 'Tauhou (silvereye)',
-    'korimako': 'Korimako',
-    'house_sparrow': 'House sparrow',
-    'blackbird': 'Common blackbird',
-    'song_thrush': 'Song thrush',
-    'starling': 'Common starling',
-    'common_myna': 'Common myna',
-    'pohutukawa': 'Pōhutukawa',
-    'ti_kouka': 'Tī kōuka (cabbage tree)',
-    'harakeke': 'Harakeke (NZ flax)',
-    'silver_fern': 'Silver fern',
-    'nikau': 'Nīkau',
-    'kowhai': 'Kōwhai',
-    'tradescantia': 'Tradescantia',
-    'woolly_nightshade': 'Woolly nightshade',
-    'wild_ginger': 'Wild ginger',
-    'moth_plant': 'Moth plant',
-  };
-
-  String display(String slug) => bySlug[slug] ?? slug;
-}

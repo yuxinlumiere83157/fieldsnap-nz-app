@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 /// One saved identification (FR6).
 ///
 /// **No photograph is stored.** The record keeps the derived data only: what was predicted, how
@@ -181,6 +179,3 @@ class InMemoryHistoryRepository implements HistoryRepository {
   /// Test helper: the stored rows, for assertions about what was persisted.
   List<HistoryRecord> get debugRecords => List<HistoryRecord>.unmodifiable(_records);
 }
-
-/// Serialises a record for a log line without leaking anything unexpected.
-String describeRecordForLog(HistoryRecord record) => json.encode(record.toJson());

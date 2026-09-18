@@ -33,7 +33,7 @@ class ImagePreprocessor {
   ///
   /// Exposed separately so tests can exercise the conversion without touching disk.
   ///
-  /// EXIF orientation is applied by [applyExifOrientation] rather than
+  /// EXIF orientation is applied by [applyExifOrientationSafely] rather than
   /// `img.bakeOrientation`. The package's version disagrees with the EXIF specification for
   /// orientation 6: it rotates the stored pixels 90 degrees counter-clockwise (see
   /// `_rotate90` in the package's `copy_rotate.dart`, which maps source `(y, h-1-x)` to
@@ -129,27 +129,17 @@ bool _decoderAlreadyOriented(int tag, img.Image decoded, Uint8List encodedBytes)
   return true;
 }
 
-/// Applies the EXIF orientation tag the way the specification and Pillow define it.
+/// The orientation transform for a given EXIF value, without touching EXIF metadata.
 ///
 /// Values follow the EXIF spec: 1 = as stored, 2 = mirrored horizontally, 3 = rotated 180,
 /// 4 = mirrored vertically, 5 = mirrored then rotated 270 CW, 6 = rotated 90 CW,
 /// 7 = mirrored then rotated 90 CW, 8 = rotated 270 CW. Unknown values are left alone.
-img.Image applyExifOrientation(img.Image image, [Uint8List? encodedBytes]) {
-  // Prefer the encoded bytes: the `image` package's decoders do not populate EXIF at all, so
-  // `image.exif.imageIfd.orientation` is null in practice (see exif_orientation.dart).
-  final int? orientation = encodedBytes == null
-      ? image.exif.imageIfd.orientation
-      : readExifOrientation(encodedBytes);
-  if (orientation == null || orientation < 2 || orientation > 8) {
-    return image;
-  }
-  return applyOrientationValue(image, orientation);
-}
-
-/// The orientation transform for a given EXIF value, without touching EXIF metadata.
-///
 /// Split out so it can be unit tested directly against Pillow-derived fixtures. Note the
 /// convention: in the `image` package `copyRotate(angle: 90)` rotates **clockwise**.
+///
+/// Callers must go through [applyExifOrientationSafely], which skips the transform when the
+/// decoder already applied it; applying a tag twice is the double-rotation defect this file
+/// documents above.
 img.Image applyOrientationValue(img.Image image, int orientation) {
   switch (orientation) {
     case 1:

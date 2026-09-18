@@ -1,10 +1,5 @@
 import 'dart:async';
 import 'dart:isolate';
-import 'dart:typed_data';
-
-import '../models/picked_image.dart';
-import 'classification_result.dart';
-import 'species_classifier.dart';
 
 /// Runs a piece of work off the Flutter UI isolate.
 ///
@@ -53,106 +48,8 @@ class InlineBackgroundRunner implements BackgroundRunner {
   }
 }
 
-/// The transferable payload for one classification: the accepted image and the model to use.
-class ClassificationRequest {
-  const ClassificationRequest({
-    required this.imagePath,
-    required this.modelBytes,
-    required this.labels,
-    this.modelLabel = 'model',
-  });
-
-  final String imagePath;
-
-  /// Raw `.tflite` bytes, so the isolate needs no Flutter asset bundle.
-  final Uint8List modelBytes;
-
-  /// Label order, exactly as recorded with the model.
-  final List<String> labels;
-
-  /// Human-readable model name, echoed back in the result for the history record.
-  final String modelLabel;
-}
-
-/// Outcome of one background classification, transferable across the isolate boundary.
-class BackgroundClassification {
-  const BackgroundClassification({
-    required this.probabilities,
-    required this.labels,
-    required this.modelLabel,
-    this.failureReason,
-    this.failureDetail,
-  });
-
-  final List<double> probabilities;
-  final List<String> labels;
-  final String modelLabel;
-  final String? failureReason;
-  final String? failureDetail;
-
-  bool get isSuccess => failureReason == null;
-}
-
 /// Reasons this layer can report without importing the inference implementation.
 class BackgroundFailure {
   static const String invalidInput = 'invalidInput';
   static const String inferenceFailed = 'inferenceFailed';
-}
-
-/// Signature of the function that actually runs inside the background isolate.
-///
-/// Kept as a function type so tests can substitute a deterministic implementation.
-typedef ClassifyInBackground = Future<BackgroundClassification> Function(
-    ClassificationRequest request);
-
-/// Classifier that performs preprocessing and inference on a background isolate and maps the
-/// result into the domain [ClassificationResult] used by the ViewModel.
-class BackgroundSpeciesClassifier implements SpeciesClassifier {
-  BackgroundSpeciesClassifier({
-    required BackgroundRunner runner,
-    required ClassifyInBackground classify,
-  })  : _runner = runner,
-        _classify = classify;
-
-  final BackgroundRunner _runner;
-  final ClassifyInBackground _classify;
-
-  ClassificationRequest? lastRequest;
-  int callCount = 0;
-
-  @override
-  bool get isModelAvailable => true;
-
-  /// True only when a real isolate is used. Surfaced so the UI/tests can state the fact instead
-  /// of assuming it.
-  bool get usesIsolate => _runner.isIsolate;
-
-  @override
-  Future<ClassificationResult> classify(PickedImage image) async {
-    callCount += 1;
-    try {
-      final BackgroundClassification outcome =
-          await _runner.run<ClassificationRequest, BackgroundClassification>(
-        _classify,
-        lastRequest!,
-      );
-      if (!outcome.isSuccess) {
-        return ClassificationResult.failure(
-          outcome.failureReason == BackgroundFailure.invalidInput
-              ? ClassificationFailureReason.invalidInput
-              : ClassificationFailureReason.inferenceFailed,
-          failureDetail: outcome.failureDetail,
-        );
-      }
-      return ClassificationResult.fromScores(
-        labels: outcome.labels,
-        scores: outcome.probabilities,
-      );
-    } catch (error) {
-      return ClassificationResult.failure(
-        ClassificationFailureReason.inferenceFailed,
-        failureDetail: '$error',
-      );
-    }
-  }
 }
