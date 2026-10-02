@@ -89,3 +89,7 @@ artifacts/*.keras
 *.zip
 # Model binaries are excluded individually above rather than by extension, so the one
 # model that ships (assets/models/fieldsnap_int8.tflite) can be committed on purpose.
+
+# Generated print pack for the usability sessions (derived from the frozen kit).
+# Regenerate with: python3 tools/usability/make_print_pack.py
+docs/usability/printable/

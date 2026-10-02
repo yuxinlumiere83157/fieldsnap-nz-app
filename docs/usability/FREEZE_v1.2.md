@@ -72,3 +72,9 @@ record now carries a superseded banner and this file is the record in force. The
 defect in the v1.1 *criteria* — only in the stimulus and the reset command — so the measurement
 instrument is carried over unchanged apart from the items listed above.
 
+**Not in the frozen set, and why.** `tools/usability/verify_kit_freeze.py` and
+`tools/usability/make_print_pack.py` are development tooling, not study instruments: the verifier is
+the checker itself (it must be able to change when the record does), and the print pack only *renders*
+the frozen forms without writing them back — generating it leaves every hash above unchanged. Freezing
+them would mean the hash record had to be edited every time a rendering bug was fixed, which is the
+opposite of what the record is for.
