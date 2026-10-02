@@ -20,9 +20,23 @@ What it checks:
    The first run of this self-test failed on all three of those expectations while the scoring
    function was correct — the expectations had been written from memory. They are now derived in the
    comment beside them, which is the point of having the check before any session runs.
-2. **Criterion logic** — with 9 of 10 task-1 successes, mean SUS ≥ 70 and no critical errors, all three
-   criteria report met; flipping any one input flips exactly that criterion to not met.
-3. **Aggregation** — medians and ranges over task times, intervention and error totals.
+2. **Criterion logic** — at the five-participant target, five successful participants report all three
+   criteria met, and flipping one input flips exactly that criterion to not met. The boundary that
+   matters is the ≥ 90 % applied at n = 5: 90 % of 5 is 4.5, so the requirement is **5/5**, and a
+   **4/5** sample is `not_met`, not met. The script derives the required count from the target
+   (`required_successes`) rather than hard-coding it, and the test pins that derivation down.
+3. **Incremental intake (protocol v1.2)** — sessions accumulate one at a time, so the interim states
+   are tested explicitly:
+   * **one** valid sheet → `status = INTERIM`, C1/C2/C3 all `not_evaluable`, `met` is `None`, the
+     participant's own SUS score and per-task results are still reported, and the human-readable
+     summary says `INTERIM` and never prints a criterion as `MET`;
+   * **four** valid sheets → still `INTERIM`, because the target is five, not because of the
+     arithmetic (4/4 would be 100 %);
+   * **five** valid sheets → `status = COMPLETE` and the criteria get real verdicts;
+   * an empty folder → `NO_SESSIONS` with no criteria verdict, so nothing is invented.
+   This is the regression guard for the rule that one participant is an individual result and never a
+   usability verdict (protocol §2, §10.1).
+4. **Aggregation** — medians and ranges over task times, intervention and error totals.
 
 Run it with:
 

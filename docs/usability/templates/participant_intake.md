@@ -18,8 +18,8 @@ Use the pseudonymous id only. **Never write a name, phone number, email or devic
 | Consent: audio recording (default **not** recorded; explicit separate yes required) | not recorded / yes |
 | Consent: anonymous aggregates and de-identified quotations may appear in the assessed report and public docs | yes / no |
 | Withdrew (delete this sheet if yes) | no / yes |
-| Clean reset performed before this session (protocol 4.1) | yes / no |
+| Clean reset performed before this session (protocol §4.1) | yes / no |
 | Reset step that could not be completed, if any | |
 | Exclusion applied (protocol §4) | no / technical failure / withdrawal — reason: |
-| Prepared photos in gallery | photo A: (describe, e.g. "garden shrub, own photo"), photo B: (unsuitable) |
+| Prepared photos in gallery | task1_subject.jpg (ordinary) + task2_unsuitable.jpg (unsuitable) — the two fixed committed images, SHA recorded in the runbook; no personal photos |
 | Facilitator initials | (initials only, not a full name) |

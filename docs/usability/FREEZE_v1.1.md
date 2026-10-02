@@ -1,5 +1,10 @@
 # Usability protocol v1.1 — freeze record
 
+> **SUPERSEDED by v1.2 (`docs/usability/FREEZE_v1.2.md`), declared 2026-10-02.** This v1.1 record is
+> kept as history. Its hashes are historical and are **not** the current freeze — run
+> `python3 tools/usability/verify_kit_freeze.py`, which checks the v1.2 record.
+
+
 Declared: **v1.1**, 2026-09-11. No participant has been recruited, contacted
 or tested. Nothing in the kit contains participant data.
 

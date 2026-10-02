@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Verifies that the usability kit still matches the v1.1 freeze record.
+"""Verifies that the usability kit still matches the v1.2 freeze record.
 
-Reads the hash table from docs/usability/FREEZE_v1.1.md and recomputes every hash. Exits non-zero if
+Reads the hash table from docs/usability/FREEZE_v1.2.md and recomputes every hash. Exits non-zero if
 any frozen file changed, appeared or disappeared. Editing an instrument mid-study is exactly the kind
 of thing that should fail loudly.
 """
@@ -13,7 +13,7 @@ import re
 import sys
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
-RECORD = REPO / "docs/usability/FREEZE_v1.1.md"
+RECORD = REPO / "docs/usability/FREEZE_v1.2.md"
 ROW = re.compile(r"^\|\s*`([^`]+)`\s*\|\s*(\d+)\s*\|\s*`([0-9a-f]{64})`\s*\|", re.MULTILINE)
 
 
@@ -47,7 +47,7 @@ def main() -> int:
         for problem in problems:
             print("  " + problem)
         return 1
-    print(f"freeze intact: {len(expected)} files match docs/usability/FREEZE_v1.1.md")
+    print(f"freeze intact: {len(expected)} files match docs/usability/FREEZE_v1.2.md")
     return 0
 
 

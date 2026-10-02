@@ -14,6 +14,11 @@ the second. Record the app's own words verbatim where asked.
 Task read verbatim from the protocol §5. Intervention only with "please try whatever you would
 naturally do".
 
+The task asks the participant to identify the photo **and open the information card**. The learning
+card is displayed on the current page once a result exists, so do not ask the participant to hunt for
+an "open page" button that does not exist; record `learning_card_opened` as whether they reached and
+viewed the card's information.
+
 | Field | Value |
 | --- | --- |
 | started_at | HH:MM:SS |

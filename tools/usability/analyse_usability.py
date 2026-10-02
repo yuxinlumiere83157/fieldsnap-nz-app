@@ -1,23 +1,31 @@
 #!/usr/bin/env python3
-"""Usability-evaluation analysis (Iteration 4).
+"""Usability-evaluation analysis (Iteration 4; incremental intake, protocol v1.2).
 
 Reads the filled-in per-participant session sheets from docs/usability/results/ and produces the
 aggregate figures required by docs/usability_evaluation_protocol.md: task success, completion times,
 errors, interventions, critical errors, the standard SUS score, and the pre-registered criteria C1-C3.
 
+Sessions are accumulated **one participant at a time** and the folder is read as-is, so a new sheet is
+picked up simply by re-running the script. The recruitment target is five (protocol v1.2). Below that
+target the output is an INTERIM, individual report: the participant's own results and SUS score are
+shown, while C1-C3 are marked `not_evaluable` rather than met or not met, and the summary states that
+the evaluation is not complete. At or above the target the criteria get real verdicts and the status
+becomes COMPLETE. A single participant is therefore never reported as a usability verdict.
+
 No results exist when this was written, and the script does not invent any: with an empty results
 folder it reports "no sessions found" and exits without a report. `--self-test` validates the
-arithmetic and criterion logic against hand-computed synthetic sheets in a temporary directory; that
-is a code check, never published as study data (see docs/usability/SELF_TEST.md).
+arithmetic, the interim/final boundary and the criterion logic against hand-computed synthetic sheets
+in a temporary directory; that is a code check, never published as study data (see
+docs/usability/SELF_TEST.md).
 
 Usage:
-  python3 tools/usability/analyse_usability.py            # analyse real sheets, print a summary
+  python3 tools/usability/analyse_usability.py            # analyse the sheets present, print a summary
   python3 tools/usability/analyse_usability.py --json out.json
   python3 tools/usability/analyse_usability.py --self-test
 """
 from __future__ import annotations
 
-import argparse, json, pathlib, re, statistics, sys, tempfile
+import argparse, json, math, pathlib, re, statistics, sys, tempfile
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 RESULTS = REPO / "docs" / "usability" / "results"
@@ -35,9 +43,19 @@ SUS_ITEMS = [
     "I needed to learn a lot of things before I could get going with this system.",
 ]
 
-C1_MIN_SUCCESS = 9      # out of 10
+# Recruitment target (protocol v1.2). The lecturer clarified that no fixed participant count applies
+# and that at least five classmates are recommended, so five is the target and the point at which
+# C1-C3 become evaluable. Pass marks are unchanged: >= 90 %, mean SUS >= 70, zero critical errors.
+TARGET_PARTICIPANTS = 5
+C1_MIN_RATE = 0.90      # >= 90 % of the recruited sample, applied as 5/5 at n = 5
 C2_MIN_MEAN_SUS = 70.0
 C3_MAX_CRITICAL = 0
+
+# Criterion verdicts. NOT_EVALUABLE is deliberately distinct from NOT_MET: an incomplete sample must
+# never be reported as a failed criterion (or, worse, an achieved one).
+MET = "met"
+NOT_MET = "not_met"
+NOT_EVALUABLE = "not_evaluable"
 
 
 def sus_score(answers: list[int]) -> float:
@@ -182,19 +200,41 @@ def _split_task_blocks(text: str) -> dict[str, str]:
     return blocks
 
 
+def required_successes(n: int) -> int:
+    """The count of Task 1 successes that satisfies >= 90 % at this sample size.
+
+    At the five-participant target 90 % of 5 = 4.5, so the requirement is 5/5: all five participants
+    must complete Task 1 unaided. Deriving this from the target instead of hard-coding "5 of 5" keeps
+    the requirement and the percentage from drifting apart if the sample size changes.
+    """
+    return math.ceil(C1_MIN_RATE * n)
+
+
+def _criterion(state: str, requirement: str, measured, met: bool | None, note: str = "") -> dict:
+    return {"requirement": requirement, "measured": measured, "state": state, "met": met, "note": note}
+
+
 def evaluate(sessions: list[dict]) -> dict:
     """Aggregates sessions and applies the pre-registered criteria C1-C3.
 
     Only sheets that pass `validate_session` count as participants. Invalid sheets are reported with
     their reasons and are excluded from every denominator, so a blank or half-filled template can
     never contribute a success.
+
+    Incremental behaviour (v1.2): sessions are accumulated one at a time. Below the recruitment
+    target the result is an INTERIM, individual report - the criteria are `not_evaluable`, not "met"
+    and not "not met" - so a single participant can never pass as a completed evaluation. At or above
+    the target every criterion gets its verdict and `met` is populated.
     """
     total = len(sessions)
     invalid = [s for s in sessions if not s.get("valid", False)]
     sessions = [s for s in sessions if s.get("valid", False)]
     n = len(sessions)
     if n == 0:
-        return {"sessions_submitted": total, "sessions_valid": 0, "criteria": {},
+        return {"status": "NO_SESSIONS", "sessions_submitted": total, "sessions_valid": 0,
+                "recruitment": {"target": TARGET_PARTICIPANTS, "participants": 0,
+                                "remaining": TARGET_PARTICIPANTS, "target_reached": False},
+                "criteria": {},
                 "invalid_sheets": [{"participant_id": s.get("participant_id"),
                                     "errors": s.get("validation_errors", [])} for s in invalid],
                 "note": "no valid sessions found; invalid sheets are listed and contribute nothing"}
@@ -205,26 +245,54 @@ def evaluate(sessions: list[dict]) -> dict:
     critical = sum(1 for s in sessions for t in s["tasks"].values() if t.get("critical_error"))
     interventions = sum(t.get("intervention_count") or 0 for s in sessions for t in s["tasks"].values())
     sus_scores = [s["sus_score"] for s in sessions if s.get("sus_score") is not None]
+    mean_sus = round(statistics.fmean(sus_scores), 2) if sus_scores else None
+
+    complete = n >= TARGET_PARTICIPANTS
+    need = required_successes(n)
+    note_incomplete = (f"interim: {n} of {TARGET_PARTICIPANTS} participants recruited; "
+                       f"criterion not yet evaluable")
+
+    def verdict(passed: bool) -> str:
+        """The state of one criterion: no verdict until the target sample size exists."""
+        if not complete:
+            return NOT_EVALUABLE
+        return MET if passed else NOT_MET
+
+    c1_met = successes >= need
+    c2_met = mean_sus is not None and mean_sus >= C2_MIN_MEAN_SUS
+    c3_met = critical == C3_MAX_CRITICAL
 
     criteria = {
-        "C1_task1_success_without_intervention": {
-            "requirement": f">= {C1_MIN_SUCCESS}/{n}",
-            "measured": f"{successes}/{n}",
-            "met": successes >= min(C1_MIN_SUCCESS, n) if n >= 10 else False,
-            "note": "" if n >= 10 else "fewer than 10 participants recruited; criterion not yet evaluable",
-        },
-        "C2_mean_sus": {
-            "requirement": f">= {C2_MIN_MEAN_SUS}",
-            "measured": round(statistics.fmean(sus_scores), 2) if sus_scores else None,
-            "met": bool(sus_scores) and statistics.fmean(sus_scores) >= C2_MIN_MEAN_SUS,
-        },
-        "C3_critical_errors": {
-            "requirement": f"== {C3_MAX_CRITICAL}",
-            "measured": critical,
-            "met": critical == C3_MAX_CRITICAL,
-        },
+        "C1_task1_success_without_intervention": _criterion(
+            verdict(c1_met),
+            f">= {int(C1_MIN_RATE * 100)}% of {TARGET_PARTICIPANTS} (i.e. {required_successes(TARGET_PARTICIPANTS)}/{TARGET_PARTICIPANTS})",
+            f"{successes}/{n}",
+            c1_met if complete else None,
+            "" if complete else note_incomplete),
+        "C2_mean_sus": _criterion(
+            verdict(c2_met), f">= {C2_MIN_MEAN_SUS}", mean_sus,
+            c2_met if complete else None,
+            "" if complete else note_incomplete),
+        "C3_critical_errors": _criterion(
+            verdict(c3_met), f"== {C3_MAX_CRITICAL}", critical,
+            c3_met if complete else None,
+            "" if complete else note_incomplete),
     }
-    return {
+
+    report = {
+        "status": "COMPLETE" if complete else "INTERIM",
+        "recruitment": {
+            "target": TARGET_PARTICIPANTS,
+            "participants": n,
+            "remaining": max(0, TARGET_PARTICIPANTS - n),
+            "target_reached": complete,
+            "note": ("recruitment target reached; this is the final evaluation"
+                     if complete else
+                     f"n = {n}, recruitment ongoing: this is an individual interim result, "
+                     f"not a usability verdict. {TARGET_PARTICIPANTS - n} more participant(s) needed "
+                     f"before C1-C3 can be evaluated."),
+        },
+        "individual_results": {s["participant_id"]: individual_report(s) for s in sessions},
         "sessions_submitted": total,
         "sessions_valid": n,
         "invalid_sheets": [{"participant_id": s.get("participant_id"),
@@ -239,12 +307,40 @@ def evaluate(sessions: list[dict]) -> dict:
         "interventions_total": interventions,
         "critical_errors_total": critical,
         "sus": {
-            "mean": round(statistics.fmean(sus_scores), 2) if sus_scores else None,
+            "mean": mean_sus,
             "median": statistics.median(sus_scores) if sus_scores else None,
             "per_participant": {s["participant_id"]: s["sus_score"] for s in sessions
                                 if s.get("sus_score") is not None},
         },
         "criteria": criteria,
+    }
+    if not complete:
+        report["interim"] = {
+            "participants": n,
+            "target": TARGET_PARTICIPANTS,
+            "individual_results": report["individual_results"],
+            "message": (f"INTERIM: n = {n} of {TARGET_PARTICIPANTS}. These are one participant's "
+                        f"results, not a completed evaluation. No NFR6 criterion is claimed met."),
+        }
+    return report
+
+
+def individual_report(session: dict) -> dict:
+    """One participant's own results, for the interim report and the final per-participant table."""
+    tasks = {}
+    for name, block in session.get("tasks", {}).items():
+        tasks[name] = {
+            "completed": block.get("completed"),
+            "success_without_intervention": block.get("success_without_intervention"),
+            "completion_time_s": block.get("completion_time_s"),
+            "intervention_count": block.get("intervention_count"),
+            "critical_error": block.get("critical_error"),
+        }
+    return {
+        "tasks": tasks,
+        "sus_score": session.get("sus_score"),
+        "sus_valid": session.get("sus_valid"),
+        "critical_errors": sum(1 for t in session.get("tasks", {}).values() if t.get("critical_error")),
     }
 
 
@@ -326,44 +422,96 @@ def self_test() -> int:
     # the first draft; the function was right and the test caught the arithmetic slip.
     check("hand-computed mixed -> 70.0", sus_score([2, 4, 4, 4, 5, 2, 5, 2, 5, 1]), 70.0)
 
-    print("criterion logic (synthetic sheets in a temp dir)")
+    print("incremental intake: one participant is an interim result, not a verdict")
     with tempfile.TemporaryDirectory() as tmp:
         folder = pathlib.Path(tmp)
-        # 9 successes, mean SUS above 70, no critical errors -> all criteria met
-        for i in range(1, 11):
-            success = i <= 9
-            sheet = _sheet(f"P{i:02d}", success, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1])
-            (folder / f"P{i:02d}_session.md").write_text(sheet)
+        # P01 alone, all three tasks successful, SUS 92.5 ([5,2,5,2,5,1,5,2,5,1] = 37 * 2.5). This is
+        # the state the study is in after the first real session, and it must NOT be reported as
+        # criteria met.
+        (folder / "P01_session.md").write_text(_sheet("P01", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
         result = evaluate(load_sessions(folder))
-        check("C1 met with 9/10", result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
-        check("C2 met (SUS 80)", result["criteria"]["C2_mean_sus"]["met"], True)
-        check("C3 met (0 critical)", result["criteria"]["C3_critical_errors"]["met"], True)
+        check("one sheet -> valid session counted", result["sessions_valid"], 1)
+        check("one sheet -> INTERIM status", result["status"], "INTERIM")
+        check("one sheet -> target not reached", result["recruitment"]["target_reached"], False)
+        check("one sheet -> remaining is 4", result["recruitment"]["remaining"], 4)
+        check("one sheet -> C1 not evaluable",
+              result["criteria"]["C1_task1_success_without_intervention"]["state"], NOT_EVALUABLE)
+        check("one sheet -> C1 met is not claimed",
+              result["criteria"]["C1_task1_success_without_intervention"]["met"], None)
+        check("one sheet -> C2 not evaluable", result["criteria"]["C2_mean_sus"]["state"], NOT_EVALUABLE)
+        check("one sheet -> C3 not evaluable",
+              result["criteria"]["C3_critical_errors"]["state"], NOT_EVALUABLE)
+        check("one sheet -> individual result reported for P01",
+              result["individual_results"]["P01"]["sus_score"], 92.5)
+        check("one sheet -> P01 task1 unaided",
+              result["individual_results"]["P01"]["tasks"]["task1"]["success_without_intervention"], True)
+        check("one sheet -> interim block present", "interim" in result, True)
+        check("one sheet -> interim message names the shortfall",
+              "1 of 5" in result["interim"]["message"], True)
+        check("one sheet -> human summary says INTERIM",
+              format_summary(result).startswith("*** INTERIM REPORT"), True)
+        check("one sheet -> human summary never says criteria MET",
+              "-> MET" in format_summary(result), False)
+
+    print("interim accumulation and the 90% boundary at the five-participant target")
+    with tempfile.TemporaryDirectory() as tmp:
+        folder = pathlib.Path(tmp)
+        for i in range(1, 5):   # four participants, all successful
+            (folder / f"P{i:02d}_session.md").write_text(
+                _sheet(f"P{i:02d}", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
+        result = evaluate(load_sessions(folder))
+        check("four sheets -> still INTERIM (90% of 4 would be 4/4, but target is 5)",
+              result["status"], "INTERIM")
+        check("four sheets -> C1 still not evaluable",
+              result["criteria"]["C1_task1_success_without_intervention"]["state"], NOT_EVALUABLE)
+
+        # Five participants, four successful: that is 80%, below the >= 90% requirement.
+        for i in range(1, 6):
+            (folder / f"P{i:02d}_session.md").write_text(
+                _sheet(f"P{i:02d}", i <= 4, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
+        result = evaluate(load_sessions(folder))
+        check("five sheets -> COMPLETE status", result["status"], "COMPLETE")
+        check("five sheets -> target reached", result["recruitment"]["target_reached"], True)
+        check("required successes at n=5 is 5", required_successes(5), 5)
+        check("4/5 measures as 4/5",
+              result["criteria"]["C1_task1_success_without_intervention"]["measured"], "4/5")
+        check("4/5 is NOT MET (80% < 90%)",
+              result["criteria"]["C1_task1_success_without_intervention"]["state"], NOT_MET)
+        check("4/5 -> met is False",
+              result["criteria"]["C1_task1_success_without_intervention"]["met"], False)
+        check("no interim block once complete", "interim" in result, False)
+
+        # Five successful participants: 5/5 = 100% >= 90%, so C1 is met.
+        for i in range(1, 6):
+            (folder / f"P{i:02d}_session.md").write_text(
+                _sheet(f"P{i:02d}", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
+        result = evaluate(load_sessions(folder))
+        check("5/5 -> C1 MET", result["criteria"]["C1_task1_success_without_intervention"]["state"], MET)
+        check("5/5 -> C1 met is True",
+              result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
+        check("5/5 -> C2 MET (mean SUS 92.5)", result["criteria"]["C2_mean_sus"]["state"], MET)
+        check("5/5 -> C3 MET (0 critical)", result["criteria"]["C3_critical_errors"]["state"], MET)
+        check("all three met at target",
+              all(c["state"] == MET for c in result["criteria"].values()), True)
+        check("complete summary does not say INTERIM",
+              "INTERIM" in format_summary(result), False)
         check("task1 median time", result["task1_completion_time_s"]["median"], 60)
 
-        # flip C1 only
-        (folder / "P10_session.md").write_text(_sheet("P10", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
+        # Lower the SUS below the threshold -> only C2 flips.
+        for i in range(1, 6):
+            (folder / f"P{i:02d}_session.md").write_text(
+                _sheet(f"P{i:02d}", True, [4, 3, 4, 3, 4, 3, 4, 3, 4, 3]))
         result = evaluate(load_sessions(folder))
-        check("C1 met with 10/10", result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
+        check("C2 NOT MET when SUS < 70", result["criteria"]["C2_mean_sus"]["state"], NOT_MET)
+        check("C1 still MET", result["criteria"]["C1_task1_success_without_intervention"]["state"], MET)
 
-        (folder / "P10_session.md").write_text(_sheet("P10", False, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
-        result = evaluate(load_sessions(folder))
-        check("C1 not met with 9/10 when one more fails", 
-              result["criteria"]["C1_task1_success_without_intervention"]["measured"], "9/10")
-        check("C1 met at exactly 9/10", result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
-
-        # lower the SUS below the threshold -> only C2 flips
-        for i in range(1, 11):
-            (folder / f"P{i:02d}_session.md").write_text(_sheet(f"P{i:02d}", True, [4, 3, 4, 3, 4, 3, 4, 3, 4, 3]))
-        result = evaluate(load_sessions(folder))
-        check("C2 not met when SUS < 70", result["criteria"]["C2_mean_sus"]["met"], False)
-        check("C1 still met", result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
-
-        # one critical error -> only C3 flips
-        for i in range(1, 11):
+        # One critical error -> only C3 flips.
+        for i in range(1, 6):
             (folder / f"P{i:02d}_session.md").write_text(
                 _sheet(f"P{i:02d}", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1], critical=(i == 3)))
         result = evaluate(load_sessions(folder))
-        check("C3 not met with one critical error", result["criteria"]["C3_critical_errors"]["met"], False)
+        check("C3 NOT MET with one critical error",
+              result["criteria"]["C3_critical_errors"]["state"], NOT_MET)
         check("critical error counted once", result["critical_errors_total"], 1)
 
         # empty folder -> no invented result
@@ -372,6 +520,7 @@ def self_test() -> int:
         result = evaluate(load_sessions(empty))
         check("empty folder reports no valid sessions", result["sessions_valid"], 0)
         check("empty folder has no criteria verdict", result["criteria"], {})
+        check("empty folder is not COMPLETE", result["status"], "NO_SESSIONS")
 
     print("validation: a blank template is not a participant")
     template = REPO / "docs" / "usability" / "templates" / "session_notes.md"
@@ -415,12 +564,13 @@ def self_test() -> int:
     print("validation: valid sheets still aggregate")
     with tempfile.TemporaryDirectory() as tmp:
         folder = pathlib.Path(tmp)
-        for i in range(1, 11):
+        for i in range(1, 6):
             (folder / f"P{i:02d}_session.md").write_text(
-                _sheet(f"P{i:02d}", i <= 9, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
+                _sheet(f"P{i:02d}", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]))
         result = evaluate(load_sessions(folder))
-        check("ten valid sheets", result["sessions_valid"], 10)
-        check("C1 met with 9/10", result["criteria"]["C1_task1_success_without_intervention"]["met"], True)
+        check("five valid sheets", result["sessions_valid"], 5)
+        check("C1 MET with 5/5",
+              result["criteria"]["C1_task1_success_without_intervention"]["state"], MET)
 
     print()
     if failures:
@@ -430,6 +580,87 @@ def self_test() -> int:
         return 1
     print("self-test passed (arithmetic and criterion logic; no study data involved)")
     return 0
+
+
+def format_summary(summary: dict) -> str:
+    """Human-readable rendering of the report, interim or final.
+
+    Deliberately refuses to phrase an incomplete sample as a result: below the target it prints
+    INTERIM and says the criteria are not yet evaluable.
+    """
+    lines: list[str] = []
+    status = summary.get("status")
+    recruitment = summary.get("recruitment", {})
+    n = summary.get("sessions_valid", 0)
+    target = recruitment.get("target", TARGET_PARTICIPANTS)
+
+    if status == "NO_SESSIONS":
+        lines.append("NO SESSIONS YET")
+        lines.append(f"  valid session sheets: 0 of {target} target")
+        lines.append("  Nothing to report. This is the expected state before the first session; "
+                     "no result is invented.")
+        invalid = summary.get("invalid_sheets") or []
+        if invalid:
+            lines.append(f"  {len(invalid)} sheet(s) present but invalid:")
+            for sheet in invalid:
+                lines.append(f"    - {sheet['participant_id']}: {len(sheet['errors'])} problem(s)")
+        return "\n".join(lines)
+
+    if status == "INTERIM":
+        lines.append(f"*** INTERIM REPORT - n = {n} of {target} ***")
+        lines.append("    Individual participant result, NOT a usability verdict.")
+        lines.append("    C1-C3 are not yet evaluable. Recruitment is ongoing.")
+    else:
+        lines.append(f"FINAL EVALUATION - n = {n} (target {target} reached)")
+
+    if summary.get("sessions_valid") != summary.get("sessions_submitted"):
+        lines.append(f"  invalid sheets excluded: "
+                     f"{summary['sessions_submitted'] - summary['sessions_valid']}")
+
+    lines.append("")
+    lines.append("Per-participant results")
+    for pid, result in (summary.get("individual_results") or {}).items():
+        lines.append(f"  {pid}: SUS {result['sus_score']}"
+                     f"{'' if result['sus_valid'] else ' (questionnaire invalid)'}"
+                     f", critical errors {result['critical_errors']}")
+        for name in ("task1", "task2", "task3"):
+            block = result["tasks"].get(name)
+            if not block:
+                continue
+            lines.append(f"    {name}: completed={_tick(block['completed'])} "
+                         f"unaided={_tick(block['success_without_intervention'])} "
+                         f"time={block['completion_time_s']}s "
+                         f"interventions={block['intervention_count']} "
+                         f"critical={_tick(block['critical_error'])}")
+
+    lines.append("")
+    lines.append("Criteria")
+    for name, criterion in summary.get("criteria", {}).items():
+        verdict = criterion["state"]
+        if verdict == MET:
+            verdict = "MET"
+        elif verdict == NOT_MET:
+            verdict = "NOT MET"
+        else:
+            verdict = "NOT YET EVALUABLE"
+        lines.append(f"  {name}")
+        lines.append(f"    requirement {criterion['requirement']}, "
+                     f"measured {criterion['measured']} -> {verdict}")
+        if criterion.get("note"):
+            lines.append(f"    {criterion['note']}")
+
+    if status == "INTERIM":
+        lines.append("")
+        lines.append(f"  {recruitment.get('note', '')}")
+        lines.append("")
+        lines.append("  Do NOT report NFR6 as met or as missed on this sample. Add the remaining "
+                     "sessions and re-run; the criteria become evaluable at "
+                     f"{target} valid sessions.")
+    return "\n".join(lines)
+
+
+def _tick(value) -> str:
+    return {True: "yes", False: "no", None: "?"}.get(value, "?")
 
 
 def main() -> int:
@@ -451,14 +682,20 @@ def main() -> int:
         return 0
 
     summary = evaluate(sessions)
-    if summary.get("sessions_valid", 0) == 0:
-        print(json.dumps(summary, indent=2))
-        print("No valid session sheets: every sheet failed validation. No report is produced.")
-        return 2
-    print(json.dumps(summary, indent=2))
     if args.json:
         pathlib.Path(args.json).write_text(json.dumps(summary, indent=2))
-        print(f"written to {args.json}")
+    print(format_summary(summary))
+    if summary.get("sessions_valid", 0) == 0:
+        invalid = summary.get("invalid_sheets") or []
+        print()
+        print("No valid session sheets: every sheet failed validation. No report is produced.")
+        for sheet in invalid:
+            print(f"  {sheet['participant_id']}:")
+            for problem in sheet["errors"]:
+                print(f"    - {problem}")
+        return 2
+    if args.json:
+        print(f"\nJSON written to {args.json}")
     return 0
 
 

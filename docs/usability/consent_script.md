@@ -5,7 +5,7 @@
 >
 > Here is what happens: you'll try three short tasks with the app, then fill in a standard ten-question
 > questionnaire about how it felt to use, and answer three short questions about what was confusing.
-> The whole thing takes about 20 to 30 minutes.
+> The whole thing takes about 25 minutes.
 >
 > What I record: which tasks you finished, roughly how long they took, any moments where you got stuck,
 > your questionnaire answers, and your comments. I record you as a code like P01 — **no name, no
