@@ -1,65 +1,126 @@
-# Session notes sheet
+# P01 — session notes
 
-Copy to `docs/usability/results/P01_session.md` (git-ignored) and fill in during the session. Times to
-the second. Record the app's own words verbatim where asked.
+Copy to `docs/usability/results/P01_session.md` (git-ignored) and fill in as you go.
+
+**Don't be put off by the length.** Per task you only have to fill **five fields** — time, done,
+unaided, prompts, critical. They sit right under the task's script. Everything below those is optional
+and can be a few words, or left blank if nothing stood out.
+
+**In one line:** 3 tasks × 5 fields + 10 SUS marks + 3 quotes.
+
+> **Do not add summary or roll-up tables to this sheet.** The analysis script reads the *first*
+> matching `| field | value |` row in each task section, so a summary table above the tasks can shadow
+> the real answers and silently invalidate the sheet.
 
 | Field | Value |
 | --- | --- |
 | Participant id | P01 |
 | Build / commit | |
 | Facilitator | (initials) |
+| Session date | |
 
-## Task 1 — first identification and learning card
+**What the five fields mean**
 
-Task read verbatim from the protocol §5. Intervention only with "please try whatever you would
-naturally do".
+* **completion_time_s** — seconds, start of task to stop. A range is fine (`70`, or `60-80`).
+* **completed** — did they finish it at all, help or no help?
+* **success_without_intervention** — did they finish **with no help from you**? *This is the headline
+  result of the whole study, so be strict with yourself here.*
+* **intervention_count** — how many times you stepped in. `0` if you never did.
+* **critical_error** — `yes` only if they were stuck with no way forward, the screen told them
+  something untrue, or something was lost without warning. **Slow or confused is not critical.**
 
-The task asks the participant to identify the photo **and open the information card**. The learning
-card is displayed on the current page once a result exists, so do not ask the participant to hunt for
-an "open page" button that does not exist; record `learning_card_opened` as whether they reached and
-viewed the card's information.
+---
+
+## Task 1 — identify the photo and read its learning card
+
+**Say this (verbatim):**
+
+> “Please use the app to identify the plant or bird in this photo, and then open the information card
+> about whatever it tells you it is.”
+
+Answer any question with: *“Try whatever you would naturally do.”* Nothing else.
+
+The learning card appears **inside the result panel on the same screen** — don't send them looking for
+a separate button.
+
+**Fill these five:**
 
 | Field | Value |
 | --- | --- |
-| started_at | HH:MM:SS |
-| ended_at | HH:MM:SS |
 | completion_time_s | |
 | completed | yes / no |
 | success_without_intervention | yes / no |
-| intervention_count | 0 |
-| intervention_notes | |
-| prediction_shown (verbatim) | e.g. "Kererū 62.0%" or "Uncertain – try another photo" |
-| learning_card_opened | yes / no |
-| errors (what happened) | |
-| critical_error | yes / no — if yes, which definition (§5) and what happened |
+| intervention_count | |
+| critical_error | yes / no |
 
-## Task 2 — unsuitable result and recovery
+**If anything stood out** (optional, a few words each):
 
 | Field | Value |
 | --- | --- |
-| started_at / ended_at / completion_time_s | |
+| intervention_notes | only if the count isn't 0 — what did you have to do? |
+| prediction_shown | the app's own words, e.g. `Korimako (bellbird) 98.6%` or `Uncertain` |
+| learning_card_opened | yes / no |
+| errors | any wrong turn |
+
+## Task 2 — the unsuitable photo, then recovery
+
+**Say this (verbatim) — do not warn them the photo is unsuitable:**
+
+> “Please identify the plant or bird in this photo.”
+
+Two outcomes both count as success: the app asks for another image, **or** it says `Uncertain` and
+they swap the photo themselves.
+
+**Fill these five:**
+
+| Field | Value |
+| --- | --- |
+| completion_time_s | |
 | completed | yes / no |
 | success_without_intervention | yes / no |
+| intervention_count | |
+| critical_error | yes / no |
+
+**If anything stood out** (optional):
+
+| Field | Value |
+| --- | --- |
+| intervention_notes | only if the count isn't 0 |
 | path_taken | quality_gate / uncertain_then_replace / other: |
 | recovered_to_result | yes / no |
-| intervention_count / intervention_notes | |
 | errors | |
-| critical_error | yes / no — definition and what happened |
 
-## Task 3 — history entry
+## Task 3 — find history and delete one entry
+
+**Say this (verbatim):**
+
+> “Find the list of identifications the app has saved, and delete one of them.”
+
+**Fill these five:**
 
 | Field | Value |
 | --- | --- |
-| started_at / ended_at / completion_time_s | |
+| completion_time_s | |
 | completed | yes / no |
 | success_without_intervention | yes / no |
+| intervention_count | |
+| critical_error | yes / no |
+
+**If anything stood out** (optional):
+
+| Field | Value |
+| --- | --- |
+| intervention_notes | only if the count isn't 0 |
 | found_history | yes / no |
 | deleted_entry | yes / no |
-| intervention_count / intervention_notes | |
 | errors | |
-| critical_error | yes / no — definition and what happened |
 
-## SUS answers (1 = strongly disagree … 5 = strongly agree)
+---
+
+## SUS answers — copy the participant's ten marks here
+
+They mark their own sheet privately; this is only the transcription. **All ten are needed** — one
+blank and that questionnaire can't be scored.
 
 | # | Item (verbatim from protocol §6) | Answer |
 | --- | --- | --- |
@@ -74,15 +135,13 @@ viewed the card's information.
 | 9 | I felt very confident using the system. | |
 | 10 | I needed to learn a lot of things before I could get going with this system. | |
 
-SUS score (computed by the script, or note the raw sum here):
-`raw_sum = ` … `sus_score = raw_sum * 2.5 = ` …
+*(The script works the score out — no arithmetic needed here.)*
 
-## Qualitative answers (record as close to verbatim as possible)
+## Their words — three questions, close to verbatim
 
 **Q1. What was the most confusing part about using the app?**
 
 >
-> (note whether this was during a task or afterwards)
 
 **Q2. The app sometimes says "Uncertain" instead of naming a species. In your own words, what do you
 think that means?**
@@ -93,7 +152,7 @@ think that means?**
 
 >
 
-## Facilitator's factual notes (no interpretation, no praise)
+## Anything else — facts only, no interpretation
 
-* Deviations from the protocol and when they were decided:
-* Anything the app did that the protocol does not cover (e.g. a crash, an ANR, a stuck state):
+* Deviations from the protocol, and when they were decided:
+* Anything the app did that the protocol doesn't cover (crash, hang, stuck state):

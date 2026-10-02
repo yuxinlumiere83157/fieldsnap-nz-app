@@ -151,6 +151,8 @@ def md_to_html(text: str) -> str:
             while i < len(lines) and lines[i].strip().startswith("|"):
                 block.append(lines[i]); i += 1
             out.append(render_table(block)); continue
+        if re.fullmatch(r"-{3,}|\*{3,}|_{3,}", s):
+            out.append("<hr>"); i += 1; continue
         if s.startswith("#"):
             lvl = min(len(s) - len(s.lstrip("#")), 4)
             out.append(f"<h{lvl}>{inline(s.lstrip('# ').strip())}</h{lvl}>")

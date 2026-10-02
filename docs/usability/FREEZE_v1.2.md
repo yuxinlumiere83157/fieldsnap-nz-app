@@ -15,13 +15,13 @@ or tested. Nothing in the kit contains participant data.
 
 | File | Bytes | SHA-256 |
 | --- | --- | --- |
-| `docs/usability_evaluation_protocol.md` | 24761 | `7bbb3536e3ebde53a91d3545427adf77d611a36e6f261ddd4d89a0edf694dbba` |
+| `docs/usability_evaluation_protocol.md` | 25021 | `3d0773b14b76b190492e0940b42240a62ee51696f30153e0541a1e18c0a80a22` |
 | `docs/usability/consent_script.md` | 2220 | `689a4b7afbba33434230c06992bc1920b44c92446592dca3091705d5e942ded7` |
 | `docs/usability/SUS_form.md` | 1809 | `9e107abc0260c33ebc1eb4307b96bb6e5c3069faf0d21cabe1c3730883f0c090` |
 | `docs/usability/reset_checklist.md` | 3000 | `96039870dfd420a58a5648e04d1a1fecc3de57aa0f9838f3b69005baf24d030c` |
 | `docs/usability/TESTING_KIT.md` | 7139 | `93deaa31bff455b48e1e1ecde30745581f00f4317032e25d7a86d97186abf1ba` |
 | `docs/usability/templates/participant_intake.md` | 1415 | `ae4385b4141c7901e7542ed028895f0faf45b14955127d2d2fc644e28b64d185` |
-| `docs/usability/templates/session_notes.md` | 3598 | `4b2bdde0bc61c4a4301aa4c620ba3516e8cef9f55273b520c116f2cb0e1a72f5` |
+| `docs/usability/templates/session_notes.md` | 5308 | `fe14b220b7bb919414e406478535d811e915ce975c378d148d1d00df7054997e` |
 | `docs/usability/task_images/task1_subject.jpg` | 175424 | `9fbf50b85d8447e4b2bdb8e1cba49f91c3be872edfe92fb7a2801cb15d3f1aee` |
 | `docs/usability/task_images/task2_unsuitable.jpg` | 33556 | `e8388f8cab51eb468adca450b9386ce5612cecdf2747afe8ab11794053e4a3db` |
 | `docs/usability/task_images/PROVENANCE.md` | 3822 | `dc217d9c19c6328de0dd9f84f7ccbb8d6624c1b286cf12e47909ca217ebb54d2` |
@@ -61,7 +61,18 @@ adjustment. Full reasoning: `docs/post_evaluation_changes.md` Change 6.
 4. **Scope guarantee added** to the reset procedure: only `nz.fieldsnap.app` and
    `/sdcard/Pictures/FieldSnap/` may be touched, never DCIM or the general gallery.
 5. **`tools/usability/verify_kit_freeze.py` repointed** from the v1.1 record to this one.
-6. **Kit text updated for five participants**: `TESTING_KIT.md` (build pinning, rehearsal record,
+6. **Session notes sheet restructured for live use.** The sheet was correct but read as a wall of
+   fields, which during a session invites missed answers — and a missed `completed` or
+   `success_without_intervention` marks the whole sheet invalid, silently dropping that participant.
+   Each task now shows its verbatim script, then the five fields that decide the result under
+   **“Fill these five”**, then the optional observations under **“If anything stood out”**. Every field
+   is retained; the wall-clock `started_at`/`ended_at` stamps were dropped (§5 amended to match), since
+   the analysis never read them and `completion_time_s` is the value all three tasks are compared on.
+   A warning was added against inserting summary tables: the parser takes the *first* matching row in
+   each task section, so a roll-up table above the tasks can shadow the real answers. Verified by
+   parsing a fully filled sheet — every field is read and the blank template still validates as
+   invalid.
+7. **Kit text updated for five participants**: `TESTING_KIT.md` (build pinning, rehearsal record,
    incremental analysis) and the sheet-copy instructions; `consent_script.md` states ~25 minutes.
 
 **What did not change:** the three tasks, the SUS wording and scale, the critical-error definition,

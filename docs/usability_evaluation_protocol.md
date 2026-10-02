@@ -202,8 +202,7 @@ device under test.
 
 | Field | Values |
 | --- | --- |
-| `started_at`, `ended_at` | wall clock, to the second |
-| `completion_time_s` | derived |
+| `completion_time_s` | seconds, timed by the facilitator from the participant starting the task to stopping; a stopwatch reading written straight onto the sheet. Wall-clock start/end stamps are no longer collected: they were pure transcription overhead, unused by the analysis, and removed in v1.2 so the sheet stays fillable during a live session |
 | `completed` | yes / no |
 | `success_without_intervention` | yes / no — **this is C1** |
 | `intervention_count`, `intervention_notes` | how many times the facilitator had to step in, and why |
