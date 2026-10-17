@@ -1,77 +1,48 @@
-# Traceability — Milestone 1 requirements → current code → verification
+# Traceability and evidence — requirements → method → evidence → result
 
-Implementation status and verification status are deliberately **separate** columns.
-"Implemented" means code exists in this repository; "Verified" means it was actually
-executed and observed. A test using a fake never verifies real-device behaviour.
+Updated 2026-10-17 for Milestone 2. This replaces the Iteration-0 snapshot that previously occupied this
+file, which still described the model, inference and persistence as unbuilt; the repository has since
+implemented them, so the old table was actively misleading.
 
-Status legend: `done` · `partial` · `pending` · `blocked` · `not run` · `not verified`
+Two things are kept apart, as before: **implemented** (code exists and does something) is not the same as
+**verified** (it was executed and observed), and neither is the same as **target met** (a measured value
+crossed a threshold). A row can be implemented, verified, and still have its quality target missed — the
+model rows are exactly that case.
 
-Last updated: 2026-09-11 (Iteration 0).
+Status legend: `pass` · `partial` · `not met` · `not run` · `observational`
 
-**Baseline verified against the real report.** The Milestone 1 PDF is now present at
-`the local Milestone 1 report` (the Milestone 1 report, kept locally and not committed). The
-requirement wording, process plan, logical decomposition, runtime behaviour, physical
-deployment targets and evaluation thresholds below were read from that document: scope and
-requirements on pp. 5–6, process on pp. 7–8, technology and logical decomposition on
-pp. 9–13, runtime characteristics on pp. 13–15, physical characteristics on pp. 16–17 and
-evaluation criteria on pp. 17–19. Component names in the "Expected component" column are
-taken from M1's own requirements-to-component table (p. 12) and its class/component
-diagrams (Figures 2–3).
+## Functional requirements
 
-## Functional requirements (from the M1 design baseline)
-
-| ID | Requirement (M1 design) | Expected component (M1 Table 4) | Implementation | Verification | Evidence path |
-| --- | --- | --- | --- | --- | --- |
-| FR1 | Capture a single photograph or import an existing image | `CaptureView`, `ClassifierViewModel` | **partial** — `CaptureScreen` + `ClassifierViewModel` + `ImageInput`/`FileSystemImageInput`; gallery import done and verified on an Android 16 emulator; **camera capture pending** | unit + widget tests pass; real system Photo Picker exercised on emulator; **physical device not yet** | `lib/services/file_system_image_input.dart`, `docs/emulator_verification.md` |
-| FR2 | Assess basic image suitability; request another image when blur/brightness heuristics fail | `ClassifierViewModel`, `ImageQualityService` | **pending** — not started, nothing faked | `not run` | — |
-| FR3 | Classify fully on-device; return top-3 candidates with confidence values | `ImagePreprocessor`, `InferenceService`, `Prediction` | **partial** — `SpeciesClassifier` boundary and `ClassificationResult` (top-3 shape) exist; `UnavailableSpeciesClassifier` reports `modelUnavailable` | unit tests confirm the boundary never invents candidates | `lib/services/species_classifier.dart`, `lib/services/classification_result.dart`, `lib/services/unavailable_species_classifier.dart` |
-| FR4 | Return `Uncertain` below a validation-derived threshold instead of asserting a species | `ClassifierViewModel`, `Prediction` | **pending** — threshold must be derived from validation data and frozen before test evaluation | `not run` | — |
-| FR5 | Offline learning card (common + scientific name, ID hints) | future `LearningCardView` + local species data | **pending** | `not run` | — |
-| FR6 | Save/view/delete local recognition history | future `HistoryRepository` + data access | **pending** — no SQL yet | `not run` | — |
-
-Iteration 0 acceptance slice (start → pick one local image → preview → replace/clear,
-with cancellation and failure recovery) is implemented and covered by
-`test/capture_screen_test.dart` and `test/classifier_view_model_test.dart`.
+| ID | Requirement | Method | Build / device / sample | Evidence | Result | Limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| FR1 | Capture a photo or import an existing image | Manual run on device (gallery import and camera), plus widget/unit tests | Pixel 8, Android 17 / API 37; **debug** build | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_0*.png`, `test/capture_screen_test.dart` | **pass** — genuine 1.8 MB camera capture previewed; denied permission is a typed, explained, recoverable state; cancelling the picker keeps the previous selection | The device camera was pointed at a featureless surface under that rig, so the frame was rejected by the quality gate — a rig artefact, not a functional failure |
+| FR2 | Reject unsuitable images (blur/brightness) with a recoverable prompt | Calibrated on transformed image conditions, then verified on a held-out condition subset | 4 conditions × 82 images (bright / dark / overexposed / blurred) | `artifacts/quality_gate_verification.json`, `docs/iteration_3_calibration_report.md`, `docs/quality_gate.md` | **partial / pass on the stated acceptance rule** — dark recall **1.000**, blurred recall **0.988**, bright false-reject **0.012**; acceptance rule (dark ≥ 0.90 ∧ blurred ≥ 0.90 ∧ bright FRR ≤ 0.05) met | **Overexposure recall is 0.171** and is reported as a diagnostic, *not* a criterion, because the condition overlaps valid bright photos and is not separable. The original 0.90 overexposure goal is **not met**; the verification result itself informed a revision, so this must not be presented as the original pre-registration passing intact |
+| FR3 | Classify on-device and return top-3 with confidences | On-device integration test against the Python reference; manual device runs | Pixel 8; debug build; FP32 `fieldsnap_float.tflite` | `integration_test/on_device_inference_test.dart`, `docs/physical_device_run.md` | **pass** — on-device output matches the Python reference within `1e-3`; result panel shows three candidates | The boundary returning three candidates says nothing about their correctness — that is the model rows below |
+| FR4 | Return `Uncertain` instead of asserting a species below a validation-derived threshold | Threshold calibrated on the validation split and frozen before the sealed test | validation split, coverage ≥ 0.70 rule | `artifacts/confidence_threshold_calibration.json`, `docs/iteration_3_calibration_report.md`, `lib/services/confidence_policy.dart`, `docs/physical_device_run_4.md` (frozen policy firing on device: top-1 19.33 % → `Uncertain`) | **implemented and frozen** (threshold **0.37**, margin off); **quality target not met** — accepted accuracy **0.6496** at coverage **0.7326**, against ≥ 0.90 accepted accuracy at ≥ 0.70 coverage | The mechanism works as designed; the *target* does not. With this model no threshold keeping coverage ≥ 0.70 reached 0.90 accepted accuracy |
+| FR5 | Offline learning card (common + scientific name, ID hints, habitat) | Unit tests + manual device run | Pixel 8; debug build; 20 classes | `assets/data/species_cards.json`, `lib/views/capture_screen.dart`, `docs/post_evaluation_changes.md` (Change 6.5) | **pass** — card renders inline in the result panel; verified on device for Korimako at 98.6 % | Card text is curated from the sources in `docs/species_candidates.md`; it has not been reviewed by a botanist or ornithologist |
+| FR6 | Save, view and delete local identification history | Manual device run including app restart; unit tests | Pixel 8; debug build; SQLite on device | `docs/logs/iter4_offline_02_history_after_restart.png`, `lib/services/history_repository.dart` | **pass** — record survives a restart; per-row delete removes exactly that record; no photograph is written to the database | Single-record delete has **no confirmation and no undo**, while `Clear all` does confirm — see `docs/klm_evaluation.md` §3. Recorded, not changed |
 
 ## Non-functional requirements and evaluation targets
 
-M1 states these as targets to validate, not achieved results.
+| ID | Target | Method | Build / device / sample | Evidence | Result | Limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| NFR1 | Full path works in airplane mode; no account; no image upload | Static check of manifest/dependencies + device run in airplane mode | Pixel 8; debug build, airplane mode established and verified | `android/app/src/main/AndroidManifest.xml` (no `INTERNET` permission), `docs/logs/iter4_offline_*.png` | **pass** — no networking code, no `INTERNET` permission, no account; capture→result→card→history all executed offline | Verified on one device; "offline" is structural (there is no network code to fail) |
+| NFR2 | Median inference ≤ 300 ms, P95 ≤ 500 ms on the designated device | Protocol measurement: profile build, warm-up excluded, 30 timed runs | Pixel 8, Android 17; profile build | `docs/physical_device_run.md` | **pass** — median **101.65 ms**, P95 **155.27 ms** (min 97.52, max 168.74) | One device, one session. The **full CPU path** (decode + resize + rescale + inference) is **314.42 ms** median — that is what a user waits for, though the NFR target is inference only. Device runs Android 17, while M1 planned Android 15 |
+| NFR3 | Classification must not block the Flutter UI isolate | Implementation review + substituted-runner tests | — | `lib/services/background_runner.dart` (`IsolateBackgroundRunner` uses a real `Isolate.run`), `test/` | **partial** — implemented behind a `BackgroundRunner` interface and covered with a substituted runner in widget tests; no frame-time or jank measurement was recorded | "Does not block" is asserted structurally (real isolate in production), not measured with DevTools frame timings |
+| NFR4 | Model ≤ 15 MB; release package ≤ 80 MB | Measure release artefacts | release APK/AAB; FP32 tflite | `docs/physical_device_run.md`, `docs/model_pipeline.md` | **pass** — model **3.60 MiB**; release APK **76.3 MB** (76,306,805 B); AAB 72.0 MB | Fat APK with all ABIs; no per-ABI split, which would reduce size further but is out of scope this round |
+| NFR5 | UI, state, inference and persistence separately testable | Static analysis + test suite | current `HEAD`, macOS host | `flutter analyze` → *No issues found!*; `flutter test` → **103 passed, 4 skipped** | **pass** | Four tests skip: at least one because `artifacts/fieldsnap_float.tflite` is deliberately not committed. Skips are reported, not hidden |
+| NFR6 | ≥ 90 % Task 1 completion without intervention, mean SUS ≥ 70, zero critical errors, at least five novice participants | Pre-registered protocol v1.2; session sheets analysed by script | **no participant tested**; target five | `docs/usability_evaluation_protocol.md`, `docs/usability_evaluation_report.md`, `docs/usability/results/` (empty) | **not run** — no data exists. The analysis script reports `INTERIM` below five sessions and refuses to declare the criterion | Recruitment is the outstanding dependency. A single participant will be reported as a single-participant exploratory result, not as NFR6 met |
+| Model accuracy | Held-out test set: top-1 ≥ 0.80, top-3 ≥ 0.95, macro-F1 ≥ 0.80 | One-shot evaluation on the sealed test split, never re-opened | 187 images, 20 classes; run `20260911T191603-e6b10afd` | `artifacts/final_test_evaluation.json`, `docs/final_test_evaluation_report.md` | **not met** — top-1 **0.5561** (0.80 required), top-3 **0.7968** (0.95), macro-F1 **0.5343** (0.80) | Kept exactly as measured. The model was frozen after this evaluation and has not been retrained or re-tuned |
+| Uncertainty quality | Accepted-prediction accuracy ≥ 0.90 at coverage ≥ 0.70 | Same sealed evaluation, frozen threshold 0.37, margin off | 187 images: **137 accepted / 50 rejected** | `artifacts/final_test_evaluation.json`, `docs/iteration_3_calibration_report.md` | **not met** — accepted accuracy **0.6496** at coverage **0.7326** | No threshold satisfying the coverage rule reached the accuracy target; the gap is reported rather than hidden by moving the threshold |
+| Runtime protocol | ≥ 30 repeated single-image runs after warm-up, profile/release, physical device | Recorded protocol, then executed | Pixel 8, profile build, 30 runs | `docs/physical_device_run.md`, `lib/benchmark_main.dart` | **pass** (protocol executed) | Single device/session; Flutter DevTools frame inspection was not recorded |
+| Error paths | Denied permission, unsuitable image and low confidence all end in a recoverable state with no misleading identification | Manual device runs per path | Pixel 8, debug build | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_01_permission_denied.png`, `docs/logs/iter4_offline_02_history_after_restart.png` | **pass** — permission denial is typed and explained; quality rejection disables identification and prompts replacement; low confidence renders `Uncertain` with "closest candidates (not asserted)" rather than a species | Crash injection was not performed; no fault-injection harness exists |
+| Memory | Observational peak process memory, no pass/fail | `adb shell dumpsys meminfo` sampling protocol | **debug** build; 10 samples (flow) / 6 (idle) | `artifacts/memory/peak_memory_flow.txt`, `artifacts/memory/peak_memory_idle.txt`, `docs/peak_memory_protocol.md` | **observational** — peak **421.0 MiB** during the flow, **362.8 MiB** idle | Debug build, so this is an upper-ish bound, not a release figure. M1 makes no memory pass/fail claim and neither does this table |
 
-| ID | Target (M1) | Implementation | Verification | Evidence path |
-| --- | --- | --- | --- | --- |
-| NFR1 | Complete capture-to-learning-card path works in airplane mode, no account, no image upload | **partial** — no networking code, no INTERNET permission in the main manifest and no account; the full path cannot exist yet (FR2–FR6 pending) | static check of manifest and dependency list | `android/app/src/main/AndroidManifest.xml`, `pubspec.yaml` |
-| NFR2 | Median inference ≤ 300 ms, P95 ≤ 500 ms on the designated Android device | **pending** — no inference exists | `not run` (impossible before a model exists) | — |
-| NFR3 | Classification must not block Flutter's main UI isolate | **pending** — nothing to isolate yet; M1 names `IsolateInterpreter` in `tflite_flutter` as the intended mechanism | `not run` | `docs/plan.md` |
-| NFR4 | Quantized model ≤ 15 MB, release package ≤ 80 MB, measured from a release build | **pending** — no model; a debug APK is explicitly not this metric | `not run` | — |
-| NFR5 | UI, state management, inference and persistence separately testable | **partial** — UI/state/adapter boundaries exist and are tested with substituted dependencies (M1 logical-view criterion); inference and persistence not built | `flutter analyze`, `flutter test`; no view imports the interpreter or SQLite | `lib/`, `test/` |
-| NFR6 | ≥ 90% first-task completion without facilitator intervention, SUS ≥ 70, critical interaction errors = 0, with at least five representative novice users (target five per the lecturer's clarification; ≥ 90% applies as 5/5 at that sample size) | **pending** — requires real participants; fabricating this is prohibited. The analysis script reports an interim individual result below five sessions and does not declare the criterion | `not run` | — |
-| Model targets | Held-out test set: top-1 ≥ 80%, top-3 ≥ 95%, macro-F1 ≥ 0.80, reported per class | **pending** — no dataset, no training | `not run` | — |
-| Uncertainty | Accuracy among accepted predictions ≥ 90% at ≥ 70% coverage, threshold chosen on validation data and frozen before test evaluation | **pending** — no model and no validation split | `not run` | — |
-| Runtime protocol | At least 30 repeated single-image runs after warm-up; profile/release build on a physical device; Flutter DevTools frame inspection | `not run` — protocol recorded here so it is fixed before measurement | `not run` | M1 p. 18 |
-| Error paths | Denied permission, unsuitable image and low confidence all terminate in a recoverable UI state with no crash and no misleading identification | **partial** — cancellation, unreadable file, unsupported/plugin failure and recovery are implemented and tested; denied-permission and low-confidence paths need the camera and model work | widget tests cover the implemented paths; camera path `not run` | `test/capture_screen_test.dart` |
-| Memory | Peak process memory recorded as an observational metric; no fixed RAM threshold | `not run` | — | M1 p. 17 |
+## How to read this table
 
-## Platform targets
-
-| Target (M1) | Reality in this repository | Decision recorded |
-| --- | --- | --- |
-| ARM64 Android physical device, API 26 or later | `minSdk` pinned to **26** in `android/app/build.gradle.kts`, `targetSdk`/`compileSdk` 36 | aligned with M1 pp. 9–10 and p. 16 rather than left at Flutter's default 24 |
-| Android 15 as principal test OS, real device | verified on an **emulator** (Android 16 / API 36, arm64, Pixel 6 profile) instead; no physical device attached | physical-device verification remains open; emulator numbers must never be reported as device performance |
-| CPU inference is the mandatory baseline; GPU/NNAPI delegates optional and never a functional dependency | no inference yet | to be honoured in the inference integration |
-| iOS delivery | not part of the Milestone 2 acceptance baseline | no iOS platform folder exists |
-
-## Build and check results for this iteration
-
-| Check | Result | Evidence |
-| --- | --- | --- |
-| `flutter analyze` | clean — `No issues found!` | reproduced in `docs/iteration0_report.md` §3 |
-| `flutter test` | 30 passed (16 ViewModel, 6 adapter, 8 widget) | `test/` |
-| `flutter build apk --debug` | succeeded, `app-debug.apk` (144 MB debug artefact), packaged `minSdkVersion:'26'` | `docs/logs/iteration0_build_debug_apk.log` |
-| `flutter doctor -v` (2026-09-11, historical: `cmdline-tools` was missing then) | Flutter valid; Android SDK present; that gap was closed later the same day — see `docs/emulator_verification.md` | `docs/iteration0_report.md` §1 |
-| Emulator end-to-end run | **verified**: install → launch → real Photo Picker → preview with correct file metadata → replace → cancel keeps state → clear; 0 crash/Flutter-error lines in logcat | `docs/emulator_verification.md`, `docs/logs/emulator_verification_20260911.log`, `docs/logs/emulator_0*.png` |
-| Physical-device run | **not run** — no Android phone attached | manual steps in `docs/emulator_verification.md` §6 |
-
-The debug APK exists only to prove the Android build chain works. Its size is not the
-NFR4 package metric and its startup time is not the NFR2 inference metric.
-
-
+* "Implemented" is not "verified": FR4's mechanism is implemented and frozen, but its quality target is
+  **not met**; FR3's boundary is verified, but that says nothing about accuracy.
+* The frozen evaluation is reported once, from the run that produced it. No figure here was re-measured on
+  a later build: the five service files that differ since `3152302` are refactors that leave the model,
+  the thresholds and the three usability paths unchanged.
+* Missing evidence is stated as `not run` rather than inferred from adjacent results.

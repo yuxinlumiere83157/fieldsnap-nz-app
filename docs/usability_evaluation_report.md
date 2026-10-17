@@ -41,6 +41,18 @@ retuned or re-evaluated for it; its measured top-1 is 0.5561, so participants wi
 `Uncertain` or a wrong species. This report says nothing about whether identifications are correct,
 and no metric in it is about model accuracy.
 
+**Supplementary analyses.** Alongside this session-based evaluation the report uses two
+non-participant analyses, kept clearly separate from it:
+
+* a compact **KLM** prediction of the three task paths — `docs/klm_evaluation.md`. It models a skilled
+  user and cannot speak to novice error, comprehension or satisfaction, so it is not a usability result
+  and is never quoted as one;
+* a **requirement → method → evidence** table — `docs/traceability.md` — for the technical acceptance
+  evidence (accuracy, latency, size, offline, persistence).
+
+Neither supplies the missing participant data. If the recruitment target is not reached, this report
+still closes as a limited-sample evaluation, not as validated usability.
+
 Model/threshold state at the time of writing: model SHA-256 `e6b10afdfc97d73d…`, accept threshold
 `0.37`, quality-gate thresholds `0.26 / 0.89 / 100.0` — unchanged.
 
