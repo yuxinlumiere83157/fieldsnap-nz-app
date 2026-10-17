@@ -505,4 +505,71 @@ void main() {
       expect(model.state.resultKind, ResultKind.none);
     });
   });
+
+  // Regression for the peer-review P0: `copyWith(clearResult: true)` used to force
+  // `resultKind` back to none even when the caller passed `ResultKind.running`, so the
+  // running state was cleared in the same update that set it. Progress feedback never
+  // appeared and the `isClassifying` guard could never block a second submission.
+  group('running-state regression (peer review P0)', () {
+    test('the running state is visible while a classification is in flight', () async {
+      final FakeScoresClassifier slow = FakeScoresClassifier(
+        labels: const <String>['kereru', 'tui'],
+        scores: const <double>[0.9, 0.1],
+        delay: const Duration(milliseconds: 120),
+      );
+      final ClassifierViewModel model = build(classifier: slow);
+
+      await model.pickImage();
+      final Future<void> inFlight = model.classify();
+
+      expect(model.state.resultKind, ResultKind.running,
+          reason: 'the UI reads this to show progress');
+      expect(model.state.isClassifying, isTrue);
+      expect(model.state.canClassify, isFalse,
+          reason: 'a second submission must be blocked while one is running');
+
+      await inFlight;
+
+      expect(model.state.resultKind, ResultKind.identified);
+      expect(model.state.isClassifying, isFalse);
+    });
+
+    test('a second classify() while one is in flight does not start a duplicate run', () async {
+      final FakeScoresClassifier slow = FakeScoresClassifier(
+        labels: const <String>['kereru', 'tui'],
+        scores: const <double>[0.9, 0.1],
+        delay: const Duration(milliseconds: 120),
+      );
+      final InMemoryHistoryRepository history = InMemoryHistoryRepository();
+      final ClassifierViewModel model = build(classifier: slow, history: history);
+
+      await model.pickImage();
+      final Future<void> first = model.classify();
+      final Future<void> second = model.classify();   // e.g. an impatient double tap
+      await Future.wait(<Future<void>>[first, second]);
+
+      expect(slow.callCount, 1, reason: 'the duplicate tap must be ignored');
+      expect((await history.loadAll()).length, 1,
+          reason: 'a duplicate run would also write a duplicate history row');
+    });
+
+    test('an error completion also leaves the running state', () async {
+      final FakeScoresClassifier failing = FakeScoresClassifier(
+        labels: const <String>['kereru'],
+        scores: const <double>[0.9],
+        failure: 'interpreter could not be created',
+        delay: const Duration(milliseconds: 60),
+      );
+      final ClassifierViewModel model = build(classifier: failing);
+
+      await model.pickImage();
+      final Future<void> inFlight = model.classify();
+      expect(model.state.resultKind, ResultKind.running);
+      await inFlight;
+
+      expect(model.state.resultKind, ResultKind.failed);
+      expect(model.state.isClassifying, isFalse);
+      expect(model.state.errorMessage, contains('interpreter could not be created'));
+    });
+  });
 }

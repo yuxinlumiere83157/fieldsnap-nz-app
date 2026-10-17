@@ -104,7 +104,16 @@ class ClassifierState {
       // cleared `card` and `errorMessage`, so replacing the image left `resultKind`,
       // `candidates`, `confidence` and `latencyMs` pointing at the previous photo: the result panel
       // kept rendering a species (and a latency) for an image that was no longer selected.
-      resultKind: (clearResult || clearImage) ? ResultKind.none : (resultKind ?? this.resultKind),
+      //
+      // `clearResult` deliberately does NOT override an explicitly requested `resultKind`: starting a
+      // classification is `copyWith(resultKind: running, clearResult: true)`, and forcing `none` here
+      // erased the running state in the same update that set it. Progress feedback never appeared and
+      // `isClassifying` could never block a second submission. Clearing the image still forces `none`.
+      resultKind: clearImage
+          ? ResultKind.none
+          : clearResult
+              ? (resultKind ?? ResultKind.none)
+              : (resultKind ?? this.resultKind),
       candidates: (clearResult || clearImage)
           ? const <SpeciesCandidate>[]
           : (candidates ?? this.candidates),
