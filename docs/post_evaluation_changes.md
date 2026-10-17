@@ -272,9 +272,21 @@ exists. The audit-Phase-A stale-result behaviour is unchanged and its tests stil
 label, threshold or evaluation artefact was touched.
 
 **Verification.** `flutter analyze` clean; `flutter test` **106 passed, 4 skipped** (was 103 passed
-before the three new tests). A physical-device smoke test was **not** run: no Android SDK/adb is
-available on the machine used for this revision, so the on-device spinner and double-tap behaviour have
-not been observed. That gap is recorded rather than assumed away.
+before the three new tests). **Physical-device smoke test executed on 2026-10-18** on a Google Pixel 8
+(Android 17 / API 37) with a debug build from commit `c510a54` (APK SHA-256 `6fc725cf…`):
+
+* the running state was observed twice — the button showed "Classifying on this device..." with its
+  spinner and was disabled (S1);
+* five rapid taps during one in-flight classification produced exactly one new history row, 1 → 2 (S2);
+* one classification produced one history row from a baseline of zero (S3);
+* replacing the image cleared the previous species, confidence, candidates and latency (S4);
+* a valid image produced Korimako (bellbird) at 98.6 % with the top-three list and learning card (S5);
+* the unsuitable image was explained ("Too little detail: sharpness 9.1 is below the 100 minimum"),
+  identification was prevented (tap added no history, 3 → 3), and re-picking a valid image recovered (S6).
+
+No device-level defect was found and no code was changed after the test. The checklist and its
+execution record are in `docs/smoke_test_running_state.md`; screenshots are kept outside the repository
+(no participant data, no device identifier).
 
 ## What was *not* changed, and stays closed
 
