@@ -23,7 +23,7 @@ baseline; this repository records what has actually been built, with the failure
 | Cancel without losing state | implemented + tested | `test/classifier_view_model_test.dart` |
 | Read/unsupported/plugin failure handling | implemented + tested | `test/capture_screen_test.dart` |
 | Static analysis | **verified clean** — `flutter analyze`: No issues found | `docs/iteration0_report.md` §3 |
-| Automated tests | **verified** — `flutter test`: 103 passed, 4 skipped (three opt-in calibration/evaluation harnesses and one research comparison need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
+| Automated tests | **verified** — `flutter test`: 106 passed, 4 skipped (three opt-in calibration/evaluation harnesses and one research comparison need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
 | Android debug build | **verified** — `flutter build apk --debug` succeeded | `docs/logs/iteration0_build_debug_apk.log` |
 | Android emulator run of the whole Iteration 0 flow | **verified on emulator** (API 36 arm64, Pixel 6 profile): real Photo Picker, preview, replace, cancel, clear, zero crashes | `docs/emulator_verification.md`, `docs/logs/emulator_*.png` |
 | Camera capture (FR1, second half) | **implemented and verified on hardware** — capture, cancellation and permission-refusal recovery all exercised on the Pixel 8 | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_0*.png` |
@@ -33,7 +33,6 @@ baseline; this repository records what has actually been built, with the failure
 | Learning cards (FR5) | **implemented** — structured cards for all 20 classes, with a test asserting full coverage | `assets/data/species_cards.json`, `lib/services/species_cards.dart` |
 | History persistence (FR6) | **implemented** — SQLite save/view/delete/clear, no photograph and no file path stored | `lib/services/sqflite_history_repository.dart`, `docs/history.md` |
 | Physical-device verification | **verified on a Google Pixel 8 (Android 17, API 37)** — full workflow, latency protocol and release size measured on hardware | `docs/physical_device_run.md` |
-| Camera capture on hardware | **not run** — the camera path is implemented and stub-tested; no photo was taken with a physical camera | `docs/iteration_2_report.md` §3 |
 | Candidate species list (~20 Auckland classes) | **candidate only** — 10 birds + 10 plants with sources and licence status | `docs/species_candidates.md` |
 | Data set (1A) | **prepared** — 1,199 CC0/CC BY images, 614 observations, observation-grouped split frozen, leakage/ licence/ integrity checks pass, test split sealed | `data/README.md`, `docs/model_pipeline.md` |
 | Model path (1B) | **pipeline verified** — MobileNetV3-Small trained, float + INT8 `.tflite` exported, runs on the Android emulator; validation top-1 0.411 (float) / 0.252 (INT8), so M1 accuracy targets are **not** met and are not claimed | `docs/model_pipeline.md`, `artifacts/model_report.json` |
@@ -135,8 +134,8 @@ in the status table above:
 
 | Command | Result |
 | --- | --- |
-| `flutter analyze` | `No issues found!` (re-run after every change; the current suite is 34 tests) |
-| `flutter test` | 30 passed at the end of the first iteration, 34 after the import guards; **103 passed / 4 skipped** at the current commit |
+| `flutter analyze` | `No issues found!` (re-run after every change) |
+| `flutter test` | 30 passed at the end of the first iteration, 34 after the import guards; **106 passed / 4 skipped** at the current commit |
 | `flutter build apk --debug` | succeeded in 226.5 s → `build/app/outputs/flutter-apk/app-debug.apk` (144 MB; a debug APK is not the NFR4 package metric) |
 | `flutter doctor -v` (historical) | Flutter valid; Android SDK found (SDK 36.0.0) but `cmdline-tools` missing and doctor could not confirm licence status; CocoaPods missing (irrelevant, Android-only) |
 | Physical-device run (historical) | not performed — no Android phone attached. An Android 16 emulator run was completed later; see `docs/emulator_verification.md` |
@@ -152,19 +151,22 @@ add one.
 ```
 lib/
   main.dart                                  # composition root, constructor DI
+  benchmark_main.dart                        # measurement-only entry point (not shipped)
   models/                                    # plain value types, no Flutter widgets
-    picked_image.dart                        # PickedImage (path, bytes, pixels)
-    pick_errors.dart                         # PickError / PickErrorReason / result
+    picked_image.dart · pick_errors.dart
   services/
-    image_input.dart                         # ImageInput boundary (replaceable)
-    file_system_image_input.dart             # real adapter: platform Photo Picker
-    species_classifier.dart                  # SpeciesClassifier boundary
-    unavailable_species_classifier.dart      # honest "model unavailable" fallback, still used if the asset fails to load
-    classification_result.dart               # candidates / typed failure
+    image_input.dart · file_system_image_input.dart · camera_image_input.dart
+    image_preprocessor.dart · exif_orientation.dart
+    quality_gate.dart · confidence_policy.dart
+    species_classifier.dart · tflite_species_classifier.dart
+    tflite_inference_engine.dart · background_runner.dart
+    classification_result.dart · model_labels.dart
+    species_cards.dart · history_repository.dart · sqflite_history_repository.dart
+    unavailable_species_classifier.dart      # honest "model unavailable" fallback
   viewmodels/
     classifier_view_model.dart               # ClassifierState + commands (ChangeNotifier)
   views/
-    capture_screen.dart                      # CaptureScreen: renders state only
+    capture_screen.dart · result_panel.dart · history_screen.dart
 ```
 
 Rules that hold in this codebase:
@@ -177,8 +179,13 @@ Rules that hold in this codebase:
 
 ## Known limitations in this iteration
 
-- No model, no labels, no preprocessing: recognition is disabled and reports why.
-- No camera capture, quality gate, learning cards or history database yet.
+- The model is accurate far below the Milestone 1 targets: top-1 0.5561 on the sealed test split,
+  and the abstention policy does not recover the gap (`docs/final_test_evaluation_report.md`).
+- Usability has **not** been evaluated with participants; the protocol and analysis tooling exist but
+  no session has been run (`docs/usability_evaluation_report.md`).
+- The release APK is a 76.3 MB fat build; per-ABI packaging would reduce it.
+- Device evidence comes from one Pixel 8, and several behavioural checks (camera, persistence,
+  offline) were run on debug builds; only latency and package size come from profile/release artefacts.
 - No release signing configuration; the release build type reuses the debug signing
   config so that `flutter build apk` works at all.
 - Launcher icon, app branding and theming are stock Flutter defaults. The five
@@ -193,9 +200,10 @@ Rules that hold in this codebase:
 - `cmdline-tools` **is now installed** (latest, 19.0) as part of the emulator setup, so the
   earlier `flutter doctor` warning about it is resolved. The historical check result is kept
   above for the audit trail.
-- The Android emulator (`fieldsnap_api36`, API 36 arm64) is the only device this has run on.
-  Physical-device performance evidence is still outstanding, and emulator numbers must never
-  be reported as device numbers.
+- Physical-device evidence now exists (Pixel 8, Android 17): full workflow, latency protocol and
+  release size (`docs/physical_device_run.md`). The emulator remains the only place the app has been
+  run with a *debug* Android toolchain for some paths; emulator numbers are still never reported as
+  device numbers.
 - `android/gradle.properties` sets a 4 GB Gradle heap instead of Flutter's 8 GB template
   default, deliberately: this machine also runs other work while builds happen. Raise it
   if a future release build with the model fails on memory.
