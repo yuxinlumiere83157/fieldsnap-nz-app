@@ -9,6 +9,8 @@ for a **skilled** user who already knows the method and makes no errors [R1]. Th
 KLM (or structured interviews) as supplementary analysis when participant numbers are low; this is that
 supplement, and it stands beside the usability session, not in place of it.
 
+**Every number in this file is a model prediction, not an observed human task time.**
+
 **What this is not.** KLM cannot predict whether a *novice* goes wrong, whether they understand
 `Uncertain`, whether they are satisfied, or whether SUS/NFR6 are met. No claim in this file is a
 usability result, and none may be quoted as one.
@@ -136,10 +138,11 @@ measured system wait 0.31 s. Two consequences, both important for the report:
 * **Optimising inference further would buy very little.** The whole measured classification wait is
   shorter than a single mental operator; the novice cost of this app is in *deciding and understanding*,
   which KLM does not model at all. That gap is exactly why the participant session is still needed.
-* **One avoidable wait is identifiable from the measurements**: the first classification in a release
-  session took 430–898 ms against a warm 314 ms. Pre-warming the interpreter and labels after an image is
-  picked — no UI change, no model change — would remove a one-time few-hundred-millisecond stall on the
-  first identification. Low risk, measurable, and it does not touch the frozen artefacts.
+* **A warm-up effect is visible in the measurements**: two first-release classifications took 430 ms and
+  898 ms against a warm 314 ms. Pre-warming the interpreter and labels after an image is picked is a
+  plausible, low-risk optimisation **hypothesis** — it has not been implemented or measured, and two
+  readings are observations rather than a distribution. It is listed as a future measurement, not as a
+  proven improvement.
 
 Second, unrelated to timing: giving single-record delete the same confirmation the `Clear all` control
 already has (or a brief undo) would remove the only irreversible-without-warning action in the app. This
@@ -147,6 +150,10 @@ is a recommendation for future work; **no code was changed in this round**.
 
 ## 6. Limitations
 
+* **Scrolling is not modelled.** On the 1080×2400 test device at default text size the identification
+  control is within the first screen, so Paths 1 and 2 need no swipe. On a smaller screen, a larger font
+  scale or a longer preview, one `S` operator (70 ms, [R2]) would be required per path, which the model
+  does not cover.
 * **Skilled user, no errors.** Every predicted time is a best-case execution time for someone who already
   knows what to do. A novice's first attempt will be slower and may not reach the endpoint at all.
 * **Reading and comprehension are excluded.** Deciding that `Uncertain` is not a failure, and reading a

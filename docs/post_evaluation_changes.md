@@ -242,6 +242,40 @@ yet" and "No saved identifications yet." No sheet was created for the rehearsal 
 counted in any denominator. The rehearsal also confirmed the reset touches only `nz.fieldsnap.app`
 and `/sdcard/Pictures/FieldSnap/`: all five personal camera photos were verified present afterwards.
 
+## Change 7 — running state erased when a classification starts (`ClassifierViewModel`)
+
+Found by an independent peer review, then verified here before changing anything.
+
+**What was wrong.** `classify()` starts a run with a single update:
+`copyWith(resultKind: ResultKind.running, clearResult: true)`. `copyWith` treated `clearResult` as
+"force `resultKind` to none", and did so *after* reading the requested kind, so the running state was
+cleared in the same update that set it. Two consequences:
+
+1. **No progress feedback.** `isClassifying` is derived from `resultKind == running`, and both the
+   result panel's running case and the identify button's spinner/label read it. The classifying state
+   was therefore never observable.
+2. **No duplicate-submission protection.** `classify()` returns early when `isClassifying` is true,
+   which was never true, so a second tap started a second classification of the same image and wrote a
+   second history row.
+
+**Reproduced before fixing.** Three regression tests were added and failed on the pre-fix code:
+the running state is visible while a classification is in flight; a second `classify()` does not start a
+duplicate run (classifier call count 1, one history row); and an error completion also leaves the
+running state. Under the old code the first two failed on `running`/`2 calls` and the error test observed
+`resultKind == none` where `running` was expected.
+
+**Fix.** `clearResult` still clears candidates, confidence, card, error message and latency, but honours
+an explicitly requested `resultKind`; `clearImage` still forces `none`, which is the state where no image
+exists. The audit-Phase-A stale-result behaviour is unchanged and its tests still pass.
+
+**Effect on the frozen metrics: none.** View-model presentation state only; no model, preprocessing,
+label, threshold or evaluation artefact was touched.
+
+**Verification.** `flutter analyze` clean; `flutter test` **106 passed, 4 skipped** (was 103 passed
+before the three new tests). A physical-device smoke test was **not** run: no Android SDK/adb is
+available on the machine used for this revision, so the on-device spinner and double-tap behaviour have
+not been observed. That gap is recorded rather than assumed away.
+
 ## What was *not* changed, and stays closed
 
 * The sealed test split was not re-opened for scoring; the evaluation above stands as the one-shot
