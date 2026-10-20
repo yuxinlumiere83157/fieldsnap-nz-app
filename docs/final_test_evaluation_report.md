@@ -106,7 +106,7 @@ M1 requires accepted accuracy >= 0.90 while coverage >= 0.70: **NOT met** (measu
 ## Interpretation and limits
 
 * **All four M1 acceptance targets are not met.** Measured: top-1 0.5561 (target 0.80), top-3 0.7968 (target 0.95), macro-F1 0.5343 (target 0.80), and accepted accuracy 0.6496 at coverage 0.7326 (target 0.90 at coverage >= 0.70). Top-3 is the closest of the four and still misses.
-* The test split is small (187 images, 6-17 per class, 20 classes), so per-class numbers carry
+* **Editorial correction dated 2026-10-20 (metrics unchanged):** the test split has 187 images from **93 distinct iNaturalist observations**, with **3–17 images per class** (an earlier version wrongly stated 6–17). Correlated images from the same observation reduce the effective sample size, so per-class numbers carry
   wide uncertainty; single-image changes move a class F1 by roughly 0.1. The headline numbers are
   reported because they are the pre-registered evaluation, not because they are precise.
 * The threshold was fixed before this run and was **not** moved afterwards. Moving it now to
