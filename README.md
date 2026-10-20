@@ -23,35 +23,31 @@ baseline; this repository records what has actually been built, with the failure
 | Cancel without losing state | implemented + tested | `test/classifier_view_model_test.dart` |
 | Read/unsupported/plugin failure handling | implemented + tested | `test/capture_screen_test.dart` |
 | Static analysis | **verified clean** — `flutter analyze`: No issues found | `docs/iteration0_report.md` §3 |
-| Automated tests | **verified** — `flutter test`: 106 passed, 4 skipped (three opt-in calibration/evaluation harnesses and one research comparison need local data that is deliberately not published), 0 failed | `test/`, `docs/progress.md` |
+| Automated tests | **author-host verified (2026-10-18)** — `flutter test`: **106 passed / 4 skipped** on the configured macOS host; native-TFLite host tests depend on a platform library and can skip when absent (Linux host detection subsequently tightened; no new Linux CI run is claimed) | `test/`, `docs/progress.md` |
 | Android debug build | **verified** — `flutter build apk --debug` succeeded | `docs/logs/iteration0_build_debug_apk.log` |
 | Android emulator run of the whole Iteration 0 flow | **verified on emulator** (API 36 arm64, Pixel 6 profile): real Photo Picker, preview, replace, cancel, clear, zero crashes | `docs/emulator_verification.md`, `docs/logs/emulator_*.png` |
 | Camera capture (FR1, second half) | **implemented and verified on hardware** — capture, cancellation and permission-refusal recovery all exercised on the Pixel 8 | `docs/physical_camera_verification.md`, `docs/logs/iteration3_camera_0*.png` |
-| Image quality gate (FR2) | **implemented, calibrated and frozen** — brightness 0.26–0.89, Laplacian variance ≥ 100.0; verification subset: dark recall 1.000, blurred 0.988, false rejection 0.012 | `docs/quality_gate_calibration_protocol.md`, `artifacts/quality_gate_verification.json` |
+| Image quality gate (FR2) | **implemented, thresholds frozen; original full calibration target NOT MET** — dark recall **1.000**, blur **0.988**, acceptable-image false rejection **0.012**, but overexposure recall **0.171** against original **≥0.90** goal. Later amended protocol treats overexposure as diagnostic; the original criterion was not met | `docs/quality_gate_calibration_protocol.md`, `artifacts/quality_gate_verification.json` |
 | Local classification / top-3 / confidence (FR3) | **implemented** — FP32 `.tflite` runs off the UI isolate; top-3 and confidence displayed | `lib/services/on_device_species_classifier.dart`, `lib/services/background_runner.dart` |
 | Uncertain threshold (FR4) | **implemented, calibrated and frozen at 0.37** (margin rule off) — coverage 0.712, accepted accuracy 0.595; the 0.90 target is **not** met | `docs/confidence_threshold_calibration_protocol.md`, `artifacts/confidence_threshold_calibration.json` |
 | Learning cards (FR5) | **implemented** — structured cards for all 20 classes, with a test asserting full coverage | `assets/data/species_cards.json`, `lib/services/species_cards.dart` |
 | History persistence (FR6) | **implemented** — SQLite save/view/delete/clear, no photograph and no file path stored | `lib/services/sqflite_history_repository.dart`, `docs/history.md` |
 | Physical-device verification | **verified on a Google Pixel 8 (Android 17, API 37)** — full workflow, latency protocol and release size measured on hardware | `docs/physical_device_run.md` |
-| Candidate species list (~20 Auckland classes) | **candidate only** — 10 birds + 10 plants with sources and licence status | `docs/species_candidates.md` |
-| Data set (1A) | **prepared** — 1,199 CC0/CC BY images, 614 observations, observation-grouped split frozen, leakage/ licence/ integrity checks pass, test split sealed | `data/README.md`, `docs/model_pipeline.md` |
-| Model path (1B) | **pipeline verified** — MobileNetV3-Small trained, float + INT8 `.tflite` exported, runs on the Android emulator; validation top-1 0.411 (float) / 0.252 (INT8), so M1 accuracy targets are **not** met and are not claimed | `docs/model_pipeline.md`, `artifacts/model_report.json` |
+| Species classes | **finalized and shipped** — 20 trained classes (10 birds, 10 plants), fixed labels and offline cards | `assets/models/class_indices.json`, `assets/data/species_cards.json` |
+| Data set (historical 1A → final 1D) | **initial 1A**: 1,199 images, 614 observations; training portion later expanded **849 → 2,995** while validation (163 images) and sealed test (187 images) remained fixed | `data/README.md`, `docs/checkpoint_1d_report.md`, `artifacts/model_report.json` |
+| Model path (historical checkpoint 1B) | **initial pipeline** verified; its earlier validation scores are NOT the deployed model's. Final deployed FP32 model is described above and in the one-shot final evaluation | `docs/model_pipeline.md`, `artifacts/model_report.json`, `docs/final_test_evaluation_report.md` |
 | Correctness fixes (1C) | **done** — fine-tuning now actually runs, reporting fields corrected, one preprocessing spec, three separate conformance checks, enforced data freeze, shareable provenance, shipped INT8 model committed | `docs/checkpoint_1c_report.md` |
-| Verification gaps (1D) | **done** — channel/orientation tests that can fail, EXIF parsed correctly (the `image` package does not read EXIF and rotates orientation 6 the wrong way), FP32-only strict Keras check with run metadata, fresh-clone checks verified | `docs/checkpoint_1d_report.md` |
+| Verification gaps (1D and later audit) | **corrected** preprocessing channel/orientation checks; a later independent audit found and fixed JPEG EXIF double-orientation (decoder already handled it), and metadata-only checking confirmed no effect on the 187-image sealed test metrics | `docs/checkpoint_1d_report.md`, `docs/post_evaluation_changes.md` |
 | Controlled data expansion (1D) | **done, one experiment** — training set 849 → 2,995 images with validation/test untouched; validation top-1 0.448 → **0.503**, top-3 0.675 → **0.749**, macro-F1 0.424 → **0.499** | `docs/checkpoint_1d_report.md`, `artifacts/comparison_*.json` |
-| Model choice | **FP32 is the baseline; INT8 is experimental** — the INT8 gap is ~19 points of top-1 on the expanded model, so no deployment decision is made | `docs/checkpoint_1d_report.md` |
+| Model choice | **FP32 deployed (3.60 MiB)**; INT8 (1.17 MiB) remains an experimental bundled comparison artefact, not the runtime baseline, after a large validation-accuracy drop | `lib/main.dart`, `docs/checkpoint_1d_report.md` |
 
-Anything not listed as implemented above is still planned work.
+Historical checkpoint rows describe the state reached at those checkpoints, not the present deployment baseline. Later tested behaviours are recorded in the physical-device and post-evaluation reports.
 
 **Scope of the "no invented results" claim**: the app now performs real on-device inference, so it
 does display species names and confidence values — they come from the bundled model, and the
 measured error rate is stated above rather than hidden. No accuracy, latency or usability figure in
 this repository is invented or estimated from anything other than a command that was actually run.
-The code, tests and
-documentation were produced by the author with **AI coding assistance** (used as a
-programming reference and for optimisation, with all output reviewed and verified by the
-author); that is recorded in `docs/progress.md` and is a separate matter from inventing
-results.
+**AI-assistance disclosure:** AI coding agents assisted with implementation, debugging, test writing, device automation and documentation. The author also wrote and modified code directly, made engineering and evaluation decisions, and checked work against tests and original evidence. AI assistance does not imply fabricated experimental or human-study results; see `docs/progress.md`.
 
 ---
 
@@ -173,16 +169,15 @@ Rules that hold in this codebase:
 
 - Widgets never run inference, never read files directly for business decisions and
   never touch SQL; they render `ClassifierState` and call ViewModel commands.
-- `ImageInput` and `SpeciesClassifier` are the only seams the ViewModel knows, which
+- `ImageInput`, `SpeciesClassifier`, `HistoryRepository` and other project-owned service interfaces are injected into the ViewModel, which
   is what makes the unit and widget tests deterministic.
-- Only the (future) inference implementation may touch the LiteRT runtime.
+- Only the concrete inference adapter touches the LiteRT/TFLite runtime; the production implementation is in place.
 
 ## Known limitations in this iteration
 
 - The model is accurate far below the Milestone 1 targets: top-1 0.5561 on the sealed test split,
   and the abstention policy does not recover the gap (`docs/final_test_evaluation_report.md`).
-- Usability has **not** been evaluated with participants; the protocol and analysis tooling exist but
-  no session has been run (`docs/usability_evaluation_report.md`).
+- **Participant testing has been conducted according to the author (20 October);** the anonymous session sheets and derived findings have **not yet been checked/integrated into this repository**. The outdated pre-study `n=0` report is a processing snapshot, **not** a statement that testing never occurred. NFR6 is not yet evaluable from published results (`docs/usability_evaluation_report.md`).
 - The release APK is a 76.3 MB fat build; per-ABI packaging would reduce it.
 - Device evidence comes from one Pixel 8, and several behavioural checks (camera, persistence,
   offline) were run on debug builds; only latency and package size come from profile/release artefacts.
