@@ -36,8 +36,11 @@ shipped), warm-up excluded, **30 timed runs**, preprocess + inference:
 
 **Against NFR2** (median inference ≤ 300 ms, P95 ≤ 500 ms on the designated device): the
 inference-only measurement **passes with substantial margin** (101.65 / 155.27 ms). The full CPU
-path is reported alongside because it is what the user actually waits for; its median (314 ms)
-exceeds the inference target by 14 ms, and the extra time is image decoding and resampling, not
+path is reported for diagnostic comparison, **not** as the full time a user waits for: the
+benchmark reuses a warm interpreter, whereas production creates and disposes an interpreter in
+a new background isolate **for each photo**. Its median (314 ms) exceeds the numerical
+inference target by 14 ms, but this target was defined for inference only, so that is not a
+failure of NFR2. The additional warm-path time is mainly decode/resampling rather than
 model execution.
 
 Honest caveats:
