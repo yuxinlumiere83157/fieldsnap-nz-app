@@ -25,8 +25,10 @@ That made **Task 1 impossible by construction**. Task 1 asks the participant to 
 asserted there is no card to open, so `learning_card_opened` would have been `no` and
 `success_without_intervention` `no` for **every** participant regardless of ability — the primary
 criterion C1 would have failed 0/5 because of a stimulus defect, and the report would have blamed the
-app for it. The root cause is the image choice, not the model: kowhai recall is 0.364 on the frozen
-test set and only 2 of the 7 kowhai validation images clear the threshold.
+app for it. The immediate problem was the fixed usability stimulus: it did not render a card, regardless
+of participant interaction. On the sealed test split kōwhai precision was **0.364** and recall was
+**0.500** (an earlier version incorrectly called precision 'recall'). In the validation subset,
+**3 of 7** kōwhai images cleared the threshold, and **2 of 7** were both accepted and correct.
 
 The replacement was chosen on the frozen validation scores as the **most reliable** stimulus
 available, not merely a working one:
