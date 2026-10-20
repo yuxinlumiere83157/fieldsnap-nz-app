@@ -164,8 +164,8 @@ def parse_session(text: str) -> dict:
             "completed": _yes(_table_value(block, "completed")),
             "success_without_intervention": _yes(_table_value(block, "success_without_intervention")),
             "completion_time_s": _number(_table_value(block, "completion_time_s")),
-            "intervention_count": _number(_table_value(block, "intervention_count")) or 0,
-            "critical_error": _yes(_table_value(block, "critical_error")) or False,
+            "intervention_count": _number(_table_value(block, "intervention_count")),
+            "critical_error": _yes(_table_value(block, "critical_error")),
             "path_taken": _table_value(block, "path_taken"),
             "recovered_to_result": _yes(_table_value(block, "recovered_to_result")),
             "learning_card_opened": _yes(_table_value(block, "learning_card_opened")),
@@ -552,6 +552,29 @@ def self_test() -> int:
         sheet = _sheet("P01", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]).replace(
             "| completed | yes |", f"| completed | {value} |", 1)
         check(f"{label} invalidates the sheet", parse_session(sheet)["valid"], False)
+
+    print("validation: missing critical-error and intervention data must not default to zero")
+    base = _sheet("P01", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1])
+    check("explicit no critical error remains valid",
+          parse_session(base)["tasks"]["task1"]["critical_error"], False)
+    check("explicit zero interventions remains valid",
+          parse_session(base)["tasks"]["task1"]["intervention_count"], 0.0)
+    for label, old, new, field in (
+        ("critical-error row removed", "| critical_error | no |", "", "critical_error"),
+        ("critical-error template placeholder", "| critical_error | no |",
+         "| critical_error | yes / no |", "critical_error"),
+        ("critical-error blank", "| critical_error | no |",
+         "| critical_error |  |", "critical_error"),
+        ("intervention-count row removed", "| intervention_count | 0 |", "", "intervention_count"),
+        ("intervention-count blank", "| intervention_count | 0 |",
+         "| intervention_count |  |", "intervention_count"),
+    ):
+        altered = base.replace(old, new, 1)
+        assert altered != base, f"self-test fixture alteration did not apply: {label}"
+        parsed = parse_session(altered)
+        check(f"{label} invalidates P01", parsed["valid"], False)
+        check(f"{label} is not silently converted",
+              parsed["tasks"]["task1"][field], None)
 
     print("validation: a missing SUS answer invalidates that questionnaire only")
     incomplete = _sheet("P01", True, [5, 2, 5, 2, 5, 1, 5, 2, 5, 1]).replace(
