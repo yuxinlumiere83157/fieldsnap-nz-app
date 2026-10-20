@@ -1,7 +1,6 @@
 # Usability evaluation report
 
-**Status: `n = 0` — no participant data exists. Recruitment not started. No criterion is claimed met
-or missed.**
+**Status update (20 October 2026): the author confirms real participant testing has been conducted.** The anonymous paper results have **not yet been transcribed or validated in this public report**. All numbers below are **unfilled pre-study placeholders**, not observed zeros; the actual `n`, SUS, task outcomes, and consent details are **PENDING VERIFICATION**. No criterion is claimed met or missed.
 
 This report is the published output of `docs/usability_evaluation_protocol.md` (**v1.2**). It is filled
 in incrementally as sessions are run. Until the recruitment target of **five** valid sessions is
@@ -61,14 +60,13 @@ Model/threshold state at the time of writing: model SHA-256 `e6b10afdfc97d73d…
 | | |
 | --- | --- |
 | Status | **INTERIM** |
-| Recruited (valid sessions) | `_0_` of **5** target |
-| Remaining | `_5_` |
+| Recruited (valid sessions) | `_pending validation_` of **5** target |
+| Remaining | `_pending actual participant count_` |
 | Target reached | **no** |
-| Sessions submitted / valid | `_0_` / `_0_` |
+| Sessions submitted / valid | `_pending_` / `_pending_` |
 | Invalid sheets | `_none_` |
 
-P01 has not been run. Per protocol §10.1 this report states individual results only, and no claim is
-made about NFR6 or general usability.
+The facilitator has confirmed human testing occurred; at the time of this update the completed source sheets are still awaiting review. Under protocol §10.1, individual findings may be reported after transcription, but **no NFR6 or general-usability verdict is supported before those results are checked**.
 
 ## 4. Per-participant task results
 
@@ -79,7 +77,7 @@ output; do not transcribe from memory. Task times are seconds._
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | P01 | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` |
 
-**Task 1 completion time (n = _0_):** median `_ _` s, range `_ _`–`_ _` s.
+**Task 1 completion time (n = _pending_):** median `_ _` s, range `_ _`–`_ _` s.
 
 ## 5. Per-task summary
 
@@ -96,7 +94,7 @@ Task 2 recovery paths observed: `_quality_gate: _, uncertain_then_replace: _, ot
 
 ## 6. Interventions and critical errors
 
-Facilitator interventions, total: `_0_`. For each, the task, what was done and why — in the form
+Facilitator interventions, total: `_pending_`. For each, the task, what was done and why — in the form
 *"Task 3: participant did not find the history entry; after asking, the facilitator pointed it out;
 completed, not independently."* An intervention is never a reason to discard a session.
 
@@ -104,7 +102,7 @@ completed, not independently."* An intervention is never a reason to discard a s
 | --- | --- | --- |
 | `_ _` | `_ _` | `_ _` |
 
-Critical interaction errors (pre-registered definition, protocol §5): **`_0_`**. `yes` only for a stuck
+Critical interaction errors (pre-registered definition, protocol §5): **`_pending_`**. `yes` only for a stuck
 state with no working recovery, a state lie, or unannounced data loss. A crash or unrecoverable hang
 counts as a critical error and a task failure, and the session is still **not** excluded.
 
@@ -139,25 +137,24 @@ reported rather than silently dropped._
 | --- | --- | --- |
 | P01 | `_ _` | `_ _` |
 
-Mean SUS `_ _` · median `_ _` · n = `_0_` · invalid questionnaires: `_0_`.
+Mean SUS `_ _` · median `_ _` · n = `_pending_` · invalid questionnaires: `_pending_`.
 
 ## 9. Qualitative findings
 
-_Asked after the SUS, recorded as close to verbatim as possible. Reported as themes with the number of
-participants behind each, and at least one representative quote per theme. No quotes yet._
+_Asked after the SUS, recorded as close to verbatim as possible. Reported as themes with the number of participants behind each, only if permission allows anonymous quotation. **Any comments made during completed testing have not yet been transcribed here.**_
 
 **Q1. What was the most confusing part about using the app?**
 
-_none yet_
+_pending transcription_
 
 **Q2. What do you understand "Uncertain" to mean?** _(probes whether abstention is understood or read
 as a fault)_
 
-_none yet_
+_pending transcription_
 
 **Q3. If you could change one thing, what first?**
 
-_none yet_
+_pending transcription_
 
 ## 10. Deviations from the protocol
 
