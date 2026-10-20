@@ -17,7 +17,7 @@ model, the 20 classes, the training data, the FR2/FR4 thresholds, or the evaluat
 | `lib/services/quality_gate.dart` | thresholds still 0.26 / 0.89 / 100.0 |
 | `artifacts/final_test_predictions.json` | byte-identical to the evaluated run |
 | `artifacts/final_test_evaluation.json` | byte-identical; top-1 0.5561, top-3 0.7968, macro-F1 0.5343 |
-| `docs/final_test_evaluation_report.md` | unchanged |
+| `docs/final_test_evaluation_report.md` | **metrics unchanged**; an editorial correction dated 2026-10-20 fixes the per-class support range and describes the 93 observation groups; no rescoring |
 
 No retraining, no data expansion, no class-set change, no preprocessing change made for model
 optimisation, no threshold change, and the sealed test split was **not** re-opened for scoring.
@@ -298,3 +298,17 @@ execution record are in `docs/smoke_test_running_state.md`; screenshots are kept
 * The three usability thresholds themselves (≥ 90 %, SUS ≥ 70, zero critical errors) were not moved.
 * Usability testing has not started; no participant was recruited, contacted or tested in this change,
   and **no participant data was created** — `docs/usability/results/` still contains only its README.
+
+## Change 8 — 2026-10-20 submission evidence and document corrections (no model changes)
+
+An independent read-only repo review identified evidence and delivery issues. This pass makes **no change** to app implementation under `lib/`, model weights, labels, preprocessor, frozen thresholds, test predictions or metric JSON.
+
+* `tools/usability/analyse_usability.py`: missing `intervention_count` and `critical_error` fields no longer silently default to zero/false; added negative self-test fixtures for blank/missing/template values. **These new self-tests have not yet been executed in this remote editing environment**; the integrating developer must run `python3 tools/usability/analyse_usability.py --self-test` on the final checkout before interpreting completed human-study sheets.
+* Two host-only TFLite tests now probe for the Linux native library rather than assuming all non-macOS hosts contain one. The earlier author's macOS 106/4 test result remains a historical observation, **not** a newly executed Linux CI result.
+* `README.md`, `docs/traceability.md`, `docs/physical_device_run.md` and `docs/klm_evaluation.md` now distinguish the 30-run **warm reused-interpreter benchmark** from production's fresh isolate and interpreter **per classification**, and preserve the original FR2 overexposure acceptance failure.
+* The frozen one-shot test metrics were not re-run. A clearly dated **editorial correction** in the report fixes the per-class support typo (6–17 to **3–17**), and notes **187 test images derive from 93 observation groups**, so images are not independent sightings. The Python report-generator phrase was made consistent without recomputing any result.
+* A mislabeled kōwhai recall in the usability stimulus provenance was corrected to **precision 0.364, recall 0.500**, and its validation accepted-image count was corrected to **3/7 accepted, 2/7 accepted-and-correct**.
+* Author-specific absolute paths were redacted from a historic Gradle build log and the non-executable `artifacts/reference_io.json` `image_path` metadata, without changing measured tensors. Public Git history was **not** rewritten.
+* The author stated on 20 Oct that real participant testing **has now been conducted**. Until the paper forms are checked, current public records correctly say **results awaiting validation**, not `n=0` as an assertion that no human testing occurred. No P01 result, task time, SUS value, quote or NFR6 verdict has been invented.
+
+**Outstanding before final submission:** verify the new local Python self-tests and Flutter suite on an appropriately equipped checkout; faithfully transcribe real participant forms; update the final DOCX, anonymous public results and final source archive; check Canvas receipts. Historical statements about what was unavailable on 11 September or 18 October are not retrospective participant results.
