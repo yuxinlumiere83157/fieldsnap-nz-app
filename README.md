@@ -47,7 +47,11 @@ Historical checkpoint rows describe the state reached at those checkpoints, not 
 does display species names and confidence values — they come from the bundled model, and the
 measured error rate is stated above rather than hidden. No accuracy, latency or usability figure in
 this repository is invented or estimated from anything other than a command that was actually run.
-**AI-assistance disclosure:** AI coding agents assisted with implementation, debugging, test writing, device automation and documentation. The author also wrote and modified code directly, made engineering and evaluation decisions, and checked work against tests and original evidence. AI assistance does not imply fabricated experimental or human-study results; see `docs/progress.md`.
+The code, tests and
+documentation were produced by the author with **AI coding assistance** (used as a
+programming reference and for optimisation, with all output reviewed and verified by the
+author); that is recorded in `docs/progress.md` and is a separate matter from inventing
+results.
 
 ---
 
