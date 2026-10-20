@@ -181,7 +181,7 @@ Rules that hold in this codebase:
 
 - The model is accurate far below the Milestone 1 targets: top-1 0.5561 on the sealed test split,
   and the abstention policy does not recover the gap (`docs/final_test_evaluation_report.md`).
-- **Participant testing has been conducted according to the author (20 October);** the anonymous session sheets and derived findings have **not yet been checked/integrated into this repository**. The outdated pre-study `n=0` report is a processing snapshot, **not** a statement that testing never occurred. NFR6 is not yet evaluable from published results (`docs/usability_evaluation_report.md`).
+- **Usability evaluated with a real participant:** P01 completed a consented, moderated three-task session on **20 October 2026** on Pixel 8 (debug build): **3/3 tasks unaided**, times **20/18/6 s**, **0 prompts**, **0 recorded critical errors**, individual **SUS 82.5/100**. The five-participant NFR6 cohort target is **not yet evaluable at n=1**; Task 2 followed FR4 Uncertain recovery rather than the planned FR2 rejection. See `docs/usability_evaluation_report.md` for the de-identified evidence and limits; original notes/answer sheet remain private.
 - The release APK is a 76.3 MB fat build; per-ABI packaging would reduce it.
 - Device evidence comes from one Pixel 8, and several behavioural checks (camera, persistence,
   offline) were run on debug builds; only latency and package size come from profile/release artefacts.

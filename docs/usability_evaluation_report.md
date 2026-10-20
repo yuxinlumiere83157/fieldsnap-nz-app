@@ -1,179 +1,61 @@
-# Usability evaluation report
+# Usability evaluation report — P01 descriptive interim
 
-**Status update (20 October 2026): the author confirms real participant testing has been conducted.** The anonymous paper results have **not yet been transcribed or validated in this public report**. All numbers below are **unfilled pre-study placeholders**, not observed zeros; the actual `n`, SUS, task outcomes, and consent details are **PENDING VERIFICATION**. No criterion is claimed met or missed.
+**Status (21 October 2026): INTERIM — 1 valid real session of a planned target of 5.**
+One consented adult novice participant completed the moderated study on 20 October 2026. All results below are descriptive for this session only. **NFR6 cohort-level criteria C1–C3 are NOT YET EVALUABLE.** No additional participants, general trends or population-level usability results are claimed.
 
-This report is the published output of `docs/usability_evaluation_protocol.md` (**v1.2**). It is filled
-in incrementally as sessions are run. Until the recruitment target of **five** valid sessions is
-reached it stays **INTERIM** and reports only individual results; the criteria C1–C3 are
-**not yet evaluable** and must not be described as met or missed.
+This account follows the frozen [v1.2 protocol](usability_evaluation_protocol.md), with the actual session deviations recorded below. The participant's annotated paper forms and individual SUS item responses remain **private** and are not committed or included in the public source ZIP. The figures here were transcribed from those real records, and the SUS total was independently recomputed from the standard formula. This is not synthetic demonstration data.
 
-**Fill-in convention:** every value to be supplied is written `_<...>_`. Nothing in this file is a
-measurement until it has been copied from a real session sheet and cross-checked against
-`tools/usability/analyse_usability.py`. No number here may be estimated, extrapolated or invented.
+## 1. Method, device and consent
 
----
+- **Study:** moderated, task-based novice usability assessment; brief orientation, three assigned tasks, standard ten-item System Usability Scale (SUS), then three qualitative questions.
+- **Date and length:** 20 October 2026; approximately **15 minutes total**, according to the facilitator, including orientation, tasks, questionnaire and interview. Task stopwatch readings add to only **44 seconds** and do not represent the entire session; the precise finishing clock time was not written down.
+- **Participant:** one adult first-time FieldSnap user without formal bird/plant training, coded P01. Voluntary **verbal consent obtained**, no audio recording, no withdrawal. No personal name, photo, contact information or raw sheet is published.
+- **Device/build:** Google Pixel 8, Android 17/API 37; fresh reset with fixed study photos prepared; **debug APK built from code commit `c510a54`**, SHA-256 prefix `6fc725cf`. The same code underwent the independently recorded 18 October S1–S6 physical smoke test; see [smoke evidence](smoke_test_running_state.md).
+- **Primary scope:** user workflow and recovery, not classifier predictive accuracy. The frozen model, gate limits and confidence threshold were **not changed** or recalibrated for this study.
 
-## 1. How each update is produced
+## 2. Actual task results
 
-```sh
-python3 tools/usability/analyse_usability.py                 # human-readable summary
-python3 tools/usability/analyse_usability.py --json artifacts/usability_results.json
-```
+| Task | Outcome | Independent? | Measured task time | Moderator prompts | Recorded critical errors |
+| --- | --- | --- | ---: | ---: | ---: |
+| 1. Identify preselected photo and see learning card | **Completed**; Korimako output and inline card viewed | **Yes** | **20 s** | **0** | **0** |
+| 2. React to uncertain classification and replace photo | **Completed**; FR4 Uncertain, then replaced image | **Yes** | **18 s** | **0** | **0** |
+| 3. Find identification history and delete a record | **Completed**; history found and entry removed | **Yes** | **6 s** | **0** | **0** |
+| **Observed P01 total** | **3/3 completed** | **3/3 unaided** | **44 s in task timers** | **0** | **0** |
 
-The script reads whatever sheets exist in `docs/usability/results/` (git-ignored) and prints
-`status: INTERIM` below five valid sessions, `status: COMPLETE` at five or more. Section 3 is copied
-from `recruitment`, sections 4–6 from `sessions_valid` and `individual_results`, section 7 from
-`criteria`, and section 8 from `sus`.
+These are the observations recorded on the form, not estimates. A failure, if one had occurred, would still have been reported rather than silently excluded.
 
-Two failure modes matter when reading the output:
+**Task 1 stimulus limitation.** The supplied Korimako image was selected from the **validation** data before participation because it produced a stable visible learning card. Its task success supports this specific interaction path, **not** the deployed classifier's general accuracy; the sealed test data were not used to choose it.
 
-* a **partially filled** sheet is reported as an invalid sheet and produces **no report at all**
-  (exit code 2). That is by design — an incomplete sheet is not a participant. Fix the sheet, do not
-  work around it;
-* a **blank template** left in `docs/usability/results/` also counts as an invalid *submission*. Before
-  each analysis run, make sure every file in that folder is a sheet you actually intend to count.
+**Task 2 protocol deviation.** The image actually used during this session was **not** the frozen `task2_unsuitable.jpg` blurred stimulus. The actual alternative photograph passed the quality gate, classification returned **“Uncertain – try another photo”** (the **FR4** abstention state), and P01 recovered through **“Replace from gallery.”** The originally planned blur stimulus was rejected by **FR2** in separate technical checks, but **that FR2 rejection was not observed in the P01 human task**. The reason for the stimulus substitution was not formally recorded; it should not be guessed. Thus the session provides evidence about FR4 comprehension/recovery, not novice comprehension of FR2 warnings.
 
-## 2. Scope
+## 3. SUS result
 
-This study evaluates the **interface and workflow only**. The model is frozen and was not retrained,
-retuned or re-evaluated for it; its measured top-1 is 0.5561, so participants will often see
-`Uncertain` or a wrong species. This report says nothing about whether identifications are correct,
-and no metric in it is about model accuracy.
+A complete **10/10-item standard SUS** questionnaire was returned, with one eligible response for each item. Odd statements were scored as `response − 1`, and even statements as `5 − response`; the contribution total was **33**, giving **33 × 2.5 = 82.5 / 100**.
 
-**Supplementary analyses.** Alongside this session-based evaluation the report uses two
-non-participant analyses, kept clearly separate from it:
+This is **one individual's SUS score**, not a five-person average, representative satisfaction estimate, or proof of the original mean-SUS acceptance criterion. Individual item responses remain in the private session record.
 
-* a compact **KLM** prediction of the three task paths — `docs/klm_evaluation.md`. It models a skilled
-  user and cannot speak to novice error, comprehension or satisfaction, so it is not a usability result
-  and is never quoted as one;
-* a **requirement → method → evidence** table — `docs/traceability.md` — for the technical acceptance
-  evidence (accuracy, latency, size, offline, persistence).
+## 4. Qualitative observations
 
-Neither supplies the missing participant data. If the recruitment target is not reached, this report
-still closes as a limited-sample evaluation, not as validated usability.
+The participant's main usability concern was the similar-sounding actions **“Replace from gallery”** and **“Clear selection.”** They interpreted the latter as potentially clearing several selected photos rather than the single currently displayed selection. When asked what **“Uncertain”** meant, the participant described the app as being unable to identify the object. These are de-identified paraphrases of one participant's answers, **not evidence of a population trend**. Future usability work should test clearer labels and explicit recovery explanations.
 
-Model/threshold state at the time of writing: model SHA-256 `e6b10afdfc97d73d…`, accept threshold
-`0.37`, quality-gate thresholds `0.26 / 0.89 / 100.0` — unchanged.
+## 5. Pre-registered NFR6 criteria
 
-## 3. Recruitment status
+The v1.2 recruitment target is five valid novice sessions. Matthew clarified that five was a recommendation rather than a hard minimum; the protocol nevertheless established that the cohort-level criteria are evaluated only at **n ≥ 5**.
 
-| | |
-| --- | --- |
-| Status | **INTERIM** |
-| Recruited (valid sessions) | `_pending validation_` of **5** target |
-| Remaining | `_pending actual participant count_` |
-| Target reached | **no** |
-| Sessions submitted / valid | `_pending_` / `_pending_` |
-| Invalid sheets | `_none_` |
+| Criterion | Planned threshold | P01 descriptive observation | Verdict |
+| --- | --- | --- | --- |
+| C1 — first identification + card unaided | ≥90% of cohort | **1/1** independently completed | **NOT YET EVALUABLE (n=1)** |
+| C2 — mean SUS | ≥70 across cohort | **P01 individual SUS 82.5** | **NOT YET EVALUABLE (n=1)** |
+| C3 — critical errors | Zero across cohort tasks | **0 in P01** | **NOT YET EVALUABLE (n=1)** |
 
-The facilitator has confirmed human testing occurred; at the time of this update the completed source sheets are still awaiting review. Under protocol §10.1, individual findings may be reported after transcription, but **no NFR6 or general-usability verdict is supported before those results are checked**.
+There are no claims that recruitment has been completed to its planned target. This is one real **applied** moderated mobile-usability process with an explicitly limited sample, distinct from the **completed** requirement-driven technical acceptance/benchmarking process in [traceability](traceability.md). The [KLM](klm_evaluation.md) is supplementary predictive modelling only and **was not fitted to P01 timings**.
 
-## 4. Per-participant task results
+## 6. Limitations and next steps
 
-_Populate one row per valid session, in the order tested. Copy from `individual_results` in the script
-output; do not transcribe from memory. Task times are seconds._
+- **Sample and facilitator:** single convenience participant; one facilitator performed both moderation and note-taking. Individual task timers cannot be interpreted as representative task-speed distributions.
+- **Stimulus control:** the Task 2 replacement differed from the planned blur stimulus; a later session should restrict the photo picker to the intended study stimuli or explicitly verify the photo chosen before recording the path.
+- **Build/device:** only one Pixel 8 and a debug study build were used. Profile/release benchmarks in other reports are separate experiments and should not be represented as measurements collected during the human session.
+- **Classifier:** frozen sealed-test top-1 accuracy was **0.5561**, so a successful interface interaction should not be construed as reliable autonomous bird/plant identification.
+- **Design follow-up:** consider clearer single-photo wording for replacing versus clearing the selected image, and repeat moderated usability evaluation across a more varied adult sample.
 
-| Id | Task 1 done | **T1 unaided (C1)** | T1 time (s) | T2 done | T2 unaided | T2 path | T3 done | T3 unaided | Prompts (all tasks) | Critical errors |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P01 | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` |
-
-**Task 1 completion time (n = _pending_):** median `_ _` s, range `_ _`–`_ _` s.
-
-## 5. Per-task summary
-
-_Across all valid sessions so far. "Unaided" is the C1 measure; a task completed only after a
-facilitator prompt is completed but **not** unaided._
-
-| Task | Sessions | Completed | Completed unaided | Median time (s) | Errors |
-| --- | --- | --- | --- | --- | --- |
-| 1 — identify + learning card | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` |
-| 2 — unsuitable photo + recovery | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` |
-| 3 — history + delete | `_ _` | `_ _` | `_ _` | `_ _` | `_ _` |
-
-Task 2 recovery paths observed: `_quality_gate: _, uncertain_then_replace: _, other: _`.
-
-## 6. Interventions and critical errors
-
-Facilitator interventions, total: `_pending_`. For each, the task, what was done and why — in the form
-*"Task 3: participant did not find the history entry; after asking, the facilitator pointed it out;
-completed, not independently."* An intervention is never a reason to discard a session.
-
-| Task | What the facilitator did | Why |
-| --- | --- | --- |
-| `_ _` | `_ _` | `_ _` |
-
-Critical interaction errors (pre-registered definition, protocol §5): **`_pending_`**. `yes` only for a stuck
-state with no working recovery, a state lie, or unannounced data loss. A crash or unrecoverable hang
-counts as a critical error and a task failure, and the session is still **not** excluded.
-
-| Task | Definition triggered (§5) | What happened |
-| --- | --- | --- |
-| `_ _` | `_ _` | `_ _` |
-
-## 7. Pre-registered criteria
-
-No criterion is evaluable before five valid sessions exist. Each is reported as **met**, **not met**, or
-**not yet evaluable** — never silently omitted.
-
-| # | Requirement | Evaluable from | Measured | Verdict |
-| --- | --- | --- | --- | --- |
-| C1 | ≥ 90 % complete Task 1 **without** facilitator intervention | n ≥ 5 | `_ _` | **not yet evaluable** |
-| C2 | Mean SUS ≥ 70 | n ≥ 5 | `_ _` | **not yet evaluable** |
-| C3 | Zero critical interaction errors | n ≥ 5 | `_ _` | **not yet evaluable** |
-
-At the five-participant target, 90 % of 5 is 4.5, so C1 requires **5/5**; four of five is 80 % and
-does not meet it. Required counts are derived by the script, not restated here.
-
-**Overall:** the five-participant evaluation is **not complete**. This section will carry the criterion
-verdicts only when `status` becomes `COMPLETE`.
-
-## 8. System Usability Scale
-
-_Standard 10-item SUS, facilitator reads each item aloud once verbatim, participant marks their own
-sheet. Any missing or out-of-range answer invalidates that participant's questionnaire, which is
-reported rather than silently dropped._
-
-| Id | SUS score | Valid questionnaire |
-| --- | --- | --- |
-| P01 | `_ _` | `_ _` |
-
-Mean SUS `_ _` · median `_ _` · n = `_pending_` · invalid questionnaires: `_pending_`.
-
-## 9. Qualitative findings
-
-_Asked after the SUS, recorded as close to verbatim as possible. Reported as themes with the number of participants behind each, only if permission allows anonymous quotation. **Any comments made during completed testing have not yet been transcribed here.**_
-
-**Q1. What was the most confusing part about using the app?**
-
-_pending transcription_
-
-**Q2. What do you understand "Uncertain" to mean?** _(probes whether abstention is understood or read
-as a fault)_
-
-_pending transcription_
-
-**Q3. If you could change one thing, what first?**
-
-_pending transcription_
-
-## 10. Deviations from the protocol
-
-Every departure, with its reason and when it was decided. Pre-dating this report: the v1.1 → v1.2
-amendment (five-participant target, Task 1 stimulus replaced, interim reporting) and the session-notes
-restructuring — all decided before any participant, recorded in `docs/usability/FREEZE_v1.2.md` and
-`docs/post_evaluation_changes.md`.
-
-| When | Deviation | Reason |
-| --- | --- | --- |
-| `_ _` | `_ _` | `_ _` |
-
-Reset steps that could not be completed in a session go here too; such a session is still valid.
-
-## 11. Limitations
-
-* Convenience sample of classmates: not representative, and the small target means effectively no
-  statistical power. Five participants can surface problems; they cannot establish general usability.
-* The classifier abstains or errs often (top-1 0.5561). Task 2 measures how participants cope with
-  that, not accuracy.
-* Facilitation and note-taking are done by the same person, so timing and records are approximate.
-* Whether these limitations change the conclusion is stated when the criteria are finally reported.
+The private P01 paper forms are the source evidence. They are **not** published under `docs/usability/results/` or elsewhere in the public Git repository.
