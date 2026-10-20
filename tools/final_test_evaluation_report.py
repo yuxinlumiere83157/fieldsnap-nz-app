@@ -181,7 +181,7 @@ def main() -> int:
       f"{top1:.4f} (target 0.80), top-3 {top3:.4f} (target 0.95), macro-F1 {macro_f1:.4f} "
       f"(target 0.80), and accepted accuracy {accepted_accuracy:.4f} at coverage {coverage:.4f} "
       "(target 0.90 at coverage >= 0.70). Top-3 is the closest of the four and still misses.")
-    A("* The test split is small (187 images, 6-17 per class, 20 classes), so per-class numbers carry")
+    A("* The test split is small (187 images from 93 observations, 3-17 images per class, 20 classes), so per-class numbers carry")
     A("  wide uncertainty; single-image changes move a class F1 by roughly 0.1. The headline numbers are")
     A("  reported because they are the pre-registered evaluation, not because they are precise.")
     A("* The threshold was fixed before this run and was **not** moved afterwards. Moving it now to")
