@@ -1,3 +1,4 @@
+import 'dart:ffi' show DynamicLibrary;
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -78,7 +79,7 @@ void main() {
         return;
       }
       if (!_hostTfliteLibraryAvailable()) {
-        markTestSkipped('tflite_flutter macOS dylib not installed for flutter_tester');
+        markTestSkipped('TFLite native library unavailable for this host flutter_tester');
         return;
       }
       final ModelLabels labels = ModelLabels.fromJsonString(
@@ -121,8 +122,19 @@ String? markerValue;
 String _readMarker() => markerValue ?? 'unset';
 
 bool _hostTfliteLibraryAvailable() {
+  if (Platform.isLinux) {
+    // Loading the bundled-model contract test needs a host native TFLite library.
+    // A fresh Linux clone without it must skip, not produce a false test failure.
+    try {
+      DynamicLibrary.open('libtensorflowlite_c-linux.so');
+      return true;
+    } on Object {
+      return false;
+    }
+  }
   if (!Platform.isMacOS) {
-    return true;
+    // Other host platforms have no verified native dependency setup here.
+    return false;
   }
   final String resourcesPath =
       '${Directory(Platform.resolvedExecutable).parent.parent.path}/resources';
