@@ -1,8 +1,9 @@
 # KLM supplementary analysis
 
 **Status:** predictive analysis, not a measurement of participants. No participant data exists; this
-file contains none. Written 2026-10-17, **before** any P01 observation, and its parameters are not to be
-fitted to P01 afterwards.
+file contains no raw participant data. Written 2026-10-17, **before** any P01 observation, and its parameters must not be fitted to P01 afterwards.
+
+**Status update (20 Oct 2026):** The author confirms real participant testing has since occurred, but those records have not been checked or integrated here. Historical pre-study descriptions below are dated evidence, not the current recruitment status.
 
 **What this is.** A keystroke-level-model (KLM) estimate of how long the three usability-task paths take
 for a **skilled** user who already knows the method and makes no errors [R1]. The lecturer suggested
@@ -24,11 +25,7 @@ usability result, and none may be quoted as one.
 | Frozen configuration | model `fieldsnap_float.tflite` `e6b10afd…`; accept threshold **0.37**; quality gate **0.26 / 0.89 / 100.0** |
 | UI step evidence | source references below + committed screenshots |
 
-The current public repository has never had the APK rebuilt, and five service files differ from `3152302`
-by refactors (`background_runner`, `history_repository`, `image_preprocessor`, `model_labels`,
-`quality_gate`: typed boundaries and dead-scaffolding removal). Those changes **do not alter** the three
-paths, the thresholds or the delete behaviour modelled here; the measured waits below are reported for
-the build they were measured on, as originally recorded, not re-measured.
+The three KLM paths were traced from the code/screens of an earlier build and should not be mistaken for live P01 measurements. On **18 Oct**, a fresh debug APK from code commit `c510a54` was actually installed and smoke-tested on Pixel 8; see `docs/smoke_test_running_state.md`. The earlier KLM timing measurements were **not** repeated on that APK. Subsequent code-state verification found no intentional change to the three user-visible task routes.
 
 Screenshots used (paths relative to the repository):
 
@@ -52,7 +49,7 @@ Three kinds of time are kept separate: **literature** parameters, **modelling as
 | `P` finger point/tap | **80 ms** | literature | El Batran & Dunlop 2014 [R2]: movement time "for an icon pointing from a home position" (200×200 icon) | Movement only — tap press/dwell is **not** modelled, so this is a lower bound. App-bar icons are ≈48 dp, smaller than the 200 px target, so may be slower |
 | `S` short swipe | **70 ms** | literature | [R2], short untargeted swipe | Not invoked: with two images in the picker no scroll is needed |
 | `R_classify` (warm) | **314.42 ms** median | **measurement** | `docs/physical_device_run.md`: full CPU path (decode + resize + rescale + inference), profile build, 30 runs, warm-up excluded | One device, one session |
-| `R_classify` (first, release) | **430–898 ms** observed | **measurement** | UI `last run` readings in the committed screenshots above | Two single-shot observations, not a distribution; includes isolate start-up/asset load |
+| `R_classify` (production-path examples) | **430, 892 and 898 ms**, separate single observations | **observational**, not controlled benchmark | `docs/logs/iteration2_device_03_result.png`, `docs/logs/iter4_offline_01_result.png`, `docs/usability/task_images/PROVENANCE.md` | Multiple historical builds; production creates a new isolate/interpreter each classification; these are not a matched cold/hot distribution |
 | `R_picker` open / return | — | **not modelled** | System photo-picker transition + preview decode | Not measured; excluded rather than guessed. Every path that opens the picker is therefore a **lower bound** |
 | Reading, comprehension, deciding what `Uncertain` means | — | **not modelled** | Outside KLM's scope | Deliberately excluded; this is the largest real-world term for a novice |
 
@@ -126,23 +123,18 @@ catch; it is a design observation from the code, not a participant finding.
 
 | Path | M | P | R_blocking (measured) | T_predicted | Modelled as a lower bound because |
 | --- | ---: | ---: | ---: | ---: | --- |
-| 1 — pick → classify → card | 3 | 3 | 0.314 s | **4.60 s** | picker transition, reading |
-| 2 — rejection → replace → result | 3 | 3 | 0.314 s | **4.60 s** | picker transition, reading the rejection |
+| 1 — pick → classify → card | 3 | 3 | 0.314 s **warm test-harness** only | **4.60 s** (warm partial-path baseline) | picker transition, reading, cold production interpreter |
+| 2 — rejection → replace → result | 3 | 3 | 0.314 s **warm test-harness** only | **4.60 s** (warm partial-path baseline) | picker transition, reading the rejection, cold interpreter |
 | 3 — history → delete | 2 | 2 | not measured | **≥ 2.86 s** | history load, list reload |
+
+**Production-path illustration (not a new measurement or full task forecast):** Keeping the same simplified `3M + 3P = 4.29 s` operators but inserting the separately observed in-app `classify()` readings (0.430–0.898 s) gives **4.72–5.19 s** *before* picker, reading, comprehension, and other omitted operations. Actual novices' observed durations must come from the human session, not from either KLM estimate. The warmed test harness is not identical to the app's isolate/model lifecycle.
 
 ## 5. Where the cost sits, and one low-risk improvement
 
-The mental operators dominate: 4.05 s of Path 1's 4.60 s is `M` (≈ 88 %). Motor time is 0.24 s and the
-measured system wait 0.31 s. Two consequences, both important for the report:
+The `M` operators account for 4.05 s of the **hypothetical warm-path** 4.60 s estimate (≈88% **within that partial model only**); this is not evidence about a novice's actual time allocation. Real-time interpretation of an `Uncertain` response and reading the card are deliberately outside this model, so actual participant results are essential.
 
-* **Optimising inference further would buy very little.** The whole measured classification wait is
-  shorter than a single mental operator; the novice cost of this app is in *deciding and understanding*,
-  which KLM does not model at all. That gap is exactly why the participant session is still needed.
-* **A warm-up effect is visible in the measurements**: two first-release classifications took 430 ms and
-  898 ms against a warm 314 ms. Pre-warming the interpreter and labels after an image is picked is a
-  plausible, low-risk optimisation **hypothesis** — it has not been implemented or measured, and two
-  readings are observations rather than a distribution. It is listed as a future measurement, not as a
-  proven improvement.
+* **The production runtime is colder than the KLM warm baseline:** each call enters a fresh isolate, creates a TFLite interpreter, runs one inference and disposes it. The previously reported ~314 ms is a reused-interpreter lab measurement, while 430/892/898 ms are separate in-app observations from earlier builds, not a controlled before/after experiment.
+* **Possible future optimisation (untested):** a long-lived background isolate holding a loaded interpreter could avoid repeated loading; first verify the change with a matched benchmark of production `classify()` calls. Merely calling the existing `prepare()` does not pre-create an interpreter. No speed-up is claimed or implemented.
 
 Second, unrelated to timing: giving single-record delete the same confirmation the `Clear all` control
 already has (or a brief undo) would remove the only irreversible-without-warning action in the app. This
